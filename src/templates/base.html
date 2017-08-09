@@ -1,0 +1,43 @@
+{% load static %}
+<! DOCTYPE html>
+
+<html lang="en-us">
+<head>
+    {% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="HandheldFriendly" content="true">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+    		function hideURLbar(){ window.scrollTo(0,1); } </script>
+    {% endblock meta %}
+    {% block add_meta %}
+    {% endblock add_meta %}
+    <title>
+        {% block title %}    {% endblock title %}
+    </title>
+
+    {% block head_fonts %}
+
+    {% endblock head_fonts %}
+
+    {% block head_styles %}
+
+    {% endblock head_styles %}
+
+    {% block head_scripts %}
+
+    {% endblock head_scripts %}
+</head>
+
+<body>
+    {% block header %}
+    {% endblock header %}
+    {% block content %}
+    {% endblock content %}
+    {% block body_scripts %}
+    {% endblock body_scripts %}
+    {% block footer %}
+    {% endblock footer %}
+</body>
+</html>
