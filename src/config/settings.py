@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     # apps
     'core',
     'employee',
+    'attendance',
+    'inventory',
+    'dispersal',
+    'production',
+
     # 3rd party apps
     'rest_framework',
 ]
