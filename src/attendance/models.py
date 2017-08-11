@@ -3,8 +3,9 @@ from django.db import models
 from employee.models import Employee
 from django.core.exceptions import ValidationError
 from .utils import Helper
+from core.models import Base
 
-helper = Helper()
+shelper = Helper()
 
 
 class Attendance(models.Model):
@@ -22,6 +23,5 @@ class Attendance(models.Model):
     def clean(self):
         time_in_am = self.time_in_am
         time_out_am = self.time_out_am
-        print helper.time_diff(time_in_am, time_out_am)
         if helper.time_diff(time_in_am, time_out_am):
-            raise ValidationError('Time_in and time_out difference low')
+            raise ValidationError('Time in and time out difference low')

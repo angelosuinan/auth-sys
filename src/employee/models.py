@@ -7,6 +7,7 @@ from django.contrib.sessions.models import Session
 class Employee(User):
     address = models.CharField(max_length=50,)
     contact_number = models.CharField(max_length=11)
+    finger_print = models.BooleanField(default=False)
 
     def get_user(self, user_id):
         try:
