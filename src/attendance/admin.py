@@ -7,11 +7,6 @@ from .utils import Helper
 helper = Helper()
 
 
-class TimeException(Exception):
-    message = "asds"
-    pass
-
-
 class AttendanceAdmin(admin.ModelAdmin):
     list_display = (
             'date',
@@ -23,7 +18,7 @@ class AttendanceAdmin(admin.ModelAdmin):
             'notes',
             )
     list_filter = [
-            'employee__username',
+            'employee__user'
            ]
     search_fields = (
             )

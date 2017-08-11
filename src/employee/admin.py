@@ -12,21 +12,15 @@ class SessionAdmin(admin.ModelAdmin):
         uid = obj.get_decoded()['_auth_user_id']
         emp = User.objects.get(id=uid)
         return emp
-    list_display = ['_username','session_key', '_session_data', 'expire_date']
+    list_display = ['_username', 'session_key', '_session_data', 'expire_date']
 
 
 class EmployeeAdmin(admin.ModelAdmin):
     list_display = (
-            'last_name',
-            'first_name',
-            'id',
-            'contact_number',
+    
             )
     list_filter = (
-            'last_name',
-            'first_name',
-            'id',
-            'contact_number',
+
            )
     search_fields = (
             )

@@ -8,8 +8,8 @@ from core.models import Base
 shelper = Helper()
 
 
-class Attendance(models.Model):
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+class Attendance(Base):
+    employee = models.ForeignKey(Employee)
     date = models.DateField()
     time_in_am = models.TimeField(blank=True, null=True)
     time_out_am = models.TimeField(blank=True, null=True)
