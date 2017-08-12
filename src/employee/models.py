@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 
 
-class Employee(models.Model):
+class EmployeeProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     position = models.CharField(blank=False, default="", max_length=30)
     address = models.CharField(max_length=50,)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Employee, Session
+from .models import EmployeeProfile, Session
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 
@@ -42,5 +42,5 @@ class EmployeeAdmin(admin.ModelAdmin):
             )
 
 
-admin.site.register(Employee, EmployeeAdmin)
+admin.site.register(EmployeeProfile, EmployeeAdmin)
 admin.site.register(Session, SessionAdmin)

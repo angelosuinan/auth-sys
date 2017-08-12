@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
-from employee.models import Employee
+from employee.models import EmployeeProfile
 from django.core.exceptions import ValidationError
 from .utils import Helper
 from core.models import Base
@@ -10,7 +10,7 @@ helper = Helper()
 
 
 class Attendance(Base):
-    employee = models.ForeignKey(Employee)
+    employee = models.ForeignKey(EmployeeProfile, )
     date = models.DateField()
     time_in_am = models.TimeField(blank=True, null=True)
     time_out_am = models.TimeField(blank=True, null=True)
