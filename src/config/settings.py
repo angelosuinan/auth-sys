@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'inventory',
     'dispersal',
     'production',
+    'fish',
 
     # 3rd party apps
     'rest_framework',
