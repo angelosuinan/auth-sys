@@ -16,11 +16,25 @@ class SessionAdmin(admin.ModelAdmin):
 
 
 class EmployeeAdmin(admin.ModelAdmin):
+    def _username(self, obj):
+        return obj.user.username
+    _username.short_description = 'username'
+
+    def _fullname(self,obj):
+        return obj.user.first_name + " " + obj.user.last_name
+    _fullname.short_description = 'full name'
+
+    def _lastlogin(self,obj):
+        return obj.user.last_login
+    _lastlogin.short_description = 'Last Login at'
     list_display = (
-    
+            '_username',
+            'position',
+            '_fullname',
+            '_lastlogin',
             )
     list_filter = (
-
+            'position',
            )
     search_fields = (
             )
