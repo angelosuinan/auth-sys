@@ -5,7 +5,7 @@ from django.contrib.sessions.models import Session
 
 
 class Employee(models.Model):
-    user = models.OneToOneField(User, related_name="user")
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     position = models.CharField(blank=False, default="", max_length=30)
     address = models.CharField(max_length=50,)
     contact_number = models.CharField(max_length=11)
