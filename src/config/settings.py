@@ -32,6 +32,10 @@ ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
+    #'bootstrap_admin',
+    #'admin_bootstrapped_plus',
+    #'django_admin_bootstrapped',
+    #'wpadmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,7 +55,12 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     'rest_framework',
+    'controlcenter',
 ]
+# DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
+CONTROLCENTER_DASHBOARDS = (
+    'dashboard.Dashboard.MyDashboard',
+)
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -81,14 +90,20 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+
             ],
         },
     },
 ]
+BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
 
 WSGI_APPLICATION = 'config.wsgi.application'
 

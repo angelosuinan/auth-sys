@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models import EmployeeProfile, Session
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
-
+from django.contrib.auth.models import Permission
+from django.contrib import admin
 
 class SessionAdmin(admin.ModelAdmin):
     def _session_data(self, obj):
@@ -48,5 +49,6 @@ class EmployeeAdmin(admin.ModelAdmin):
             )
 
 
+admin.site.register(Permission)
 admin.site.register(EmployeeProfile, EmployeeAdmin)
 admin.site.register(Session, SessionAdmin)

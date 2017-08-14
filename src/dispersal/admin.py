@@ -22,9 +22,9 @@ class OrderAdmin(admin.ModelAdmin):
            ]
     search_fields = (
         'fish',
-            )
+    )
     readonly_fields = (
-            )
+    )
 
 
 class PaymentAdmin(admin.ModelAdmin):

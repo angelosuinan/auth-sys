@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from controlcenter.views import controlcenter
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^admin/dashboard/', controlcenter.urls),
 ]

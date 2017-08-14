@@ -8,7 +8,7 @@ RUN apt-get install -y python-dev libffi-dev
 
 RUN apt-get -y autoremove
 
-RUN mkdir /auth
-WORKDIR /auth
-ADD ./src/requirements.txt /auth/requirements.txt
+RUN mkdir /web
+WORKDIR /web
+ADD ./src/requirements.txt /web/requirements.txt
 RUN pip install -r requirements.txt
