@@ -2,7 +2,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 from core.models import Base
+from employee.models import EmployeeProfile
+from fish.models import Fish
 
 
 class Harvest(Base):
-    pass
+    date_listed = models.DateField(blank=False)
+    employee_attended = models.ForeignKey(EmployeeProfile, on_delete=models.CASCADE, related_name="employee_attended")
+    fish = models.ForeignKey(Fish, on_delete=models.CASCADE, related_name="fish")
+    quantity = models.IntegerField(blank=False)
