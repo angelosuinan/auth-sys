@@ -1,14 +1,14 @@
 from django.contrib import admin
-from .models import Order, Payment
+from .models import Invoice, Order
 
 
-class OrderAdmin(admin.ModelAdmin):
+class InvoiceAdmin(admin.ModelAdmin):
     def _payment_amount(self, obj):
         return obj.payment.amount
     _payment_amount.short_description = 'payment'
+
     list_display = (
         '_payment_amount',
-        'fish',
         'employee',
         'date_acquired',
         'customer_name',
@@ -27,8 +27,12 @@ class OrderAdmin(admin.ModelAdmin):
     )
 
 
-class PaymentAdmin(admin.ModelAdmin):
+class OrderAdmin(admin.ModelAdmin):
+    def get_fishes(self, obj):
+        return "\n".join([str(f) for f in obj.fish.all()])
+
     list_display = (
+        'get_fishes',
         'amount',
         'free',
         'nature',
@@ -38,5 +42,5 @@ class PaymentAdmin(admin.ModelAdmin):
     ]
 
 
+admin.site.register(Invoice, InvoiceAdmin)
 admin.site.register(Order, OrderAdmin)
-admin.site.register(Payment, PaymentAdmin)
