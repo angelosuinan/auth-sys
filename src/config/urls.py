@@ -20,4 +20,5 @@ from controlcenter.views import controlcenter
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^admin/dashboard/', controlcenter.urls),
-]
+    url(r'^', include('home.urls', namespace='home')),
+    ]

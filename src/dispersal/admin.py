@@ -6,10 +6,16 @@ class OrderAdmin(admin.ModelAdmin):
     def _payment_amount(self, obj):
         return obj.payment.amount
     _payment_amount.short_description = 'payment'
+
+    def get_fishes(self, obj):
+        print obj.payment.all()
+        return ", ".join([str(f.fish) for f in obj.payment.all()])
+    get_fishes.short_description = 'fishes'
+
     list_display = (
-        '_payment_amount',
-        'fish',
+
         'employee',
+        'get_fishes',
         'date_acquired',
         'customer_name',
         'gender',
@@ -27,8 +33,14 @@ class OrderAdmin(admin.ModelAdmin):
     )
 
 
+<<<<<<< Updated upstream
 class PaymentAdmin(admin.ModelAdmin):
     list_display = (
+=======
+class OrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'fish',
+>>>>>>> Stashed changes
         'amount',
         'free',
         'nature',
