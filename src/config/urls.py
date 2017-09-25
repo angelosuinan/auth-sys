@@ -21,4 +21,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^admin/dashboard/', controlcenter.urls),
     url(r'^', include('home.urls', namespace='home')),
+    url(r'^inventory/', include('inventory.urls', namespace='inventory')),
+    url(r'^dispersal/', include('dispersal.urls', namespace='dispersal')),
+    url(r'^attendance/', include('attendance.urls', namespace='attendance')),
+    url(r'^production/', include('production.urls', namespace='production')),
+    url(r'^profile/', include('employee.urls', namespace='profile')),
     ]

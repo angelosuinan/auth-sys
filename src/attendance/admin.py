@@ -7,6 +7,7 @@ from .utils import Helper
 @admin.register(Attendance)
 class AttendanceAdmin(admin.ModelAdmin):
     icon = '<i class="material-icons">bubble_chart</i>'
+
     def get_actions(self, request):
         actions = super(AttendanceAdmin, self).get_actions(request)
         if 'delete_selected' in actions:
@@ -23,10 +24,10 @@ class AttendanceAdmin(admin.ModelAdmin):
             'modified_time'
             )
     list_filter = [
-            'employee__user',
+            'employee',
             'date',
            ]
     search_fields = (
             'date',
             )
-    readonly_fields=('total_time', )
+    readonly_fields = ('total_time', )

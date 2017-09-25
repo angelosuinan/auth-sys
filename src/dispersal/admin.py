@@ -38,6 +38,7 @@ class PaymentAdmin(admin.ModelAdmin):
     list_display = (
         'fish',
         'amount',
+        'quantity',
         'free',
         'nature',
     )

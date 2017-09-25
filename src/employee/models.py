@@ -21,6 +21,7 @@ class EmployeeProfile(models.Model):
     address = models.CharField(max_length=50,)
     contact_number = models.CharField(max_length=11)
     finger_print = models.BooleanField(default=False)
+    picture = models.ImageField(max_length=150, blank=True, null=True)
 
     def get_user(self, user_id):
         try:

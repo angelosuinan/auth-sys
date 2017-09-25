@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from employee.models import EmployeeProfile
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 from .utils import Helper
 from core.models import Base
 from datetime import timedelta
@@ -10,7 +11,7 @@ helper = Helper()
 
 
 class Attendance(Base):
-    employee = models.ForeignKey(EmployeeProfile, )
+    employee = models.ForeignKey(User, )
     date = models.DateField()
     time_in_am = models.TimeField(blank=True, null=True)
     time_out_am = models.TimeField(blank=True, null=True)
@@ -19,6 +20,7 @@ class Attendance(Base):
     extra_time_in = models.TimeField(blank=True, null=True)
     extra_time_out = models.TimeField(blank=True, null=True)
     total_time = models.CharField(max_length=10, blank=True, null=True)
+    approved = models.BooleanField(default="False")
     notes = models.TextField(blank=True, null=True)
 
     class Meta:

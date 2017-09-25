@@ -12,10 +12,12 @@ GENDER_CHOICES = (
 
 
 class Payment(Base):
-    amount = models.FloatField(max_length=10, blank=False)
-    free = models.BooleanField(default=False)
     fish = models.ForeignKey(Fish, on_delete=models.CASCADE, related_name="fish_order")
+    amount = models.FloatField(max_length=10, blank=False)
+    quantity = models.IntegerField(blank=False)
+    free = models.BooleanField(default=False)
     nature = models.TextField(blank=True, default='')
+
 
     def __str__(self,):
         return 'payment id =' + str(self.id) + ', amount = ' + str(self.amount) + 'php'

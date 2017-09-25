@@ -36,7 +36,7 @@
   <nav class="main-menu">
     <ul>
       <li>
-        <a href="index.html">
+        <a href="/">
           <i class="fa fa-home nav_icon"></i>
           <span class="nav-text">
           Dashboard
@@ -45,57 +45,57 @@
       </li>
       <li class="has-subnav">
         <a href="javascript:;">
-        <i class="fa fa-cogs" aria-hidden="true"></i>
+        <i class="fa fa-user"></i>&nbsp;
         <span class="nav-text">
-          UI Components
+          Attendance
         </span>
         <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
         </a>
         <ul>
           <li>
           <a class="subnav-text" href="buttons.html">
-          Buttons
+          Add Attendance
           </a>
           </li>
           <li>
           <a class="subnav-text" href="grids.html">
-          Grids
+          View Attendance
           </a>
           </li>
         </ul>
       </li>
       <li class="has-subnav">
         <a href="javascript:;">
-        <i class="fa fa-check-square-o nav_icon"></i>
+        <i class="fa fa-book nav_icon"></i>&nbsp;
         <span class="nav-text">
-        Forms
+        Inventory
         </span>
         <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
         </a>
         <ul>
           <li>
-            <a class="subnav-text" href="inputs.html">Inputs</a>
+            <a class="subnav-text" href="/inventory/add">Add an Item</a>
           </li>
           <li>
-            <a class="subnav-text" href="validation.html">Form Validation</a>
+            <a class="subnav-text" href="validation.html">View my Inventory</a>
           </li>
         </ul>
       </li>
       <li class="has-subnav">
         <a href="javascript:;">
-          <i class="fa fa-file-text-o nav_icon"></i>
-            <span class="nav-text">Pages</span>
+          <i class="fa fa-money nav_icon"></i> &nbsp;
+            <span class="nav-text">Fish Dispersal</span>
           <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
         </a>
         <ul>
           <li>
             <a class="subnav-text" href="gallery.html">
-              Image Gallery
+              Add an order
             </a>
           </li>
           <li>
             <a class="subnav-text" href="calendar.html">
-              Calendar
+              View orders
             </a>
           </li>
           <li>
@@ -110,11 +110,28 @@
           </li>
         </ul>
       </li>
+      <li class="has-subnav">
+        <a href="javascript:;">
+        <i class="fa fa-book nav_icon"></i>&nbsp;
+        <span class="nav-text">
+        Fish Productions
+        </span>
+        <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+        </a>
+        <ul>
+          <li>
+            <a class="subnav-text" href="inputs.html">Add a Harvest</a>
+          </li>
+          <li>
+            <a class="subnav-text" href="validation.html">View Productions</a>
+          </li>
+        </ul>
+      </li>
       <li>
         <a href="charts.html">
           <i class="fa fa-bar-chart nav_icon"></i>
           <span class="nav-text">
-            Charts
+            Fish Gallery
           </span>
         </a>
       </li>
@@ -122,7 +139,7 @@
         <a href="typography.html">
           <i class="icon-font nav-icon"></i>
           <span class="nav-text">
-          Typography
+
           </span>
         </a>
       </li>
@@ -168,7 +185,7 @@
     </ul>
     <ul class="logout">
       <li>
-      <a href="login.html">
+      <a href="/logout">
       <i class="icon-off nav-icon"></i>
       <span class="nav-text">
       Logout
@@ -193,8 +210,12 @@
   		<div class="header-right">
   			<div class="profile_details_left">
   				<div class="header-right-left">
+
   					<!--notifications of menu start -->
   					<ul class="nofitications-dropdown">
+              <li class="dropdown head-dpdn">
+              <p> Welcome {{ user }} </p>
+              </li>
   						<li class="dropdown head-dpdn">
   							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i><span class="badge">3</span></a>
   							<ul class="dropdown-menu anti-dropdown-menu w3l-msg">
@@ -339,7 +360,7 @@
   							<ul class="dropdown-menu drp-mnu">
   								<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
   								<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
-  								<li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+  								<li> <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
   							</ul>
   						</li>
   					</ul>
