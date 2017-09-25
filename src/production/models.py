@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
-
+from employee.models import EmployeeProfile
+from fish.models import Fish
 from django.db import models
 from core.models import Base
 

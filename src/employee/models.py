@@ -29,7 +29,8 @@ class EmployeeProfile(models.Model):
             return None
 
     def __str__(self):
-        return self.user.first_name + " " + self.user.last_name +" "+self.position
+        print self.user
+        return str(self.user) + " " + self.position
 
 
 class OjtProfile(models.Model):

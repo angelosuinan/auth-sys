@@ -1,23 +1,24 @@
 from django.contrib import admin
-from .models import Order, Payment
+from .models import Invoice, Payment
 
 
-class OrderAdmin(admin.ModelAdmin):
+class InvoiceAdmin(admin.ModelAdmin):
     def _payment_amount(self, obj):
         return obj.payment.amount
     _payment_amount.short_description = 'payment'
 
     def get_fishes(self, obj):
-        print obj.payment.all()
-        return ", ".join([str(f.fish) for f in obj.payment.all()])
+        print obj.orders.all()
+        return ", ".join([str(f.fish) for f in obj.orders.all()])
     get_fishes.short_description = 'fishes'
 
     list_display = (
-
+        'customer_name',
+        'id',
         'employee',
         'get_fishes',
         'date_acquired',
-        'customer_name',
+
         'gender',
         'address',
         'telephone',
@@ -25,30 +26,25 @@ class OrderAdmin(admin.ModelAdmin):
         'remarks'
     )
     list_filter = [
+        'customer_name',
            ]
     search_fields = (
-        'fish',
     )
     readonly_fields = (
     )
 
 
-<<<<<<< Updated upstream
 class PaymentAdmin(admin.ModelAdmin):
     list_display = (
-=======
-class OrderAdmin(admin.ModelAdmin):
-    list_display = (
         'fish',
->>>>>>> Stashed changes
         'amount',
         'free',
         'nature',
     )
     list_filter = [
-        'free',
+        'free'
     ]
 
 
-admin.site.register(Order, OrderAdmin)
+admin.site.register(Invoice, InvoiceAdmin)
 admin.site.register(Payment, PaymentAdmin)

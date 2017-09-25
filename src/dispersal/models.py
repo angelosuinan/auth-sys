@@ -26,9 +26,8 @@ class Payment(Base):
         }
 
 
-class Order(Base):
-    payment = models.OneToOneField(Payment, on_delete=models.CASCADE, related_name="payment")
-    fish = models.ForeignKey(Fish, on_delete=models.CASCADE, related_name="fish")
+class Invoice(Base):
+    orders = models.ManyToManyField(Payment)
     employee = models.ForeignKey(EmployeeProfile, on_delete=models.CASCADE, related_name="employee")
     date_acquired = models.DateField(blank=False)
     customer_name = models.CharField(blank=False, max_length=30)
