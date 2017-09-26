@@ -10,5 +10,6 @@ RUN apt-get -y autoremove
 
 RUN mkdir /web
 WORKDIR /web
+
 ADD ./src/requirements.txt /web/requirements.txt
 RUN pip install -r requirements.txt

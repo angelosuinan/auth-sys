@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'controlcenter',
     'daterange_filter',
-    'import_export',
+    'import_export',  #  report generation for admin
+
 ]
 # DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
 CONTROLCENTER_DASHBOARDS = (

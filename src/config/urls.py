@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^attendance/', include('attendance.urls', namespace='attendance')),
     url(r'^production/', include('production.urls', namespace='production')),
     url(r'^profile/', include('employee.urls', namespace='profile')),
+
     ]
