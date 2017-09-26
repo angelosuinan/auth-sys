@@ -7,14 +7,6 @@
 <body class="dashboard-page">
 {% endblock bodyclass %}
 {% block content %}
-<script>
-				var theme = $.cookie('protonTheme') || 'default';
-				$('body').removeClass (function (index, css) {
-						return (css.match (/\btheme-\S+/g) || []).join(' ');
-				});
-				if (theme !== 'default') $('body').addClass(theme);
-			</script>
-
 
 	<div class="main-grid">
 

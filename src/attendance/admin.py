@@ -1,3 +1,4 @@
+from daterange_filter.filter import DateRangeFilter
 from django.contrib import admin
 from .models import Attendance
 from django.contrib import messages
@@ -19,14 +20,15 @@ class AttendanceAdmin(admin.ModelAdmin):
             'time_in_am',
             'time_out_am',
             'time_in_pm',
-            'time_in_pm',
+            'time_out_pm',
             'total_time',
             'modified_time'
             )
-    list_filter = [
+    list_filter = (
             'employee',
             'date',
-           ]
+            ('date', DateRangeFilter),
+           )
     search_fields = (
             'date',
             )

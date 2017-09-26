@@ -41,15 +41,24 @@ class Attendance(Base):
         if time_in_pm and time_out_pm:
             time_diff = helper.time_diff(time_in_pm, time_out_pm)
             if time_diff['fail']:
-                raise ValidationError('time in pm and time_out PM difference is lower than 5 mins')
+                raise ValidationError('time in and time_out PM difference is lower than 5 mins')
+            else:
+                sum_time += time_diff['difference']
+        if time_in_pm and time_out_am:
+            time_diff = helper.time_diff(time_out_am, time_in_pm )
+            if time_diff['fail']:
+                raise ValidationError('time in pm and time_out AM difference is lower than 5 mins')
             else:
                 sum_time += time_diff['difference']
         extra_time_in = self.extra_time_in
         extra_time_out = self.extra_time_out
-        if time_in_pm and time_out_pm:
+        if extra_time_in and extra_time_out:
             time_diff = helper.time_diff(extra_time_in, extra_time_out)
             if time_diff['fail']:
                 raise ValidationError('extra time difference lower than 5 mins')
             else:
                 sum_time += time_diff['difference']
         self.total_time = str(timedelta(seconds=sum_time))
+
+    def __str__(self):
+        return str(self.employee) + " " +str(self.date)

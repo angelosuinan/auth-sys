@@ -18,3 +18,5 @@ django-controlcenter==0.2.3
 django-pkgconf==0.3.0
 bootstrap-admin==0.3.7.1
 django-admin-bootstrapped==2.5.7
+django-daterange-filter==1.3.0
+django-import-export==0.5.1

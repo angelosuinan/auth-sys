@@ -33,6 +33,13 @@
   {% block bodyclass %}
   <body>
   {% endblock bodyclass %}
+  <script>
+  				var theme = $.cookie('protonTheme') || 'default';
+  				$('body').removeClass (function (index, css) {
+  						return (css.match (/\btheme-\S+/g) || []).join(' ');
+  				});
+  				if (theme !== 'default') $('body').addClass(theme);
+  			</script>
   <nav class="main-menu">
     <ul>
       <li>
@@ -53,12 +60,7 @@
         </a>
         <ul>
           <li>
-          <a class="subnav-text" href="buttons.html">
-          Add Attendance
-          </a>
-          </li>
-          <li>
-          <a class="subnav-text" href="grids.html">
+          <a class="subnav-text" href="/attendance">
           View Attendance
           </a>
           </li>
