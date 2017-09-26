@@ -46,3 +46,11 @@ class Logout(View):
     def get(self, request,):
         logout(request)
         return redirect('/login')
+
+
+class Error(View):
+    template_name = 'home/error.html'
+
+    def get(self, request, ):
+        context = {}
+        return render(request, self.template_name, context)

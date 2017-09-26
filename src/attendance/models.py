@@ -12,7 +12,7 @@ helper = Helper()
 
 class Attendance(Base):
     employee = models.ForeignKey(User, )
-    date = models.DateField()
+    date = models.DateField('Date')
     time_in_am = models.TimeField(blank=True, null=True)
     time_out_am = models.TimeField(blank=True, null=True)
     time_in_pm = models.TimeField(blank=True, null=True)

@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.core.exceptions import ValidationError
 
+
 class Helper(object):
 
     def time_diff(self, time_in_am, time_out_am):

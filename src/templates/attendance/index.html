@@ -63,7 +63,7 @@
 					<tbody>
             {% for attendance in attendances %}
 					  <tr>
-						<td data-th="date"><span class="bt-content">{{attendance.date}}</span></td>
+						<td data-th="date"><span class="bt-content"><a href="notes?id={{attendance.id}}">{{attendance.date}}</a></span></td>
 						<td data-th="time_in_am"><span class="bt-content">{{attendance.time_in_am}}</span></td>
 						<td data-th="time_out_am"><span class="bt-content">{{attendance.time_out_am}}</span></td>
 						<td data-th="time_in_pm"><span class="bt-content">{{attendance.time_in_pm}}</span></td>

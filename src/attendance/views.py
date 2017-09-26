@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth import login, authenticate, logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import ObjectDoesNotExist
 from models import Attendance
 # Create your views here.
 
@@ -28,4 +29,21 @@ class Index(View):
             attendances = paginator.page(paginator.num_pages)
         print attendances
         context = {'attendances':attendances}
+        return render(request, self.template_name, context)
+
+
+class Notes(View):
+    template_name = 'attendance/notes.html'
+
+    def get(self, request,):
+        key = request.GET.get('id')
+        try:
+            attendance = Attendance.objects.get(pk=key)
+        except ObjectDoesNotExist:
+            print "asd"
+            return redirect('/error')
+
+        if attendance.employee != request.user:
+            return redirect('/error')
+        context = {}
         return render(request, self.template_name, context)
