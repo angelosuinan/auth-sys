@@ -1,0 +1,24 @@
+{% extends 'eventary/base.html' %}
+
+{% load bootstrap_tags %}
+{% load eventary_tags %}
+{% load i18n %}
+
+{% block 'js' %}
+{% for media in form|media:'js' %}
+    {{ media }}
+{% endfor %}
+{% endblock %}
+
+{% block 'css' %}
+{% for media in form|media:'css' %}
+    {{ media }}
+{% endfor %}
+{% endblock %}
+
+{% block 'content' %}
+<h1 style="display: inline-block; padding-right: 15px;">{{ calendar.title }}</h1>
+<div style="display: inline-block; vertical-align: 6px;">{{ calendar|actions:request.user }}</div>
+{% include 'eventary/filter_form.html' with form=form %}
+{% include 'eventary/lists/events.html' with request=request page=event_page prefix=event_page_kwarg calendar=calendar %}
+{% endblock %}

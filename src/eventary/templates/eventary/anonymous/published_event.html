@@ -1,0 +1,104 @@
+{% extends 'eventary/base.html' %}
+
+{% load eventary_tags %}
+{% load i18n %}
+{% load imagekit %}
+{% load static %}
+
+{% block 'title' %}{{ event.calendar.title }} | {{ event.title }}{% endblock %}
+
+{% block 'content' %}
+
+{% comment %}Translators: Event detail page{% endcomment %}
+{% comment %}Translators: Headers {% endcomment %}
+{% trans 'details' as h_details %}
+{% trans 'description' as h_description %}
+{% trans 'download event' as download_event %}
+{% trans 'download document' as download_document %}
+{% trans 'location' as h_location %}
+{% trans 'entry fee' as h_fee %}
+{% trans 'host' as h_host %}
+
+{% trans 'date and time' as h_date %}
+
+<h1>{{ event.title }}</h1>
+
+<a class="btn btn-xs btn-default back-to-calendar-details"
+   href="{% url 'eventary:anonymous-calendar_details' event.calendar.pk %}"
+   {% comment %}Translators: Title of link back to calendar details page{% endcomment %}
+   title="{% blocktrans with calendar_title=event.calendar.title %}back to {{ calendar_title }}{% endblocktrans %}">
+    <span class="glyphicon glyphicon-chevron-left">{% blocktrans with calendar_title=event.calendar.title %}back to {{ calendar_title }}{% endblocktrans %}</span>
+</a>
+
+{% if not request.user.is_anonymous %}
+<div class="eventactions">{{ event|actions:request.user }}</div>
+{% endif %}
+
+<div class="row">
+<div class="eventcontentblock">
+  {% if event.image %}
+  {% generateimage 'eventary:eventpicture' source=event.image as image %}
+  <img src="{{ image.url }}" title="{{ event.title }}" alt="{{ event.title }}" />
+  {% endif %}
+  {% if event.description %}
+  <h2>{{ h_description|capfirst }}</h2>
+  {{ event.description|safe }}
+  {% endif %}
+  {% if event.document %}
+  <div>
+    <br>
+    <a class="eventdownload"
+       href="{{ event.document.url }}"
+       role="button"
+       target="_blank"
+       title="{{ download_document|capfirst }}">
+      <span class="glyphicon glyphicon-download">{{ download_document|capfirst }}</span>
+    </a>
+  </div>
+  {% endif %}
+
+</div><!-- this comment removes white space, which breaks percentage computations with display:inline-block
+--><div class="eventdetailsblock SimplelayoutPortlet">
+  <div class="sl-layout">
+  <div class="sl-column sl-col-1">
+    <div class="eventdateportlet sl-block">
+      <h3>{{ h_date|capfirst }}</h3>
+      <div>{{ event|dates }}</div>
+      <div class="discreet">{{ event|times }}</div>
+      {% if event.recurring %}
+      <div class="eventrecursion discreet"><i class="glyphicon glyphicon-repeat" aria-hidden="true"></i> {{ event|recursion }}</div>
+      {% endif %}
+      <div>
+        <a class="eventdownload"
+	   href="{% url 'eventary:anonymous-export_event_to_ics' event.calendar.pk event.pk %}"
+	   role="button"
+	   target="_blank"
+	   title="{% blocktrans with event_title=event.title %}Download {{ event_title }}{% endblocktrans %}">
+	  <span class="glyphicon glyphicon-calendar-plus-o">{{ download_event|capfirst }}</span>
+        </a>
+      </div>
+    </div>
+    <div class="eventlocationportlet sl-block">
+      <h3>{{ h_location|capfirst }}</h3>
+      <div>{{ event.location }}<br>{{ event.address }}, {{ event.zip_code }} {{ event.city }}</div>
+      {% include "eventary/gis.html" %}
+    </div>
+    {% if event.entry_fee %}
+    <div class="eventfeeportlet sl-block">
+      <h3>{{ h_fee|capfirst }}</h3>
+      <div>{{ event.entry_fee|safe }}</div>
+    </div>
+    {% endif %}
+    <div class="eventhostportlet sl-block">
+      <h3>{{ h_host|capfirst }}</h3>
+      <div>{{ event.host.name }}<br>{{ event.host.phone }}
+	{% if event.host.email or event.host.homepage %}<br>{% endif %}
+	{% if event.host.email %}<a href="mailto:{{ event.host.email }}" class="ellipsisoverflow" target="_blank">{{ event.host.email }}</a>{% endif %}
+	{% if event.host.homepage %}<a href="{{ event.host.homepage }}"  class="ellipsisoverflow" target="_blank">{{ event.host.homepage }}</a>{% endif %}
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+{% endblock %}

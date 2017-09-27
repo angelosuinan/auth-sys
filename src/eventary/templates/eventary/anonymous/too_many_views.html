@@ -1,0 +1,18 @@
+{% extends 'eventary/base.html' %}
+
+{% load bootstrap_tags %}
+{% load eventary_tags %}
+{% load i18n %}
+
+{% block 'content' %}
+
+{% comment %}Translators: Access limit reached page{% endcomment %}
+{% comment %}Translators: Limit access reached title {% endcomment %}
+{% trans 'too many views' as h_too_many %}
+{% comment %}Translators: Limit access reached message {% endcomment %}
+{% trans 'You are seeing this page, because the requested page has a daily view limitation.' as too_many_accesses %}
+
+<h1>{{ h_too_many|capfirst }}</h1>
+<p>{{ too_many_accesses }}</p>
+
+{% endblock %}

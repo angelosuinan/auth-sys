@@ -1,0 +1,75 @@
+{% load eventary_tags %}
+{% load i18n %}
+{% load imagekit %}
+
+{% comment %}Translators: Table headers{% endcomment %}
+{% trans 'event' as th_event %}
+{% trans 'proposal' as th_proposal %}
+{% trans 'actions' as th_actions %}
+{% trans 'calendar' as th_calendar %}
+{% trans 'date & time' as th_date_time %}
+{% trans 'location' as th_location %}
+{% comment %}Translators: Select all checkbox caption{% endcomment %}
+{% trans 'toggle selection' as toggle_selection %}
+{% comment %}Translators: Replacement text when no event was found{% endcomment %}
+{% trans 'No upcoming events!' as no_events %}
+{% comment %}Translators: Text to incite the user to propose an event{% endcomment %}
+{% trans "You cannot find the event you're looking for?" as cannot_find_event %}
+{% comment %}Translators: The title of the ropose event button {% endcomment %}
+{% trans 'Propose an event now!' as btn_propose_title %}
+{% comment %}Translators: The text of the ropose event button {% endcomment %}
+{% trans 'Propose your event now!' as btn_propose_text %}
+
+{% if page %}
+{% if form_action %}{% comment %}
+	<form action="{{ form_action }}" method="post">
+	{% csrf_token %}
+	{{ page|actions:request.user }}
+{% endcomment %}{% endif %}
+<ul class="eventlist">
+{% for event in page %}
+<li>
+    {% if event.published %}
+    <a href="{% url 'eventary:anonymous-event_details' event.calendar.pk event.pk %}"
+       title="{% blocktrans with event_title=event.title %}View {{ event_title }}{% endblocktrans %}">
+    {% else %}
+    <a href="{% url 'eventary:anonymous-proposal_details' event.calendar.pk event.pk event.secret.secret %}"
+       title="{% blocktrans with event_title=event.title %}View {{ event_title }}{% endblocktrans %}">
+    {% endif %}
+        {% if form_action %}{% comment %}<div class="eventcheckbox"><input type="checkbox" name="pk" value="{{ event.pk }}"></div>{% endcomment %}{% endif %}
+        <div class="eventpicture">
+    	{% if event.image %}
+    	{% generateimage 'eventary:thumbnail' source=event.image as thumbnail %}
+    	<img src="{{ thumbnail.url }}" title="{{ event.title }}" alt="{{ event.title }}" />
+    	{% endif %}
+        </div>
+        <div class="eventdescription">
+    	<div class="eventtitle">
+        	{{ event.title }}
+    		{% if not calendar %}({{ event.calendar.title }}){% endif %}
+        </div>
+        <div class="eventdate">{{ event|dates }}</div>
+    	<div class="eventgroups">
+        {% for group in event.group_set.all %}
+        	{{ group.title }}{% if not forloop.last %},{% endif %}
+        {% endfor %}
+        	</div>
+    	<div class="eventtime">{{ event|times }}</div>
+    	{% if event.recurring %}
+    	<div class="eventrecursion discreet"><i class="fa fa-repeat" aria-hidden="true"></i> {{ event|recursion }}</div>
+    	{% endif %}
+        </div>
+    </a>
+</li>
+{% endfor %}
+</ul>
+{% if form_action %}{% comment %}<div class="toggle_selection checkbox container"><label class="row">
+    <input type="checkbox"> {{ toggle_selection|capfirst }}
+</label></div>
+</form>{% endcomment %}{% endif %}
+
+{% page_navigation page request prefix  %}
+
+{% else %}
+  <p>{{ cannot_find_event }}</p>
+{% endif %}

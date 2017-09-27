@@ -1,0 +1,45 @@
+{% extends 'eventary/base.html' %}
+
+{% load bootstrap_tags %}
+{% load eventary_tags %}
+{% load i18n %}
+
+{% block 'js' %}
+{% for media in form|media:'js' %}
+    {{ media }}
+{% endfor %}
+{% endblock %}
+
+{% block 'css' %}
+{% for media in form|media:'css' %}
+    {{ media }}
+{% endfor %}
+{% endblock %}
+
+{% block 'content' %}
+
+{% comment %}Translators: Landing page for anonymous users{% endcomment %}
+{% comment %}Translators: Title (first header){% endcomment %}
+{% trans 'Eventary - an inventary for events' as h_title %}
+{% comment %}Translators: Headers{% endcomment %}
+{% trans 'calendars' as h_calendars %}
+{% trans 'upcoming events' as h_upcoming %}
+
+<h1>{{ h_title|capfirst }}</h1>
+
+{% if calendar_list.count > 1 %}
+<h2>{{ h_calendars|capfirst }}</h2>
+{% include 'eventary/lists/calendars.html' with request=request page=calendar_page prefix='calendar_page' %}
+{% endif %}
+
+<h2>{{ h_upcoming|capfirst }}</h2>
+
+{% include 'eventary/filter_form.html' with form=form %}
+
+{% if calendar_list.count == 1 %}
+    {% include 'eventary/lists/events.html' with request=request calendar=calendar_list.first page=event_page prefix='event_page' %}
+{% else %}
+    {% include 'eventary/lists/events.html' with request=request page=event_page prefix='event_page' %}
+{% endif %}
+
+{% endblock %}

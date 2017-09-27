@@ -54,11 +54,13 @@ INSTALLED_APPS = [
     'production',
     'fish',
 
+
     # 3rd party apps
     'rest_framework',
     'controlcenter',
     'daterange_filter',
     'import_export',  #  report generation for admin
+    'happenings',
 
 ]
 # DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'

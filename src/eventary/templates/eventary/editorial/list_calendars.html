@@ -1,0 +1,22 @@
+{% extends 'eventary/base.html' %}
+
+{% load eventary_tags %}
+{% load i18n %}
+
+{% block 'content' %}
+
+{% comment %}Translators: Calendar list page{% endcomment %}
+{% comment %}Translators: Title {% endcomment %}
+{% trans 'calendars' as h_calendars %}
+{% comment %}Translators: No calendars found {% endcomment %}
+{% trans 'no calendars found' as no_calendars_found %}
+
+<h1>{{ h_calendars|capfirst }}</h1>
+
+{% if page_obj %}
+    {% include 'eventary/lists/calendars.html' with request=request page=page_obj prefix='page' %}
+{% else %}
+    <em>{{ no_calendars_found|capfirst }}</em>
+{% endif %}
+
+{% endblock %}

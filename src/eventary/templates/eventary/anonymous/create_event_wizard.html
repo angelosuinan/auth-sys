@@ -1,0 +1,104 @@
+{% extends 'eventary/base.html' %}
+
+{% load bootstrap_tags %}
+{% load eventary_tags %}
+{% load i18n %}
+{% load static %}
+
+{% block 'js' %}
+{% for media in wizard.form|media:'js' %}
+    {{ media }}
+{% endfor %}
+{% if extraform %}
+    {% for media in extraform|media:'js' %}
+        {{ media }}
+    {% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block 'css' %}
+{% for media in wizard.form|media:'css' %}
+    {{ media }}
+{% endfor %}
+{% if extraform_first %}
+    {% for media in extraform_first|media:'css' %}
+        {{ media }}
+    {% endfor %}
+{% endif %}
+{% if extraform %}
+    {% for media in extraform|media:'css' %}
+        {{ media }}
+    {% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block 'content' %}
+
+{% comment %}Translators: Page for event creation{% endcomment %}
+{% comment %}Translators: Headers{% endcomment %}
+{% trans 'host information' as h_host %}
+{% trans 'event information' as h_event %}
+{% trans 'date & time information' as h_timedate %}
+{% comment %}Translators: Submit button title{% endcomment %}
+{% trans 'propose the event' as btn_submit_title %}
+{% comment %}Translators: Submit button text{% endcomment %}
+{% trans 'propose' as btn_submit_text %}
+
+{% trans 'first step' as btn_wizard_first %}
+{% trans 'previous step' as btn_wizard_previous %}
+{% trans 'next' as btn_wizard_next %}
+
+<h1>{% blocktrans with calendar_title=calendar.title %}Propose an event for "{{ calendar_title }}"{% endblocktrans %}</h1>
+
+<a class="btn btn-xs btn-default back-to-calendar-details"
+   href="{% url 'eventary:anonymous-calendar_details' calendar.pk %}"
+   {% comment %}Translators: Title of link back to calendar details page{% endcomment %}
+   title="{% blocktrans with calendar_title=calendar.title %}back to {{ calendar_title }}{% endblocktrans %}">
+    <span class="glyphicon glyphicon-chevron-left">{% blocktrans with calendar_title=calendar.title %}back to {{ calendar_title }}{% endblocktrans %}</span>
+</a>
+
+<form id="wizardform" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {% wizard_status wizard wizard_steps_named valid_steps form_id="wizardform" %}
+    {{ wizard.management_form }}
+    {% if extraform_first %}
+    <div id="extraform_first"{% if extraform_first.prefix %}
+	 class="{{ extraform_first.prefix }}"{% endif %}>
+	    {{ extraform_first|as_bootstrap }}
+    </div>
+    {% endif %}
+    {% if wizard.form.forms %}
+        {{ wizard.form.management_form }}
+        {% for form in wizard.form.forms %}
+	<div class="container">{{ form|as_bootstrap }}</div>
+        {% endfor %}
+    {% else %}
+        {{ wizard.form|as_bootstrap }}
+    {% endif %}
+    {% if extraform %}
+    <div id="extraform"{% if extraform.prefix %}
+	 class="{{ extraform.prefix }}"{% endif %}>
+	    {{ extraform|as_bootstrap }}
+    </div>
+    {% endif %}
+
+    {% if wizard.steps.prev %}
+    	{% if wizard.steps.prev != wizard.steps.first %}
+    <button class="context"
+	    name="wizard_submit_and_goto_step"
+	    type="submit"
+            value="{{ wizard.steps.first }}">{{ btn_wizard_first|capfirst }}</button>
+    	{% endif %}
+    <button class="context"
+	    name="wizard_submit_and_goto_step"
+	    type="submit"
+            value="{{ wizard.steps.prev }}">{{ btn_wizard_previous|capfirst }}</button>
+    {% endif %}
+    <button class="context btn btn-primary"
+	    title="{{ btn_wizard_submit|capfirst }}"
+            type="submit">
+	{{ btn_wizard_next|capfirst }}
+    </button>
+</form>
+
+{% endblock %}

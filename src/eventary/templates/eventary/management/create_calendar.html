@@ -1,0 +1,25 @@
+{% extends 'eventary/base.html' %}
+
+{% load bootstrap_tags %}
+{% load i18n %}
+
+{% block 'content' %}
+
+{% comment %}Translators: Calendar creation page{% endcomment %}
+{% comment %}Translators: Title {% endcomment %}
+{% trans 'add a new calendar' as h_title %}
+{% trans 'add calendar' as btn_create_title %}
+{% trans 'add' as btn_create_text %}
+
+<h2>{{ h_title|capfirst }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form|as_bootstrap }}
+    <button type="submit"
+            class="btn btn-primary"
+            title="{{ btn_create_title|capfirst }}">
+        {{ btn_create_text|capfirst }}
+    </button>
+</form>
+{% endblock %}
