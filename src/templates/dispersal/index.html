@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<link href="{% static "css/style_grid.css" %}" rel="stylesheet" type="text/css" media="all" />
+{% endblock extrahead %}
+{% block bodyclass %}
+<body class="dashboard-page">
+{% endblock bodyclass %}
+{% block content %}
+
+	<div class="main-grid">
+
+		<div class="agile-bottom-grids">
+			<div class="col-md-6 agile-bottom-right">
+				<div class="agile-bottom-grid">
+					<div class="area-grids-heading">
+						<h3>Add</h3>
+					</div>
+					<!-- instert-->
+					<ul class="bt-list">
+						<li><a href="/dispersal/add" class="hvr-icon-float-away col-24" style="width:130%">Order</a></li>
+						&nbsp;
+						&nbsp;
+						<li><a href="#" class="hvr-icon-float-away col-23" style="width:130%;">Customer</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6 agile-bottom-left">
+				<div class="agile-bottom-grid">
+					<div class="area-grids-heading">
+						<h3>View</h3>
+					</div>
+					<ul class="bt-list">
+						<li><a href="#" class="hvr-icon-float-away col-24" style="width:130%">Orders</a></li>
+						&nbsp;
+						&nbsp;
+						<li><a href="#" class="hvr-icon-float-away col-23" style="width:130%;">Graphs</a></li>
+					</ul>
+				<!-- instert-->
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="agile-last-grids">
+			<div class="col-md-4 agile-last-left">
+				<div class="agile-last-grid">
+					<div class="area-grids-heading">
+						<h3>Daylight savings time</h3>
+					</div>
+				<!-- instert-->
+				</div>
+			</div>
+			<div class="col-md-4 agile-last-left agile-last-middle">
+				<div class="agile-last-grid">
+					<div class="area-grids-heading">
+						<h3>Daylight savings time</h3>
+					</div>
+				<!-- instert-->
+				</div>
+			</div>
+			<div class="col-md-4 agile-last-left agile-last-right">
+				<div class="agile-last-grid">
+					<div class="area-grids-heading">
+						<h3>Daylight savings time</h3>
+					</div>
+				<!-- instert-->
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="agile-two-grids">
+			<div class="col-md-6 count">
+				<div class="count-grid">
+					<h3 class="title">Countdown</h3>
+				</div>
+				<!-- instert-->
+			</div>
+			<div class="col-md-6 weather">
+				<div class="count-grid">
+					<h3 class="title">Countdown</h3>
+				<!-- instert-->
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/proton.js" %}"></script>
+{% endblock content %}

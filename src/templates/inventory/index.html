@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
+<script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#table').basictable();
+
+      $('#table-breakpoint').basictable({
+        breakpoint: 768
+      });
+
+      $('#table-swap-axis').basictable({
+        swapAxis: true
+      });
+
+      $('#table-force-off').basictable({
+        forceResponsive: false
+      });
+
+      $('#table-no-resize').basictable({
+        noResize: true
+      });
+
+      $('#table-two-axis').basictable();
+
+      $('#table-max-height').basictable({
+        tableWrapper: true
+      });
+    });
+</script>
+{% endblock extrahead %}
+{% block bodyclass %}
+<body class="dashboard-page">
+{% endblock bodyclass %}
+{% block content %}
+
+	<div class="main-grid">
+    <div class="">
+      <ul class="bt-list">
+        <li><a href="/inventory/add" class="hvr-icon-float-away col-24" style="width:130%">ADD AN ITEM</a></li>
+        &nbsp;
+        &nbsp;
+      </ul>
+    </div>
+    <div class="clearfix"> </div>
+		<div class="agile-two-grids">
+			<div class="col-md-12 count">
+				<div class="count-grid">
+
+          <div class="agile-grids">
+            <!-- tables -->
+
+            <div class="table-heading">
+              <h2  style="color:black">My Items</h2>
+            </div>
+            <div class="agile-tables">
+              <div class="w3l-table-info">
+
+              <table id="table-two-axis" class="two-axis">
+              <thead>
+                <tr>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+                <th>Date acquired</th>
+                <th>Amount</th>
+                <th>Recieved_by</th>
+                <th>Issued_by</th>
+                <th>Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in items %}
+                <tr>
+                <td data-th="name"><span class="bt-content"><a href="notes?id={{attendance.id}}">{{item.name}}</a></span></td>
+                <td data-th="description"><span class="bt-content">{{item.description}}</span></td>
+                <td data-th="unit"><span class="bt-content">{{item.unit}}</span></td>
+                <td data-th="quantity"><span class="bt-content">{{item.quantity}}</span></td>
+                <td data-th="date_acquired"><span class="bt-content">{{item.date_acquired}}</span></td>
+                <td data-th="amount"><span class="bt-content">{{item.amount}}</span></td>
+                <td data-th="recieved_by"><span class="bt-content">{{item.recieved_by}}</span></td>
+                <td data-th="issued_by"><span class="bt-content">{{item.issued_by}}</span></td>
+                <td data-th="remarks"><span class="bt-content">{{item.remarks}}</span></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              </table>
+            </div>
+            <!-- //tables -->
+          </div>
+          </div>
+          <div class="pagination">
+            <span class="step-links">
+                {% if items.has_previous %}
+                    <a href="?page={{ items.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ items.number }} of {{ items.paginator.num_pages }}.
+                </span>
+
+                {% if items.has_next %}
+                    <a href="?page={{ items.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+          </div>
+				</div>
+				<!-- instert-->
+			</div>
+
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/proton.js" %}"></script>
+{% endblock content %}

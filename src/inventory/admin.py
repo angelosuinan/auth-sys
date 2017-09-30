@@ -20,7 +20,7 @@ class DispersalAdmin(admin.ModelAdmin):
         'date_acquired',
     )
     list_filter = [
-        'employee__user',
+        'employee',
         'name',
         'date_acquired'
            ]

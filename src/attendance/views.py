@@ -27,7 +27,7 @@ class Index(View):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             attendances = paginator.page(paginator.num_pages)
-        print attendances
+
         context = {'attendances':attendances}
         return render(request, self.template_name, context)
 
