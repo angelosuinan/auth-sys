@@ -9,52 +9,50 @@
 				<!-- validation -->
 				<div class="grids">
 					<div class="forms-grids">
-						<form method="post" class="valida" autocomplete="off" novalidate="novalidate" enctype = "multipart/form-data">
+						<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate" enctype = "multipart/form-data">
 							{% csrf_token %}
 						<div class="w3agile-validation">
 							<div class="panel panel-widget agile-validation">
 								<div class="my-div" >
 
 										<div class="input-info">
-											<h3>Add an item</h3>
+											<h3></h3>
+										</div>
+                    <div style="padding:10px">
+                      <span style="font-size:20px"><span> Name: </span>{{item.name}}</span>
+                    </div>
+
+                    <div style="padding:10px">
+                      <span style="font-size:20px"><span> Description: </span>{{item.description}}</span>
+                    </div>
+
+                    <div style="padding:10px">
+                      <span style="font-size:20px"><span> Unit: </span>{{item.unit}}</span>
+                    </div>
+
+                    <div style="padding:10px">
+                      <span style="font-size:20px"><span> Quantity: </span>{{item.quantity}}</span>
+                    </div>
+
+										<label for="field-5" style="color:black">Date Acquired &nbsp;</label>
+										<div class="form-group">
+											<input type="date" name="date_acquired" id="field-5" required="true" class="form-control" value="{{date_acquired}}" >
 										</div>
 
-										<label for="field-1" style="size:20;">Name&nbsp;</label>
-										<div class="form-group">
-											<input type="text" name="name" id="field-1" required="true" class="form-control">
-										</div>
-
-										<label for="field-2">Description (less than 25 char)&nbsp;</label>
-										<div class="form-group">
-											<input type="text" name="description" id="field-2" required="true" maxlength="10" class="form-control" >
-										</div>
-
-										<label for="field-3">Unit (eg 25kg, 40oz, 3m)&nbsp;</label>
-										<div class="form-group">
-											<input type="text" name="unit" id="field-3" required="true" class="form-control" >
-										</div>
-
-										<label for="field-4">Quantity &nbsp;</label>
-										<div class="form-group">
-											<input type="number" name="quantity" id="field-4" required="true" class="form-control" >
-										</div>
-
-										<label for="field-5">Date Acquired &nbsp;</label>
-										<div class="form-group">
-											<input type="date" name="date_acquired" id="field-5" required="true" class="form-control" >
-										</div>
-
-										<label for="field-6">Amount &nbsp;</label>
-										<div class="form-group">
-											<input type="number" name="amount" id="field-5" required="true" class="form-control" >
-										</div>
+                    <div style="padding:10px">
+                      <span style="font-size:20px"><span> Amount: </span>{{item.amount}}</span>
+                    </div>
 
 										<label for="field-7">Issued by&nbsp;</label>
 										<div class="form-group">
 											<select name="issued_by" id="field-7"  class="form-control" required="true">
 												<option value=""></option>
 												{% for employee in employees %}
+                        {% if employee == item.issued_by %}
+                        <option value="{{employee}}" selected>{{ employee }}</option>
+                        {% else %}
 												<option value="{{employee}}">{{ employee }}</option>
+                        {% endif %}
 												{% endfor %}
 											</select>
 										</div>
@@ -64,19 +62,29 @@
 											<select name="received_by" id="field-8"  class="form-control" required="true">
 												<option value=""></option>
 												{% for employee in employees %}
+                        {% if employee == item.issued_by %}
+                        <option value="{{employee}}" selected>{{ employee }}</option>
+                        {% else %}
 												<option value="{{employee}}">{{ employee }}</option>
+                        {% endif %}
 												{% endfor %}
 											</select>
 										</div>
 
 										<label for="field-9">Remarks (optional, maxlength: 50)&nbsp;</label>
 										<div class="form-group  has-feedback">
-											<textarea name="remarks" id="field-9" maxlength="50" class="form-control"></textarea>
+											<textarea name="remarks" id="field-9" maxlength="50" class="form-control">{{ item.remarks}}</textarea>
 										</div>
+
+                    {% if item.photo %}
+                    <div style="padding:10px">
+                      <img src="/media/{{item.photo}}" alt="none" height="242" width="242"></img>
+                    </div>
+                    {% endif %}
 
 										<label for="field-10">Photo (optional) &nbsp;</label>
 										<div class="form-group">
-											<input type="file" name="photo" id="field-10" class="form-control" >
+											<input type="file" name="photo" id="field-10" class="form-control" value="{{item.photo}}">
 										</div>
 
 										<hr>

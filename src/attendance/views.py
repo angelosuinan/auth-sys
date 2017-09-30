@@ -40,7 +40,6 @@ class Notes(View):
         try:
             attendance = Attendance.objects.get(pk=key)
         except ObjectDoesNotExist:
-            print "asd"
             return redirect('/error')
 
         if attendance.employee != request.user:

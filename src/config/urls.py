@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from controlcenter.views import controlcenter
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,5 +28,7 @@ urlpatterns = [
     url(r'^attendance/', include('attendance.urls', namespace='attendance')),
     url(r'^production/', include('production.urls', namespace='production')),
     url(r'^profile/', include('employee.urls', namespace='profile')),
-    url(r'^calendar/', include('happenings.urls', namespace='calendar'))
-    ]
+    url(r'^calendar/', include('happenings.urls', namespace='calendar')),
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
