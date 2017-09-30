@@ -35,6 +35,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
     list_display = (
             '_username',
+            'id',
             'position',
             '_fullname',
             '_active',
