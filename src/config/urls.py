@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^dispersal/', include('dispersal.urls', namespace='dispersal')),
     url(r'^attendance/', include('attendance.urls', namespace='attendance')),
     url(r'^production/', include('production.urls', namespace='production')),
+    url(r'^fish/', include('fish.urls', namespace='fish')),
     url(r'^profile/', include('employee.urls', namespace='profile')),
     url(r'^calendar/', include('happenings.urls', namespace='calendar')),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
