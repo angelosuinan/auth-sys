@@ -17,7 +17,7 @@ class Index(View):
 
         page = request.GET.get('page')
         if page is None:
-            return redirect('/dispersal?page=1')
+            return redirect('/attendance?page=1')
 
         try:
             attendances = paginator.page(page)

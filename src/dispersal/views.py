@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from models import Customer, Payment, Invoice
+from fish.models import Fish
 
 from fish.models import Fish
 # Create your views here.
@@ -15,11 +16,13 @@ class Index(View):
         context = {}
         user = request.user
         invoice_list = Invoice.objects.filter(employee=user)
+        customers = Customer.objects.all()
+        fishes = Fish.objects.all()
         paginator = Paginator(invoice_list, 20)
 
         page = request.GET.get('page')
         if page is None:
-            return redirect('/invoice?page=1')
+            return redirect('/dispersal?page=1')
 
         try:
             invoices = paginator.page(page)
@@ -31,6 +34,8 @@ class Index(View):
             invoices = paginator.page(paginator.num_pages)
 
         context['invoices'] = invoices
+        context['customers'] = customers
+        context['fishes'] = fishes
         return render(request, self.template_name, context)
 
 
@@ -108,3 +113,29 @@ class Add(View):
                 invoice.orders.add(payment)
                 invoice.save()
         return redirect('/dispersal')
+
+
+class Change(View):
+    template_name = 'dispersal/change.html'
+
+    def get(self, request):
+        context = {}
+        key = request.GET.get('id')
+        try:
+            invoice = Invoice.objects.get(pk=key)
+        except ObjectDoesNotExist:
+            return redirect('/error')
+
+        context['invoice'] = invoice
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        context = {}
+        key = request.GET.get('id')
+        try:
+            invoice = Invoice.objects.get(pk=key)
+
+        except ObjectDoesNotExist:
+            return redirect('/error')
+        context['invoice'] = invoice
+        return render(request, self.template_name, context)
