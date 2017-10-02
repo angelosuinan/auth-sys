@@ -1,7 +1,36 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extrahead %}
-<link href="{% static "css/style_grid.css" %}" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
+<script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#table').basictable();
+
+      $('#table-breakpoint').basictable({
+        breakpoint: 768
+      });
+
+      $('#table-swap-axis').basictable({
+        swapAxis: true
+      });
+
+      $('#table-force-off').basictable({
+        forceResponsive: false
+      });
+
+      $('#table-no-resize').basictable({
+        noResize: true
+      });
+
+      $('#table-two-axis').basictable();
+
+      $('#table-max-height').basictable({
+        tableWrapper: true
+      });
+    });
+</script>
 {% endblock extrahead %}
 {% block bodyclass %}
 <body class="dashboard-page">
@@ -11,78 +40,94 @@
 	<div class="main-grid">
 
 		<div class="agile-bottom-grids">
-			<div class="col-md-6 agile-bottom-right">
-				<div class="agile-bottom-grid">
-					<div class="area-grids-heading">
-						<h3>Add</h3>
-					</div>
-					<!-- instert-->
-					<ul class="bt-list">
-						<li><a href="/dispersal/add" class="hvr-icon-float-away col-24" style="width:130%">Order</a></li>
-						&nbsp;
-						&nbsp;
-						<li><a href="#" class="hvr-icon-float-away col-23" style="width:130%;">Customer</a></li>
-					</ul>
-				</div>
+			<div class=" col-xs-12 col-md-4">
+				<ul class="bt-list">
+					<li><a href="/dispersal/add" class="hvr-icon-float-away col-24" style="width:300%">Order</a></li>
+				</ul>
 			</div>
-			<div class="col-md-6 agile-bottom-left">
-				<div class="agile-bottom-grid">
-					<div class="area-grids-heading">
-						<h3>View</h3>
-					</div>
-					<ul class="bt-list">
-						<li><a href="#" class="hvr-icon-float-away col-24" style="width:130%">Orders</a></li>
-						&nbsp;
-						&nbsp;
-						<li><a href="#" class="hvr-icon-float-away col-23" style="width:130%;">Graphs</a></li>
-					</ul>
-				<!-- instert-->
-				</div>
+			<div class="col-xs-12 col-md-4">
+				<ul class="bt-list">
+					<li ><a href="#" class="hvr-icon-float-away col-23" style="width:300%" >Customer</a></li>
+				</ul>
 			</div>
-			<div class="clearfix"> </div>
+			<div class="col-xs-12 col-md-4">
+				<ul class="bt-list">
+					<li ><a href="#" class="hvr-icon-float-away col-23" style="width:300%" >Graphs</a></li>
+				</ul>
+			</div>
 		</div>
-		<div class="agile-last-grids">
-			<div class="col-md-4 agile-last-left">
-				<div class="agile-last-grid">
-					<div class="area-grids-heading">
-						<h3>Daylight savings time</h3>
-					</div>
-				<!-- instert-->
-				</div>
+		<div class="agile-grids">
+			<!-- tables -->
+
+			<div class="table-heading">
+				<h2  style="color:black">Orders</h2>
 			</div>
-			<div class="col-md-4 agile-last-left agile-last-middle">
-				<div class="agile-last-grid">
-					<div class="area-grids-heading">
-						<h3>Daylight savings time</h3>
-					</div>
-				<!-- instert-->
-				</div>
+			<div class="agile-tables">
+				<div class="w3l-table-info">
+
+				<table id="table-two-axis" class="two-axis">
+				<thead>
+					<tr>
+					<th>Name</th>
+					<th>Date Acquired</th>
+					<th>Address</th>
+					<th>Region</th>
+					<th>Fishes-Quantity-Price</th>
+					<th>Free</th>
+					<th>Nature</th>
+					<th>Remarks</th>
+					<th>Total Amount</th>
+					<th>Employee Attended</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for invoice in invoices %}
+					<tr>
+					<td data-th="name"><span class="bt-content"><a href="notes?id={{attendance.id}}">{{invoice.customer.name}}</a></span></td>
+					<td data-th="date_acquired"><span class="bt-content">{{invoice.date_acquired }}</span></td>
+					<td data-th="address"><span class="bt-content">{{invoice.customer.address}}</span></td>
+					<td data-th="region"><span class="bt-content">{{invoice.customer.get_region_display}}</span></td>
+					<td data-th="fish"><span class="bt-content">
+						{% for order in invoice.orders.all %}
+							{{ order.fish}} - {{order.quantity}}pcs - {{order.amount}} php <br>
+						{% endfor %}
+					</span></td>
+					<td data-th="free"><span class="bt-content">
+						{% for order in invoice.orders.all %}
+							{{ order.free }} pcs <br>
+						{% endfor %}
+					</span></td>
+					<td data-th="nature"><span class="bt-content">
+						{% for order in invoice.orders.all %}
+							{{ order.nature}} <br>
+						{% endfor %}
+					</span></td>
+					<td data-th="extra_time_out"><span class="bt-content">{{invoice.remarks}}</span></td>
+					<td data-th="extra_time_out"><span class="bt-content">{{invoice.total_price}}</span></td>
+					<td data-th="total_time"><span class="bt-content">{{invoice.employee}}</span></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
 			</div>
-			<div class="col-md-4 agile-last-left agile-last-right">
-				<div class="agile-last-grid">
-					<div class="area-grids-heading">
-						<h3>Daylight savings time</h3>
-					</div>
-				<!-- instert-->
-				</div>
-			</div>
-			<div class="clearfix"> </div>
+			<!-- //tables -->
 		</div>
-		<div class="agile-two-grids">
-			<div class="col-md-6 count">
-				<div class="count-grid">
-					<h3 class="title">Countdown</h3>
-				</div>
-				<!-- instert-->
-			</div>
-			<div class="col-md-6 weather">
-				<div class="count-grid">
-					<h3 class="title">Countdown</h3>
-				<!-- instert-->
-				</div>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
+	</div>
+	<div class="pagination">
+		<span class="step-links">
+				{% if invoices.has_previous %}
+						<a href="?page={{ invoices.previous_page_number }}">previous</a>
+				{% endif %}
+
+				<span class="current">
+						Page {{ invoices.number }} of {{ invoices.paginator.num_pages }}.
+				</span>
+
+				{% if invoices.has_next %}
+						<a href="?page={{ attendances.next_page_number }}">next</a>
+				{% endif %}
+		</span>
+	</div>
 	</div>
 
 <script src="{% static "js/bootstrap.js" %}"></script>

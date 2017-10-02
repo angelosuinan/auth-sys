@@ -1,6 +1,9 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from models import Customer, Payment, Invoice
+
 from fish.models import Fish
 # Create your views here.
 
@@ -10,6 +13,24 @@ class Index(View):
 
     def get(self, request):
         context = {}
+        user = request.user
+        invoice_list = Invoice.objects.filter(employee=user)
+        paginator = Paginator(invoice_list, 20)
+
+        page = request.GET.get('page')
+        if page is None:
+            return redirect('/invoice?page=1')
+
+        try:
+            invoices = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            invoices = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            invoices = paginator.page(paginator.num_pages)
+
+        context['invoices'] = invoices
         return render(request, self.template_name, context)
 
 
