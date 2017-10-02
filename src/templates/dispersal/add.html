@@ -4,13 +4,15 @@
 <body class="dashboard-page">
 {% endblock bodyclass %}
 {% block content %}
+
 		<div class="main-grid">
 			<div class="agile-grids">
 				<!-- validation -->
 				<div class="grids">
 					<div class="forms-grids">
 						<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
-						<div class="w3agile-validation col-md-4">
+							{% csrf_token %}
+						<div class="w3agile-validation col-md-3">
 							<div class="panel panel-widget agile-validation">
 								<div class="my-div" >
 
@@ -19,43 +21,137 @@
 										</div>
 
 										<div class="form-group">
-											<select name="field-2" id="field-2"  class="form-control">
+											<select id="existing" name="existing" class="form-control">
 												<option value=""></option>
 												{% for customer in customers %}
-												<option value="val-1">{{ customer.name }} </option>
+												<option value="{{ customer.name }}">{{ customer.name }} </option>
 												{% endfor %}
 											</select>
 										</div>
 										<hr>
 
 								</div>
-								<div class="my-div">
+								<div class="my-div new">
 
 										<div class="input-info">
 											<h3>New Customer</h3>
 										</div>
 
+										<label for="field-0-1">Name</label>
 										<div class="form-group valid-form">
-												<input type="text" class="form-control" id="inputName" placeholder="customer name" required="">
+												<input type="text" class="form-control" id="name" name="name" >
 										</div>
 
-										<hr>
+										<label for="field-0-3">Gender</label>
+										<div class="form-group valid-form">
+											<select name="fish"  class="form-control" id="gender" name="gender">
+												<option value=""></option>
+												<option value="M">Male</option>
+												<option value="M">Female</option>
+											</select>
+										</div>
+
+										<label for="field-0-4">Telephone</label>
+										<div class="form-group valid-form">
+												<input type="text" class="form-control" id="telephone" name="telephone" >
+										</div>
+
+										<label for="field-0-5">Address</label>
+										<div class="form-group valid-form">
+												<input type="text" class="form-control"  id="address" placeholder="" name="address" >
+										</div>
+
+										<label for="field-0-6">Region</label>
+										<div class="form-group valid-form">
+											<select name="fish"  class="form-control" id="region" name="region">
+												<option value=""></option>
+												<option value="NCR">National Capital Region(NCR)</option>
+												<option value="I">REGION I</option>
+											</select>
+										</div>
+
+									<hr>
 
 								</div>
 							</div>
 						</div>
 
-						<div class="w3agile-validation col-md-8">
+						<div class="w3agile-validation col-md-9">
 							<div class="panel panel-widget agile-validation">
 								<div class="my-div">
 
 										<div class="input-info">
-											<h3>Order</h3>
+											<h3>Orders</h3>
+										</div>
+										<hr>
+										<div class="input-info">
+											<h4>Fishes</h4>
+										</div>
+										<div class="fishes" id="fishes">
+											<div class="form-group">
+												<input type="hidden" name="counter" id="counter" class="form-control" value="1">
+											</div>
+											<div class="fish" id="0">
+												<div class="row">
+
+													<div class="col-xs-12 col-sm-3">
+														<label for="field-1">Fish</label>
+														<div class="form-group">
+															<select name="fish"  class="form-control"  >
+																<option value=""></option>
+																{% for fish in fishes %}
+																<option value="{{fish}}">{{ fish }}</option>
+																{% endfor %}
+															</select>
+														</div>
+													</div>
+													<div class="col-xs-12 col-sm-3">
+														<label for="field-2">Amount</label>
+														<div class="form-group">
+															<input type="number" name="amount"  class="form-control"   >
+														</div>
+													</div>
+													<div class="col-xs-12 col-sm-2">
+														<label for="field-3">Quantity</label>
+														<div class="form-group">
+															<input type="number" name="quantity"  class="form-control"  >
+														</div>
+													</div>
+													<div class="col-xs-12 col-sm-2">
+														<label for="field-4">Free</label>
+														<div class="form-group">
+															<input type="number" name="free" class="form-control"   >
+														</div>
+													</div>
+
+													<div class="col-xs-12 col-sm-2">
+														<label >Nature</label>
+														<div class="form-group">
+															<input type="text" name="nature"  maxlength="20" class="form-control"></input>
+															<ul class="bt-list">
+																<button type="button" class="number" value="0"> remove </button>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
 
-										<label for="field-1">&nbsp;<span class="at-required-highlight">*</span></label>
+										<div>
+											<ul class="bt-list">
+												<li><a href="#" class="hvr-icon-float-away col-24" id="add">Add Fish</a></li>
+
+											</ul>
+										</div>
+										<hr>
+										<label >Date Acquired</label>
 										<div class="form-group">
-											<input type="text" name="field-1" id="field-1" required="true" class="form-control">
+											<input type="date" name="date_acquired"  class="form-control"  >
+										</div>
+
+										<label >Remarks</label>
+										<div class="form-group">
+											<textarea type="number" name="remarks" maxlength="75" class="form-control" ></textarea>
 										</div>
 
 										<hr>
@@ -138,4 +234,76 @@
 		<script src="{% static 'js/validator.min.js' %}"></script>
 		<!--//validator js-->
 <script src="{% static 'js/proton.js' %}"></script>
+
+<script type="text/javascript" >
+$( "#add" ).click(function() {
+	$('form').valida()
+	var count = parseInt($("#counter").val());
+	count += 1;
+
+	var clone = $( ".fish" ).clone().first();
+
+	clone.find( "select[name=fish]" ).attr('name', 'fish' + count);
+	clone.find( "input[name=amount]" ).attr('name', 'amount' + count);
+	clone.find( "input[name=quantity]" ).attr('name', 'quantity' + count);
+	clone.find( "input[name=free]" ).attr('name', 'free' + count);
+	clone.find( "input[name=nature]" ).attr('name', 'nature' + count);
+	clone.find( ".number" ).val(count);
+	clone.attr('id', count)
+	clone.appendTo( "#fishes" );
+	$("#counter").val(count)
+	$('.help-block').remove();
+	});
+	jQuery.fn.fadeOutAndRemove = function(speed){
+    $(this).fadeOut(speed,function(){
+        $(this).remove();
+    })
+	}
+
+
+
+	$(document).ready(function() {
+
+		// show Valida's version.
+		$('#version').valida( 'version' );
+
+		// Exemple 1
+		$('.valida').valida();
+		$('#partial-1').on('click', function( ev ) {
+			ev.preventDefault();
+			$('#res-1').click(); // clear form error msgs
+			$('form').valida('partial', '#field-1'); // validate only field-1
+			$('form').valida('partial', '#field-1-3'); // validate only field-1-3
+		});
+
+	});
+
+$('#fishes').on('click', '.number', function() {
+	remove_id = $(this).val();
+
+	$('div[id='+remove_id+"]").fadeOutAndRemove('slow');
+});
+
+$('#existing').change(function() {
+	if($(this).val()){
+		$('#name').attr('disabled', 'disabled');
+		$('#gender').attr('disabled', 'disabled');
+		$('#telephone').attr('disabled', 'disabled');
+		$('#address').attr('disabled', 'disabled');
+		$('#region').attr('disabled', 'disabled');
+		$('.new').toggle();
+	}
+	else{
+		$('#name').removeAttr("disabled");
+		$('#gender').removeAttr("disabled");
+		$('#telephone').removeAttr("disabled");
+		$('#address').removeAttr("disabled");
+		$('#region').removeAttr("disabled");
+
+		$('.new').toggle();
+
+	}
+
+});
+</script>
 {% endblock content%}

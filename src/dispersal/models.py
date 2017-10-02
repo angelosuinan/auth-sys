@@ -58,8 +58,8 @@ class Payment(Base):
     fish = models.ForeignKey(Fish, on_delete=models.CASCADE, related_name="fish_order")
     amount = models.FloatField(max_length=10, blank=False)
     quantity = models.IntegerField(blank=False)
-    free = models.IntegerField(blank=True)
-    nature = models.TextField(blank=True, default='')
+    free = models.IntegerField(blank=True, null=True)
+    nature = models.TextField(blank=True, null=True)
 
     def __str__(self,):
         return 'payment id =' + str(self.id) + ', amount = ' + str(self.amount) + 'php'

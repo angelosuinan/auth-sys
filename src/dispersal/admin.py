@@ -22,13 +22,17 @@ class CustomerAdmin(admin.ModelAdmin):
 
 class InvoiceAdmin(ImportExportModelAdmin):
     resource_class = InvoiceResource
+
     def save_model(self, request, obj, form, change):
+        obj.total_price = 0
+        super(InvoiceAdmin, self).save_model(request, obj, form, change)
         total_price = 0
+
         for query in obj.orders.all():
             total_price += query.amount
             total_price = query.amount
         obj.total_price = total_price
-        obj.save()
+        super(InvoiceAdmin, self).save_model(request, obj, form, change)
 
     def _payment_amount(self, obj):
         return obj.payment.amount
