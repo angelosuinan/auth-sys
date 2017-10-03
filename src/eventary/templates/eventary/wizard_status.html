@@ -1,0 +1,26 @@
+{% load i18n %}
+
+{% if wizard.steps.all|length > 1 %}
+<div class="wizard-status">
+    {% for step, name in named_steps %}
+    <span
+        {% if step == wizard.steps.current %}
+            class="current"
+        {% else %}
+            {% if step in valid_steps %}
+            class=""
+            {% else %}
+                {% if step > wizard.steps.current %}
+                class="disabled"
+                {% else %}
+                class=""
+                {% endif %}
+            {% endif %}
+        {% endif %}
+            data-step-number="{{ step }}">
+	{{ step|add:"1" }}. {{ name|capfirst }}
+    </span>
+    {% endfor %}
+</div>
+{% endif %}
+

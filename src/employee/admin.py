@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import EmployeeProfile, Session
+from .models import EmployeeProfile, Session, OjtProfile
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Permission
@@ -35,6 +35,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
     list_display = (
             '_username',
+            'id',
             'position',
             '_fullname',
             '_active',
@@ -49,6 +50,40 @@ class EmployeeAdmin(admin.ModelAdmin):
             )
 
 
+class OjtProfileAdmin(admin.ModelAdmin):
+    def _username(self, obj):
+        return obj.user.username
+    _username.short_description = 'username'
+
+    def _fullname(self, obj):
+        return obj.user.first_name + " " + obj.user.last_name
+    _fullname.short_description = 'full name'
+
+    def _lastlogin(self, obj):
+        return obj.user.last_login
+    _lastlogin.short_description = 'Last Login at'
+
+    def _active(self, obj):
+        return obj.user.is_active
+    _active.short_description = 'active'
+
+    list_display = (
+            '_username',
+            'school',
+            '_fullname',
+            '_active',
+            '_lastlogin',
+            )
+    list_filter = (
+            'school',
+           )
+    search_fields = (
+            )
+    readonly_fields = (
+            )
+
+
 admin.site.register(Permission)
 admin.site.register(EmployeeProfile, EmployeeAdmin)
 admin.site.register(Session, SessionAdmin)
+admin.site.register(OjtProfile, OjtProfileAdmin)

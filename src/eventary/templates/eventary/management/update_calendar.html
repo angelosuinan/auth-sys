@@ -1,0 +1,34 @@
+{% extends 'eventary/base.html' %}
+
+{% load i18n %}
+
+{% block 'content' %}
+
+{% comment %}Translators: Calendar delete view {% endcomment %}
+{% comment %}Translators: Submit button title{% endcomment %}
+{% trans 'update the calendar' as btn_update_title %}
+{% comment %}Translators: Submit button text{% endcomment %}
+{% trans 'update' as btn_update_text %}
+
+{% comment %}Translators: Title{% endcomment %}
+<h1>{% blocktrans with calendar_title=calendar.title %}Update {{ calendar_title }}{% endblocktrans %}</h1>
+
+<a class="btn btn-xs btn-default back-to-calendar-details"
+   href="{% url 'eventary:anonymous-calendar_details' calendar.pk %}"
+   {% comment %}Translators: Title of link back to calendar details page{% endcomment %}
+   title="{% blocktrans with calendar_title=calendar.title %}back to {{ calendar_title }}{% endblocktrans %}">
+    <span class="glyphicon glyphicon-chevron-left">{% blocktrans with calendar_title=calendar.title %}back to {{ calendar_title }}{% endblocktrans %}</span>
+</a>
+
+<form method="post">
+    <div>
+        {% csrf_token %}
+        {{ form }}
+    </div>
+    <button type="submit"
+            class="btn btn-primary"
+            title="{{ btn_update_title|capfirst }}">
+        {{ btn_update_text|capfirst }}
+    </button>
+</form>
+{% endblock %}

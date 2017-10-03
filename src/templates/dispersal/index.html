@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
+<script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#table').basictable();
+
+      $('#table-breakpoint').basictable({
+        breakpoint: 768
+      });
+
+      $('#table-swap-axis').basictable({
+        swapAxis: true
+      });
+
+      $('#table-force-off').basictable({
+        forceResponsive: false
+      });
+
+      $('#table-no-resize').basictable({
+        noResize: true
+      });
+
+      $('#table-two-axis').basictable();
+
+      $('#table-max-height').basictable({
+        tableWrapper: true
+      });
+    });
+</script>
+{% endblock extrahead %}
+{% block bodyclass %}
+<body class="dashboard-page">
+{% endblock bodyclass %}
+{% block content %}
+
+	<div class="main-grid">
+
+		<div class="agile-bottom-grids">
+			<div class=" col-xs-12 col-md-4">
+				<ul class="bt-list">
+					<li><a href="/dispersal/add" class="hvr-icon-float-away col-24" style="width:300%">Order</a></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<ul class="bt-list">
+					<li ><a href="#" class="hvr-icon-float-away col-23" style="width:300%" >Customer</a></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-md-4">
+				<ul class="bt-list">
+					<li ><a href="#" class="hvr-icon-float-away col-23" style="width:300%" >Graphs</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="agile-grids">
+			<!-- tables -->
+
+			<div class="table-heading">
+				<h2  style="color:black">Orders</h2>
+			</div>
+			<div class="sort">
+				<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
+				<div class="form-group col-md-1">
+					<label for="field-1">Order</label>
+					<select name="order"  class="form-control" id="field-1">
+						<option value="asc">Ascending</option>
+						<option value="desc">Descending</option>
+					</select>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="field-2">Fish</label>
+					<select name="fish"  class="form-control" id="field-2">
+						<option value=""></option>
+						{% for fish in fishes %}
+							<option value="{{fish}}">{{fish}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="field-3">Customer</label>
+					<select name="customer"  class="form-control" id="field-3">
+						<option value=""></option>
+						{% for customer in customers %}
+							<option value="{{customer}}">{{customer}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group col-md-5">
+					<div class="form-group col-md-6">
+						<label for="field-4">Start date</label>
+						<input type="date" name="start_date"  class="form-control" id="field-4">
+					</div>
+					<div class="form-group col-md-6">
+						<label for="field-5">End date</label>
+						<input type="date" name="end_date"  class="form-control" id="field-5">
+					</div>
+				</div>
+				<div class="form-group col-md-2">
+					<div class="form-group col-md-6">
+						<label for="field-4">Submit</label>
+						<input type="submit" name="sub-1" value="Submit" class="btn btn-primary">
+					</div>
+					<div class="form-group col-md-6">
+						<label for="field-5">Reset</label>
+						<input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">
+					</div>
+
+					</select>
+				</div>
+			</form>
+			</div>
+			<div class="agile-tables">
+				<div class="w3l-table-info">
+				<table id="table-two-axis" class="two-axis">
+				<thead>
+					<tr>
+					<th>Name</th>
+					<th>Date Acquired</th>
+					<th>Address</th>
+					<th>Region</th>
+					<th>Fishes-Quantity-Price</th>
+					<th>Free</th>
+					<th>Nature</th>
+					<th>Remarks</th>
+					<th>Total Amount</th>
+					<th>Employee Attended</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for invoice in invoices %}
+					<tr>
+					<td data-th="name"><span class="bt-content"><a href="change?id={{invoice.id}}">{{invoice.customer.name}}</a></span></td>
+					<td data-th="date_acquired"><span class="bt-content">{{invoice.date_acquired }}</span></td>
+					<td data-th="address"><span class="bt-content">{{invoice.customer.address}}</span></td>
+					<td data-th="region"><span class="bt-content">{{invoice.customer.get_region_display}}</span></td>
+					<td data-th="fish"><span class="bt-content">
+						{% for order in invoice.orders.all %}
+							{{ order.fish}} - {{order.quantity}}pcs - {{order.amount}} php <br>
+						{% endfor %}
+					</span></td>
+					<td data-th="free"><span class="bt-content">
+						{% for order in invoice.orders.all %}
+							{{ order.free }} pcs <br>
+						{% endfor %}
+					</span></td>
+					<td data-th="nature"><span class="bt-content">
+						{% for order in invoice.orders.all %}
+							{{ order.nature}} <br>
+						{% endfor %}
+					</span></td>
+					<td data-th="extra_time_out"><span class="bt-content">{{invoice.remarks}}</span></td>
+					<td data-th="extra_time_out"><span class="bt-content">{{invoice.total_price}}</span></td>
+					<td data-th="total_time"><span class="bt-content">{{invoice.employee}}</span></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+			<!-- //tables -->
+		</div>
+	</div>
+	<div class="pagination">
+		<span class="step-links">
+				{% if invoices.has_previous %}
+						<a href="?page={{ invoices.previous_page_number }}">previous</a>
+				{% endif %}
+
+				<span class="current">
+						Page {{ invoices.number }} of {{ invoices.paginator.num_pages }}.
+				</span>
+
+				{% if invoices.has_next %}
+						<a href="?page={{ attendances.next_page_number }}">next</a>
+				{% endif %}
+		</span>
+	</div>
+	</div>
+
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/proton.js" %}"></script>
+{% endblock content %}

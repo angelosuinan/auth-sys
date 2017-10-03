@@ -16,8 +16,20 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from controlcenter.views import controlcenter
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^admin/dashboard/', controlcenter.urls),
-]
+    url(r'^', include('home.urls', namespace='home')),
+    url(r'^inventory/', include('inventory.urls', namespace='inventory')),
+    url(r'^dispersal/', include('dispersal.urls', namespace='dispersal')),
+    url(r'^attendance/', include('attendance.urls', namespace='attendance')),
+    url(r'^production/', include('production.urls', namespace='production')),
+    url(r'^fish/', include('fish.urls', namespace='fish')),
+    url(r'^profile/', include('employee.urls', namespace='profile')),
+    url(r'^calendar/', include('happenings.urls', namespace='calendar')),
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,27 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block 'title' %}{% trans 'eventary' %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="charset" content="utf-8">
+        {% block 'head' %}
+        {% include 'eventary/head.html' %}
+        {% endblock %}
+        {% block 'js' %}
+        {% endblock %}
+        {% block 'css' %}
+        {% endblock %}
+    </head>
+    <body style="padding-top: 60px;">
+        {% block 'body' %}
+            {% block navigation %}
+            {% include 'eventary/navigation.html' with request=request %} 
+            {% endblock navigation %}
+        <div class="container">
+            {% block 'content' %}
+            {% endblock %}
+        </div>
+        {% endblock %}
+    </body>
+</html>

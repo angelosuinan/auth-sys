@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
+<script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#table').basictable();
+
+      $('#table-breakpoint').basictable({
+        breakpoint: 768
+      });
+
+      $('#table-swap-axis').basictable({
+        swapAxis: true
+      });
+
+      $('#table-force-off').basictable({
+        forceResponsive: false
+      });
+
+      $('#table-no-resize').basictable({
+        noResize: true
+      });
+
+      $('#table-two-axis').basictable();
+
+      $('#table-max-height').basictable({
+        tableWrapper: true
+      });
+    });
+</script>
+{% endblock extrahead %}
+{% block bodyclass %}
+<body class="dashboard-page">
+{% endblock bodyclass %}
+{% block content %}
+
+<div class="main-grid">
+			<div class="agile-grids">
+				<!-- tables -->
+
+				<div class="table-heading">
+					<h2  style="color:black">My Attendance</h2>
+				</div>
+				<div class="agile-tables">
+					<div class="w3l-table-info">
+
+				  <table id="table-two-axis" class="two-axis">
+					<thead>
+					  <tr>
+						<th>Date</th>
+						<th>time in am</th>
+						<th>time out am</th>
+						<th>time in pm</th>
+						<th>time out pm</th>
+						<th>extra time in</th>
+            <th>extra time out</th>
+            <th>total time</th>
+					  </tr>
+					</thead>
+					<tbody>
+            {% for attendance in attendances %}
+					  <tr>
+						<td data-th="date"><span class="bt-content"><a href="change?id={{attendance.id}}">{{attendance.date}}</a></span></td>
+						<td data-th="time_in_am"><span class="bt-content">{{attendance.time_in_am}}</span></td>
+						<td data-th="time_out_am"><span class="bt-content">{{attendance.time_out_am}}</span></td>
+						<td data-th="time_in_pm"><span class="bt-content">{{attendance.time_in_pm}}</span></td>
+						<td data-th="time_out_pm"><span class="bt-content">{{attendance.time_out_pm}}</span></td>
+						<td data-th="extra_time_in"><span class="bt-content">{{attendance.extra_time_in}}</span></td>
+            <td data-th="extra_time_out"><span class="bt-content">{{attendance.extra_time_out}}</span></td>
+            <td data-th="total_time"><span class="bt-content">{{attendance.total_time}}</span></td>
+					  </tr>
+            {% endfor %}
+					</tbody>
+				  </table>
+				</div>
+				<!-- //tables -->
+			</div>
+		</div>
+    <div class="pagination">
+      <span class="step-links">
+          {% if attendances.has_previous %}
+              <a href="?page={{ attendances.previous_page_number }}">previous</a>
+          {% endif %}
+
+          <span class="current">
+              Page {{ attendances.number }} of {{ attendances.paginator.num_pages }}.
+          </span>
+
+          {% if attendances.has_next %}
+              <a href="?page={{ attendances.next_page_number }}">next</a>
+          {% endif %}
+      </span>
+    </div>
+</div>
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/proton.js" %}"></script>
+{% endblock content %}

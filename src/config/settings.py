@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     # apps
     'core',
+    'home',
     'employee',
     'attendance',
     'inventory',
@@ -53,9 +54,14 @@ INSTALLED_APPS = [
     'production',
     'fish',
 
+
     # 3rd party apps
     'rest_framework',
     'controlcenter',
+    'daterange_filter',
+    'import_export',  #  report generation for admin
+    'happenings',
+
 ]
 # DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
 CONTROLCENTER_DASHBOARDS = (
@@ -164,4 +170,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'assets'),
 ]
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -1,31 +1,225 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Material Design for Django Forms and Admin{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}BFAR-NIFTC, Tanay, Rizal{% endblock %}</title>
+    {% block head_styles %}
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+    <!-- //bootstrap-css -->
+    <!-- Custom CSS -->
+    <link href="{% static "css/style.css" %}" rel='stylesheet' type='text/css' />
+    <!-- font CSS -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <!-- font-awesome icons -->
+    <link rel="stylesheet" href="{% static "css/font.css" %}" type="text/css"/>
+    <link href="{% static "css/font-awesome.css" %}" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    {% endblock head_styles %}
 
-    {% block head %}
-    {% include 'material/includes/material_css.html' %}
+    {% block headjs %}
+    <script src="{% static "js/jquery2.0.3.min.js" %}"></script>
+    <script src="{% static "js/modernizr.js" %}"></script>
+    <script src="{% static "js/jquery.cookie.js" %}"></script>
+    <script src="{% static "js/raphael-min.js" %}"></script>
+    <script src="{% static "js/morris.js" %}"></script>
 
-    <style type="text/css">
-      html, body {
-          background: #eee;
-          height: 100%;
-      }
-    </style>
+    {% endblock headjs %}
+
     {% block extrahead %}{% endblock %}
-    {% endblock %}
   </head>
-  <body class="valign-wrapper2">
-      {% block sidebar %}{% endblock %}
-      <div class="{% block container_class %}container expand-on-small-only{% endblock %}">
-          {% block content %}{% endblock %}
-      </div>
-      {% block js %}
-      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      {% include 'material/includes/material_js.html' %}
-      {% block extrajs %}{% endblock %}
-      {% endblock %}
+  {% block bodyclass %}
+  <body>
+  {% endblock bodyclass %}
+  <script>
+  				var theme = $.cookie('protonTheme') || 'default';
+  				$('body').removeClass (function (index, css) {
+  						return (css.match (/\btheme-\S+/g) || []).join(' ');
+  				});
+  				if (theme !== 'default') $('body').addClass(theme);
+  			</script>
+  <nav class="main-menu">
+    <ul>
+      <li>
+        <a href="/">
+          <i class="fa fa-home nav_icon"></i>
+          <span class="nav-text">
+          Dashboard
+          </span>
+        </a>
+      </li>
+      <li class="has-subnav">
+        <a href="/attendance?page=1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="fa fa-user"></i>
+        <span class="nav-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Attendance
+        </span>
+        <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+        </a>
+        <ul>
+          <li>
+          <a class="subnav-text" href="/attendance">
+          View Attendance
+          </a>
+          </li>
+        </ul>
+      </li>
+      <li class="has-subnav">
+        <a href="/inventory">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="fa fa-book nav_icon"></i>
+        <span class="nav-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Inventory
+        </span>
+        <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+        </a>
+        <ul>
+          <li>
+            <a class="subnav-text" href="/inventory/add">Add an Item</a>
+          </li>
+          <li>
+            <a class="subnav-text" href="/inventory">View my Inventory</a>
+          </li>
+        </ul>
+      </li>
+      <li class="has-subnav">
+        <a href="/dispersal">&nbsp;&nbsp;&nbsp;&nbsp;
+          <i class="fa fa-money nav_icon"></i>
+            <span class="nav-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Fish Dispersal
+            </span>
+          <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+        </a>
+        <ul>
+          <li>
+            <a class="subnav-text" href="/dispersal/add">
+              Add an order
+            </a>
+          </li>
+          <li>
+            <a class="subnav-text" href="/dispersal">
+              View orders
+            </a>
+          </li>
+          <li>
+            <a class="subnav-text" href="">
+              Graphs/Table
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="has-subnav">
+        <a href="javascript:;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="fa fa-tasks nav_icon" style="color:white"></i>
+        <span class="nav-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        Fish Productions
+        </span>
+        <i class="icon-angle-right"></i><i class="icon-angle-down"></i>
+        </a>
+        <ul>
+          <li>
+            <a class="subnav-text" href="inputs.html">Add a Harvest</a>
+          </li>
+          <li>
+            <a class="subnav-text" href="validation.html">View Productions</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="/fish">
+          <i class="fa fa-bar-chart nav_icon"></i>
+          <span class="nav-text">
+            Fish Gallery
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="/calendar">
+          <i class="icon-table nav-icon"></i>
+          <span class="nav-text">
+          Calendar of Events
+          </span>
+        </a>
+      </li>
+
+    </ul>
+    <ul class="logout">
+      <li>
+      <a href="/logout">
+      <i class="icon-off nav-icon"></i>
+      <span class="nav-text">
+      Logout
+      </span>
+      </a>
+      </li>
+    </ul>
+  </nav>
+  <section class="wrapper scrollable">
+  	<nav class="user-menu">
+  		<a href="javascript:;" class="main-menu-access">
+  		<i class="icon-proton-logo"></i>
+  		<i class="icon-reorder"></i>
+  		</a>
+  	</nav>
+  	<section class="title-bar">
+  		<div class="logo" style="width:40%">
+  			<h1><a href="#"><img src="{% static "images/logo.png" %}" alt="" width="80" height="60" />BFAR-NIFTC, TANAY, RIZAL</a></h1>
+  		</div>
+
+
+  		<div class="header-right">
+  			<div class="profile_details_left">
+  				<div class="header-right-left">
+
+  					<!--notifications of menu start -->
+  					<ul class="nofitications-dropdown">
+              <li class="dropdown head-dpdn">
+              <p> Welcome {{ user }} </p>
+              </li>
+
+  						<div class="clearfix"> </div>
+  					</ul>
+  				</div>
+  				<div class="profile_details">
+  					<ul>
+  						<li class="dropdown profile_details_drop">
+  							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+  								<div class="profile_img">
+  									<span class="prfil-img"><i class="fa fa-user" aria-hidden="true"></i></span>
+  									<div class="clearfix"></div>
+  								</div>
+  							</a>
+  							<ul class="dropdown-menu drp-mnu">
+  								<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
+  								<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
+  								<li> <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
+  							</ul>
+  						</li>
+  					</ul>
+  				</div>
+  				<div class="clearfix"> </div>
+  			</div>
+  		</div>
+  		<div class="clearfix"> </div>
+  	</section>
+      {% block header %}
+      {% endblock header %}
+
+      {% block content %}
+      {% endblock content %}
+
+
+      {% block footer %}
+      {% endblock footer %}
+
+
+      {% block bodyjs %}
+
+
+      {% block extrajs %}
+      {% endblock extrajs%}
+
+      {% endblock bodyjs%}
   </body>
+</html>

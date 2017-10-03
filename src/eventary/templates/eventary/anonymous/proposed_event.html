@@ -1,0 +1,45 @@
+{% extends 'eventary/base.html' %}
+
+{% load eventary_tags %}
+{% load i18n %}
+{% load imagekit %}
+{% load static %}
+
+{% block 'content' %}
+
+{% comment %}Translators: Proposal detail page{% endcomment %}
+{% comment %}Translators: Headers {% endcomment %}
+{% trans 'details' as h_details %}
+
+{% if event.image %}
+{% generateimage 'eventary:thumbnail' source=event.image as thumbnail %}
+<div class="pull-right" style="padding: 15px 0; padding-left: 15px; display: inline-block;">
+    <img src="{{ thumbnail.url }}" title="{{ event.title }}" alt="{{ event.title }}" />
+</div>
+{% endif %}
+
+<a class="btn btn-xs btn-default"
+   style="vertical-align: 6px"
+   href="{% url 'eventary:anonymous-calendar_details' event.calendar.pk %}"
+   {% comment %}Translators: Title of link back to calendar details page{% endcomment %}
+   title="{% blocktrans with calendar_title=calendar.title %}back to {{ calendar_title }}{% endblocktrans %}">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+</a>
+
+{% comment %}Translators: Title (first header){% endcomment %}
+<h1 style="display: inline-block; padding: 15px;">{% blocktrans with event_title=event.title %}Proposal: {{ event_title }}{% endblocktrans %}</h1>
+
+<div style="display: inline-block; vertical-align: 6px">{{ event|actions:request.user }}</div>
+
+<p>
+{% comment %}Translators: Message about page accesses{% endcomment %}
+{% blocktrans with calls=secret.calls %}Today's number of anonymous views: {{ calls }}.{% endblocktrans %}
+{% if secret.last_call %}
+    {% comment %}Translators: Message about last access{% endcomment %}
+    {% blocktrans with last_call=secret.last_call|date %}Last anonymous call {{ last_call }}.{% endblocktrans %}
+{% endif %}
+</p>
+
+{% include 'eventary/components/event_details_as_table.html' with event=event %}
+
+{% endblock %}

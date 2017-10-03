@@ -1,0 +1,27 @@
+{% extends 'eventary/base.html' %}
+
+{% load eventary_tags %}
+{% load i18n %}
+
+{% block 'content' %}
+
+{% comment %}Translators: Calendar list page{% endcomment %}
+{% comment %}Translators: Title {% endcomment %}
+{% trans 'calendars' as h_calendars %}
+{% comment %}Translators: Table headers{% endcomment %}
+{% trans 'title' as th_title %}
+{% trans 'actions' as th_actions %}
+{% trans '# events' as th_nr_events %}
+{% trans '# proposals' as th_nr_proposals %}
+{% comment %}Translators: Text to incite the user to propose a calendar{% endcomment %}
+{% trans "You cannot find the calendar you're looking for?" as cannot_find_calendar %}
+{% comment %}Translators: The title of the ropose event button {% endcomment %}
+{% trans 'Add a calendar now!' as btn_calendar_title %}
+{% comment %}Translators: The text of the ropose event button {% endcomment %}
+{% trans 'Add your calendar now!' as btn_calendar_text %}
+
+<h1>{{ h_calendars|capfirst }}</h1>
+
+{% include 'eventary/lists/calendars.html' with request=request page=page_obj prefix='page' %}
+
+{% endblock %}

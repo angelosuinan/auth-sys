@@ -1,359 +1,160 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extrahead %}
+<link href="{% static "css/style_grid.css" %}" rel="stylesheet" type="text/css" media="all" />
+{% endblock extrahead %}
+{% block bodyclass %}
+<body class="dashboard-page">
+{% endblock bodyclass %}
 {% block content %}
-<div class="wthree_agile_admin_info">
-		  <!-- /w3_agileits_top_nav-->
-		  <!-- /nav-->
-		  <div class="w3_agileits_top_nav">
-			<ul id="gn-menu" class="gn-menu-main">
-			  		 <!-- /nav_agile_w3l -->
-				<li class="gn-trigger">
-					<a class="gn-icon gn-icon-menu"><i class="fa fa-bars" aria-hidden="true"></i><span>Menu</span></a>
-					<nav class="gn-menu-wrapper">
-						<div class="gn-scroller scrollbar1">
-							<ul class="gn-menu agile_menu_drop">
-								<li><a href="main-page.html"> <i class="fa fa-tachometer"></i> Dashboard</a></li>
 
-							</ul>
-						</div><!-- /gn-scroller -->
-					</nav>
-				</li>
-				<!-- //nav_agile_w3l -->
-				<li class="second logo"><h1><a href="main-page.html"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Monitoring Tank </a></h1></li>
-					<li class="second admin-pic">
-				       <ul class="top_dp_agile">
+	<div class="main-grid">
 
-						</ul>
-				</li>
-
-
-
-
-			</ul>
-			<!-- //nav -->
-
-		</div>
-		<div class="clearfix"></div>
-		<!-- //w3_agileits_top_nav-->
-		<!-- /inner_content-->
-				<div class="inner_content">
-
-				    <!-- /inner_content_w3_agile_info-->
-					<div class="inner_content_w3_agile_info">
+		<div class="social grid">
+			<div class="clearfix"></div>
+			<!-- //w3_agileits_top_nav-->
+			<!-- /inner_content-->
+					<div class="inner_content">
+							<!-- /inner_content_w3_agile_info-->
+						<div class="inner_content_w3_agile_info">
 						<!-- /agile_top_w3_grids-->
-					   <div class="agile_top_w3_grids">
-					          <ul class="ca-menu">
-								<div class="col-md-3">
-									<li>
-										<a href="#">
+							 <div class="agile_top_w3_grids">
+											<ul class="ca-menu" style="padding-left: 70px">
+										<li>
+											<a href="/attendance?page=1">
 
-											<i class="fa fa-flask" aria-hidden="true"></i>
-											<div class="ca-content">
-												<h4 class="ca-main">{{ pH_level }}</h4>
-												<h3 class="ca-sub">pH Level</h3>
-											</div>
-										</a>
-									</li>
-								</div>
-								<div class="col-md-3">
-									<li>
-										<a href="#">
-										  <i class="fa fa-fire" aria-hidden="true"></i>
-											<div class="ca-content">
-												<h4 class="ca-main one">{{ temperature_level }}&#8451 </h4>
-												<h3 class="ca-sub one">Temperature Level</h3>
-											</div>
-										</a>
-									</li>
-								</div>
-									<div class="col-md-3">
-									<li>
-										<a href="#">
-											<i class="fa fa-tachometer" aria-hidden="true"></i>
-											<div class="ca-content">
-											<h4 class="ca-main two">{{ oxygen_level}}</h4>
-												<h3 class="ca-sub two">Oxygen Level</h3>
-											</div>
-										</a>
-									</li>
-								</div>
-								<div class="col-md-3">
-
-									<li>
-										<a href="#">
-											<i class="fa fa-anchor" aria-hidden="true"></i>
-											<div class="ca-content">
-												<h4 class="ca-main three">{{ water_level}}</h4>
-												<h3 class="ca-sub three">WATER LEVEL</h3>
-											</div>
-										</a>
-									</li>
-								</div>
-									<div class="clearfix"></div>
-								</ul>
-					   </div>
-					 <!-- //agile_top_w3_grids-->
-
-						<!-- /agile_top_w3_post_sections-->
-							<div class="agile_top_w3_post_sections">
-							       <div class="col-md-6 agile_top_w3_post agile_info_shadow">
-										   <div class="img_wthee_post">
-										         <h3 class="w3_inner_tittle" style="color:black">Latest Report</h3>
-												<div class="stats-wrap">
-													<div class="count_info"><h4 class="count">65,800,587 </h4><span class="year" style="color:black">Total Ayungin</span></div>
-
-													<div class="clearfix"></div>
+												<i class="fa fa-user" aria-hidden="true"></i>
+												<div class="ca-content">
+													<h4 class="ca-main">Attendance </h4>
+													<h3 class="ca-sub">View My Attendance</h3>
 												</div>
-												<div class="stats-wrap">
-													<div class="count_info"><h4 class="count" style="color:black">50 </h4><span class="year" style="color:black">Total Ayungin in tank</span></div>
-													<div class="year-info"><p class="text-no" style="color:black">50 </p><span class="year" style="color:black">Last production</span></div>
-													<div class="clearfix"></div>
+											</a>
+										</li>
+										<li>
+											<a href="/inventory">
+												<i class="fa fa-book" aria-hidden="true"></i>
+												<div class="ca-content">
+													<h4 class="ca-main one">Inventory</h4>
+													<h3 class="ca-sub one">View or add Inventory</h3>
 												</div>
-												<div class="stats-wrap">
-													<div class="count_info"><h4 class="count" style="color:black">{{ last_update }} </h4><span class="year" style="color:black">Last Update</span></div>
-													<div class="year-info"><p class="text-no" style="color:black">{{ pH_level }}</p><span class="year" style="color:black">PH LEVEL</span></div>
-													<div class="clearfix"></div>
+											</a>
+										</li>
+										<li>
+											<a href="/dispersal">
+												<i class="fa fa-money" aria-hidden="true"></i>
+												<div class="ca-content">
+												<h4 class="ca-main two">Fish Dispersal</h4>
+													<h3 class="ca-sub two">View or Enter orders</h3>
 												</div>
-												<div class="stats-wrap">
-													<div class="count_info"><h4 class="count" style="color:black">{{ water_level }}</h4><span class="year" style="color:black">Water Level</span></div>
-													<div class="year-info"><p class="text-no" style="color:black">{{ temperature_level }} </p><span class="year" style="color:black">TEMPERATURE</span></div>
-													<div class="clearfix"></div>
+											</a>
+										</li>
+										<li>
+											<a href="/production">
+												<i class="fa fa-tasks" aria-hidden="true"></i>
+												<div class="ca-content">
+													<h4 class="ca-main three">Fish Production</h4>
+													<h3 class="ca-sub three">View or Add Fish Harvest</h3>
 												</div>
+											</a>
+										</li>
 
-											</div>
-									   </div>
-									    <div class="col-md-6 agile_top_w3_post_info agile_info_shadow">
-										    <div class="img_wthee_post1">
-											<h3 class="w3_inner_tittle"> Latest Report hours ago :</h3>
-										       	<div class="main-example">
-													<div class="clock"></div>
-													<div class="message"></div>
+										<div class="clearfix"></div>
+									</ul>
+							 </div>
+						 <!-- //agile_top_w3_grids-->
+					 </div>
+				 </div>
+		</div>
 
-												</div>
-											</div>
-							            </div>
-								       <div class="clearfix"></div>
-							     </div>
-
-						<!-- //agile_top_w3_post_sections-->
-							<!-- /w3ls_agile_circle_progress-->
-							<div class="w3ls_agile_cylinder chart agile_info_shadow">
-							<h3 class="w3_inner_tittle two"> ph LEVEL CHART</h3>
-
-									 <div id="chartdiv"></div>
+		<div class="agile-grids">
+			<div class="col-md-12 ">
+				<!-- area-chart -->
+				<div class="area-grids">
 
 
-							</div>
-
-						<!-- /w3ls_agile_circle_progress-->
-						<!-- /chart_agile-->
-												<!-- /weather_w3_agile_info-->
-						<div class="weather_w3_agile_info agile_info_shadow">
-							<center>
-								<div id="openweathermap-widget-11"></div>
-							</center
-						</div>
-						<!-- //weather_w3_agile_info-->
-						<!-- /social_media-->
-						<div class="agile-tables">
-							<div class="graph-form agile_info_shadow">
-							 <h3 class="w3_inner_tittle two">Register a SMS Suscriber </h3>
-									<div class="form-body">
-										<strong style="font-size:120%">OPTION 1</strong>
-										<ul style="font-size:120%">1. Subscribers need to text INFO to {{ sms_num}} (Cross-telco: {{ sms_num_cross_telco }})</ul>
-										<ul style="font-size:120%">2. Upon receipt of the ‘welcome message’, the subscriber needs to reply YES</ul>
-										<strong style="font-size:120%">OPTION 2</strong>
-										<ul style="font-size:120%">1. Platform redirects your subscribers to this url: <a href="{{ register_url }}">http://developer.globelabs.com.ph/dialog/oauth?app_id=GK5AseLX4XH9diMpoocXAeH4EKjpsK69</a> </ul>
-										<ul style="font-size:120%">The page will then be redirected to the redirect uri of the application, and a ‘code’ parameter will be passed to it. </ul>
-										<ul style="font-size:120%">The page will be redirected, and an SMS with confirmation code will be sent to the subscriber </ul>
-										<ul style="font-size:120%">The subscriber needs to key-in on the page the received confirmation code and click the button Confirm to authorize the subscriber </ul>
-									</div>
-
-							</div>
-							<div class="w3l-table-info agile_info_shadow">
-							 <h3 class="w3_inner_tittle two">SMS Monitoring Suscribers</h3>
-							 <form method="post">
-								 {% csrf_token %}
-								<table id="table">
-								<thead>
-									<tr>
-									<th>Number</th>
-									<th>Name</th>
-									<th>Address</th>
-									<th>Occupation/Role</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for sub in subscriber%}
-									<tr>
-										<td>
-									 	{{ sub.subscriber_number}}
-										<input type="hidden" name="id" value="{{ sub.id}}">
-										</td>
-										{% if sub.name %}
-										<td><input type="text" name="name" class="form-control" value="{{sub.name}}"></td>
-										{% else %}
-
-										<td><input type="text" name="name" class="form-control" placeholder="Fill name"></td>
-										{% endif %}
-										{% if sub.address %}
-										<td><input type="text" name="address" class="form-control" value="{{ sub.address }}"></td>
-										{% else %}
-										<td><input type="text" name="address" class="form-control" placeholder="Fill address"></td>
-										{% endif %}
-										{% if sub.role%}
-										<td><input type="text" name="role" class="form-control" value="{{ sub.role }}"></td>
-										{% else %}
-										<td><input type="text" name="role" class="form-control" placeholder="Fill role"></td>
-										{% endif %}
-									</tr>
-										 {% endfor %}
-									<tr>
-										<td><button type="submit" class="btn btn-default">SAVE</button></td>
-									</tr>
-								</tbody>
-
-								</table>
-							</form>
-					</div>
-						<!-- //social_media-->
-				    </div>
-					<!-- //inner_content_w3_agile_info-->
 				</div>
-		<!-- //inner_content-->
+				<!-- //area-chart -->
+			</div>
+			<div class="col-md-12 ">
+				<!-- updating-data -->
+				<div class="agile-Updating-grids">
+					<div class="area-grids-heading">
+						<h3>Updating data</h3>
+					</div>
+					<!-- instert-->
+				</div>
+				<!-- //updating-data -->
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+
+		<div class="agile-bottom-grids">
+			<div class="col-md-8 agile-bottom-right">
+				<div class="agile-bottom-grid">
+					<!-- instert-->
+					<div id="openweathermap-widget-11" ></div>
+				</div>
+			</div>
+			<div class="col-md-4 agile-bottom-left">
+				<div class="agile-bottom-grid">
+					<div class="area-grids-heading">
+						<h3>Stacked Bars chart</h3>
+					</div>
+				<!-- instert-->
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="agile-last-grids">
+			<div class="col-md-4 agile-last-left">
+				<div class="agile-last-grid">
+					<div class="area-grids-heading">
+						<h3>Daylight savings time</h3>
+					</div>
+				<!-- instert-->
+				</div>
+			</div>
+			<div class="col-md-4 agile-last-left agile-last-middle">
+				<div class="agile-last-grid">
+					<div class="area-grids-heading">
+						<h3>Daylight savings time</h3>
+					</div>
+				<!-- instert-->
+				</div>
+			</div>
+			<div class="col-md-4 agile-last-left agile-last-right">
+				<div class="agile-last-grid">
+					<div class="area-grids-heading">
+						<h3>Daylight savings time</h3>
+					</div>
+				<!-- instert-->
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="agile-two-grids">
+			<div class="col-md-6 count">
+				<div class="count-grid">
+					<h3 class="title">Countdown</h3>
+				</div>
+				<!-- instert-->
+			</div>
+			<div class="col-md-6 weather">
+				<div class="count-grid">
+					<h3 class="title">Countdown</h3>
+				<!-- instert-->
+				</div>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
 	</div>
-<!-- banner -->
-<!--copy rights start here-->
-<div class="copyrights">
-	 <p>© 2017 Esteem. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
-</div>
-<!--copy rights end here-->
+	<!-- footer -->
+	<div class="footer">
+		<p>© 2016 Colored . All Rights Reserved . Design by <a href="http://w3layouts.com/">W3layouts</a></p>
+	</div>
+	<!-- //footer -->
+
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/proton.js" %}"></script>
+<script src='https://openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '1683319',appid: '9a097bc5403e7ab3dfeaefcf7081130f',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "https://openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator-2.0.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
 {% endblock content %}
-
-{% block body_scripts %}
-<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
-
-	<!-- /amcharts -->
-				<script src="{% static "js/amcharts.js" %}"></script>
-		    <script src="{% static "js/serial.js" %}"></script>
-				<!--<script src="{% static "js/export.js" %}"></script>-->
-				<script src="{% static "js/light.js" %}"></script>
-				<!-- Chart code -->
-	 <script>
-var chart = AmCharts.makeChart("chartdiv", {
-    "theme": "light",
-    "type": "serial",
-    "startDuration": 3,
-    "dataProvider": [
-			{% for report in reports %}
-			{
-				"country": "{{report.created_time}}",
-				"visits": "{{report.pH_level}}",
-				"color": "#0D8ECF"
-			},
-			{% endfor %}
-			],
-    "valueAxes": [{
-        "position": "left",
-        "axisAlpha":0,
-        "gridAlpha":0
-    }],
-    "graphs": [{
-        "balloonText": "[[category]]: <b>[[value]]</b>",
-        "colorField": "color",
-        "fillAlphas": 0.85,
-        "lineAlpha": 0.1,
-        "type": "column",
-        "topRadius":1,
-        "valueField": "visits"
-    }],
-    "depth3D": 40,
-	"angle": 30,
-    "chartCursor": {
-        "categoryBalloonEnabled": false,
-        "cursorAlpha": 0,
-        "zoomable": false
-    },
-    "categoryField": "country",
-    "categoryAxis": {
-        "gridPosition": "start",
-        "axisAlpha":0,
-        "gridAlpha":0
-
-    },
-    "export": {
-    	"enabled": false
-     }
-
-}, 0);
-</script>
-
-	<!-- //amcharts -->
-
-		<script src="{% static "js/Chart.min.js" %}"></script>
-		<script src="{% static "js/modernizr.custom.js" %}"></script>
-
-		<script src="{% static "js/classie.js" %}"></script>
-		<script src="{% static "js/gnmenu.js" %}"></script>
-		<script>
-			new gnMenu( document.getElementById( 'gn-menu' ) );
-		</script>
-			<!-- script-for-menu -->
-
-
-	<!--skycons-icons-->
-	<script src='https://openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '1683319',appid: '9a097bc5403e7ab3dfeaefcf7081130f',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "https://openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator-2.0.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
-<!--//skycons-icons-->
-<!-- //js -->
-
-		<script src="{% static "js/flipclock.js" %}"></script>
-
-	<script type="text/javascript">
-		var clock;
-
-		var update = new Date("{{ last_update }}");
-		console.log(update);
-		var now_date = new Date();
-		console.log(now_date)
-		var hours = Math.abs(now_date - update) / 36e5;
-		diff = now_date.valueOf() - update.valueOf();
-		var dura = diff/1000;
-		$(document).ready(function() {
-			clock = $('.clock').FlipClock(dura,{
-		    });
-		});
-	</script>
-<script src="{% static "js/bars.js" %}"></script>
-
-<script src="{% static "js/scripts.js" %}"></script>
-
-<script type="text/javascript" src="{% static "js/bootstrap-3.1.1.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-      $('#table').basictable();
-
-      $('#table-breakpoint').basictable({
-        breakpoint: 768
-      });
-
-      $('#table-swap-axis').basictable({
-        swapAxis: true
-      });
-
-      $('#table-force-off').basictable({
-        forceResponsive: false
-      });
-
-      $('#table-no-resize').basictable({
-        noResize: true
-      });
-
-      $('#table-two-axis').basictable();
-
-      $('#table-max-height').basictable({
-        tableWrapper: true
-      });
-    });
-</script>
-{% endblock body_scripts %}
