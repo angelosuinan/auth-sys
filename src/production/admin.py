@@ -28,3 +28,4 @@ class HarvestAdmin(ImportExportModelAdmin):
     search_fields = (
     )
     readonly_fields = ()
+    

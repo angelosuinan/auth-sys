@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Order',
+            name='Invoice',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_time', models.DateTimeField(auto_now_add=True)),
@@ -31,14 +31,13 @@ class Migration(migrations.Migration):
                 ('region', models.CharField(max_length=20)),
                 ('remarks', models.TextField(blank=True)),
                 ('employee', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='employee', to='employee.EmployeeProfile')),
-                ('fish', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='fish', to='fish.Fish')),
             ],
             options={
                 'abstract': False,
             },
         ),
         migrations.CreateModel(
-            name='Payment',
+            name='Order',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_time', models.DateTimeField(auto_now_add=True)),
@@ -54,8 +53,8 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.AddField(
-            model_name='order',
+            model_name='invoice',
             name='payment',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='payment', to='dispersal.Payment'),
+            field=models.ManyToManyField(to='dispersal.Order'),
         ),
     ]

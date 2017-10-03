@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from fish.models import Fish
 from django.db import models
 from core.models import Base
+from employee.models import EmployeeProfile
+from fish.models import Fish
 
 
 class Harvest(Base):

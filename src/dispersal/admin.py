@@ -101,7 +101,10 @@ class InvoiceAdmin(ImportExportModelAdmin):
     readonly_fields = ('total_price', )
 
 
-class PaymentAdmin(admin.ModelAdmin):
+class OrderAdmin(admin.ModelAdmin):
+    def get_fishes(self, obj):
+        return "\n".join([str(f) for f in obj.fish.all()])
+
     list_display = (
         'fish',
         'amount',
