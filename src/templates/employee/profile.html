@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<link href="{% static 'css/diff_style.css' %}" rel='stylesheet' type='text/css' />
+{% endblock extrahead %}
+{% block bodyclass %}
+<body class="dashboard-page">
+  {% endblock bodyclass %}
+  {% block content %}
+
+<div class="main-grid">
+  <!--gallery-->
+  <div class=" profile">
+
+   <div class="profile-bottom">
+     <h3><i class="fa fa-user"></i>Profile</h3>
+     <div class="profile-bottom-top">
+     <div class="col-md-4 profile-bottom-img">
+       <img src="/media/{{profile.picture}}" alt="" height="242" width="242">
+     </div>
+     <div class="col-md-8 profile-text">
+       <h6>{{get_user.first_name}} {{get_user.last_name}}</h6>
+       <table>
+       <tr><td>Postion</td>
+       <td>:</td>
+       <td>{{ profile.position}}</td></tr>
+
+       <tr>
+       <td>Email</td>
+       <td> :</td>
+       <td><a href="mailto:{{get_user.email}}" target="_top">{{get_user.email}}</a></td>
+       </tr>
+       <tr>
+       <td>Address</td>
+       <td> :</td>
+       <td> {{ profile.address }}</td>
+       </tr>
+       <tr>
+       <td>Contact number</td>
+       <td>:</td>
+       <td> {{ profile.contact_number}}</td>
+       </tr>
+       <tr>
+       <td>Fingerprint</td>
+       <td>:</td>
+       <td> {{ profile.finger_print}}</td>
+       </tr>
+       <tr>
+       <td>Last Login</td>
+       <td>:</td>
+       <td> {{ get_user.last_login }}</td>
+       </tr>
+       </table>
+     </div>
+     <div class="clearfix"></div>
+     </div>
+
+     <div class="profile-btn">
+        {% if user == get_user %}
+          <button type="button" onclick="location.href='password?q={{user.id}}';" class="btn" style="background-color:#1abc9c">Change Password</button>
+          <button type="button" onclick="location.href='change?q={{user.id}}';" class="btn bg-red">Edit Profile</button>
+        {% endif %}
+          <div class="clearfix"></div>
+     </div>
+
+
+   </div>
+  </div>
+</div>
+	<script src="{% static 'js/bootstrap.js' %}"></script>
+
+
+
+		<!--//validator js-->
+<script src="{% static 'js/proton.js' %}"></script>
+{% endblock content%}

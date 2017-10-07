@@ -194,7 +194,7 @@
   							</a>
   							<ul class="dropdown-menu drp-mnu">
   								<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-  								<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
+  								<li> <a href="/employee/profile?q={{user.id}}"><i class="fa fa-user"></i> Profile</a> </li>
   								<li> <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
   							</ul>
   						</li>
@@ -220,7 +220,7 @@
       <script>
       $(document).ready(function () {
         console.log($('div.hidden'));
-        $('div.hidden').fadeIn(3000).animate({"left":"1300px"},4000).removeClass('hidden');
+        $('div.hidden').fadeIn(3000).removeClass('hidden').animate({"left":"1300px"},4000);
       });
       </script>
       {% block extrajs %}

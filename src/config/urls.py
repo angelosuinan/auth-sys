@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^fish/', include('fish.urls', namespace='fish')),
     url(r'^profile/', include('employee.urls', namespace='profile')),
     url(r'^calendar/', include('happenings.urls', namespace='calendar')),
+    url(r'^employee/', include('employee.urls', namespace='employee')),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
