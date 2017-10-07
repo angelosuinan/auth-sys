@@ -92,3 +92,35 @@ class Add(View):
         harvest.save()
 
         return redirect('/production')
+
+
+class Change(View):
+    template_name = 'production/change.html'
+
+    def get(self, request):
+        context = {}
+        key = request.GET.get('id')
+        try:
+            harvest = Harvest.objects.get(pk=key)
+        except ObjectDoesNotExist:
+            return redirect('/error')
+
+        context['harvest'] = harvest
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        context = {}
+        key = request.GET.get('id')
+        try:
+            harvest = Harvest.objects.get(pk=key)
+
+        except ObjectDoesNotExist:
+            return redirect('/error')
+
+        remarks = request.POST.get('remarks', '')
+        harvest = Harvest.objects.get(pk=key)
+        harvest.remarks = remarks
+        harvest.save()
+
+        context['harvest'] = harvest
+        return render(request, self.template_name, context)

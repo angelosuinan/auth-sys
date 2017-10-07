@@ -46,11 +46,9 @@
       </ul>
     </div>
     <div class="clearfix"> </div>
-		<div class="agile-two-grids">
-			<div class="col-md-12 count">
-				<div class="count-grid">
-
           <div class="agile-grids">
+            <div class="col-md-12 count">
+      				<div class="count-grid">
             <!-- tables -->
 
             <div class="table-heading">
@@ -89,31 +87,31 @@
                 {% endfor %}
               </tbody>
               </table>
+              <div class="pagination">
+                <span class="step-links">
+                    {% if items.has_previous %}
+                        <a href="?page={{ items.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ items.number }} of {{ items.paginator.num_pages }}.
+                    </span>
+
+                    {% if items.has_next %}
+                        <a href="?page={{ items.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+              </div>
             </div>
             <!-- //tables -->
           </div>
           </div>
-          <div class="pagination">
-            <span class="step-links">
-                {% if items.has_previous %}
-                    <a href="?page={{ items.previous_page_number }}">previous</a>
-                {% endif %}
 
-                <span class="current">
-                    Page {{ items.number }} of {{ items.paginator.num_pages }}.
-                </span>
-
-                {% if items.has_next %}
-                    <a href="?page={{ items.next_page_number }}">next</a>
-                {% endif %}
-            </span>
-          </div>
 				</div>
 				<!-- instert-->
 			</div>
 
 			<div class="clearfix"> </div>
-		</div>
 	</div>
 
 <script src="{% static "js/bootstrap.js" %}"></script>
