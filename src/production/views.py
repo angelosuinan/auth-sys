@@ -111,11 +111,6 @@ class Change(View):
     def post(self, request):
         context = {}
         key = request.GET.get('id')
-        try:
-            harvest = Harvest.objects.get(pk=key)
-
-        except ObjectDoesNotExist:
-            return redirect('/error')
 
         remarks = request.POST.get('remarks', '')
         harvest = Harvest.objects.get(pk=key)
@@ -123,4 +118,4 @@ class Change(View):
         harvest.save()
 
         context['harvest'] = harvest
-        return render(request, self.template_name, context)
+        return redirect('/production/change?id='+key)

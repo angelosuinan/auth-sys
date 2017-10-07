@@ -132,10 +132,11 @@ class Change(View):
     def post(self, request):
         context = {}
         key = request.GET.get('id')
-        try:
-            invoice = Invoice.objects.get(pk=key)
 
-        except ObjectDoesNotExist:
-            return redirect('/error')
+        remarks = request.POST.get('remarks', '')
+        invoice = Invoice.objects.get(pk=key)
+        invoice.remarks = remarks
+        invoice.save()
+
         context['invoice'] = invoice
-        return render(request, self.template_name, context)
+        return redirect('/dispersal/change?id='+key)

@@ -95,21 +95,12 @@ class Change(View):
 
     def post(self, request):
         key = request.GET.get('id')
-        date_acquired = request.POST.get('date_acquired', '')
-        issued_by = request.POST.get('issued_by', '')
-        received_by = request.POST.get('received_by', '')
         remarks = request.POST.get('remarks', '')
         photo = ''
         for filename, file in request.FILES.iteritems():
             photo = request.FILES[filename]
 
-        received_by = User.objects.get(username=received_by)
-        issued_by = User.objects.get(username=issued_by)
-
         item = Item.objects.get(pk=key)
-        item.date_acquired = date_acquired
-        item.issued_by = issued_by
-        item.received_by = received_by
         item.remarks = remarks
         if photo:
             item.photo = photo

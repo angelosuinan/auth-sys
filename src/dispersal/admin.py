@@ -65,7 +65,8 @@ class InvoiceAdmin(ImportExportModelAdmin):
     def get_orders_free(self, obj):
         total = 0
         for payment in obj.orders.all():
-            total += payment.free
+            if payment.free:
+                total += payment.free
         return total
     get_orders_free.short_description = 'FREE'
 
