@@ -19,6 +19,7 @@ class HarvestAdmin(ImportExportModelAdmin):
         'quantity',
         'date_listed',
         'employee_attended',
+        'remarks',
     )
     list_filter = (
         'fish__name',
@@ -28,4 +29,3 @@ class HarvestAdmin(ImportExportModelAdmin):
     search_fields = (
     )
     readonly_fields = ()
-    

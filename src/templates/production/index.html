@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
+<script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
+<style>
+
+	label {
+	    color: blue;
+	}
+
+</style>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#table').basictable();
+
+      $('#table-breakpoint').basictable({
+        breakpoint: 768
+      });
+
+      $('#table-swap-axis').basictable({
+        swapAxis: true
+      });
+
+      $('#table-force-off').basictable({
+        forceResponsive: false
+      });
+
+      $('#table-no-resize').basictable({
+        noResize: true
+      });
+
+      $('#table-two-axis').basictable();
+
+      $('#table-max-height').basictable({
+        tableWrapper: true
+      });
+    });
+
+</script>
+
+{% endblock extrahead %}
+{% block bodyclass %}
+<body class="dashboard-page ">
+{% endblock bodyclass %}
+{% block content %}
+
+	<div class="main-grid hidden">
+
+		<div class="agile-bottom-grids">
+			<div class=" col-xs-12 col-md-6">
+				<ul class="bt-list">
+					<li><a href="/production/add" class="hvr-icon-float-away col-24" style="width:300%">Harvest</a></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-md-6">
+				<ul class="bt-list">
+					<li ><a href="#" class="hvr-icon-forward col-2" style="width:300%" >Graphs</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="agile-grids">
+			<!-- tables -->
+
+			<div class="table-heading">
+				<h2  style="color:black">Harvests</h2>
+			</div>
+			<div class="sort">
+				<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
+        {% csrf_token %}
+        <input type="hidden" name="page"  class="form-control" value="{{harvests.number}}">
+				<div class="form-group col-md-3">
+					<label for="field-1">Order</label>
+					<select name="order" class="form-control" id="field-1">
+						<option value="asc">Ascending</option>
+						<option value="desc">Descending</option>
+					</select>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="field-2">Fish</label>
+					<select name="fish"  class="form-control" id="field-2">
+						<option value=""></option>
+						{% for fish in fishes %}
+							<option value="{{fish}}">{{fish}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group col-md-5">
+					<div class="form-group col-md-6">
+						<label for="field-4">Start date</label>
+						<input type="date" name="start_date"  class="form-control" id="field-4">
+					</div>
+					<div class="form-group col-md-6">
+						<label for="field-5">End date</label>
+						<input type="date" name="end_date"  class="form-control" id="field-5">
+					</div>
+				</div>
+				<div class="form-group col-md-2">
+					<div class="form-group col-md-6">
+						<label for="field-4"></label>
+						<input type="submit" name="sub-1" value="Submit" class="btn btn-primary">
+					</div>
+					<div class="form-group col-md-6">
+						<label for="field-5"></label>
+						<input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">
+					</div>
+					</select>
+				</div>
+			</form>
+			</div>
+			<div class="agile-tables">
+				<div class="w3l-table-info">
+				<table id="table-two-axis" class="two-axis">
+				<thead>
+					<tr>
+					<th>Fish</th>
+					<th>Quantity</th>
+          <th>Employee Attended</th>
+          <th>Date Harvested</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for harvest in harvests %}
+					<tr>
+					<td data-th="name"><span class="bt-content"><a href="change?id={{invoice.id}}">{{harvest.fish}}</a></span></td>
+					<td data-th="date_acquired"><span class="bt-content">{{harvest.quantity }}</span></td>
+					<td data-th="address"><span class="bt-content">{{harvest.employee_attended}}</span></td>
+					<td data-th="region"><span class="bt-content">{{harvest.date_listed}}</span></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+			<!-- //tables -->
+		</div>
+	</div>
+	<div class="pagination">
+		<span class="step-links">
+				{% if harvests.has_previous %}
+						<a href="?page={{ harvests.previous_page_number }}">previous</a>
+				{% endif %}
+
+				<span class="current">
+						Page {{ harvests.number }} of {{ harvests.paginator.num_pages }}.
+				</span>
+
+				{% if harvests.has_next %}
+						<a href="?page={{ harvests.next_page_number }}">next</a>
+				{% endif %}
+		</span>
+	</div>
+	</div>
+<script>
+
+  $(document).ready(function() {
+    var url = new URL(window.location.href);
+    var c = url.searchParams.get('fish');
+    $('[name=fish]').val( c );
+    var c = url.searchParams.get('order');
+    $('[name=order]').val( c );
+    var c = url.searchParams.get('start_date');
+    $('[name=start_date]').val( c );
+    var c = url.searchParams.get('end_date');
+    $('[name=end_date]').val( c );
+
+  });
+</script>
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/proton.js" %}"></script>
+{% endblock content %}
