@@ -1,18 +1,21 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required, permission_required
+from django.utils.decorators import method_decorator
+
+
 # Create your views here.
 
 
 class Index(View):
     template_name = 'home/index.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request,):
         name = request.user
-        context = {'user': str(name)}
-        if request.user:
-            return render(request, self.template_name, context)
-        return redirect('/login')
+        context = {}
+        return render(request, self.template_name, context)
 
 
 class Login(View):
@@ -28,7 +31,9 @@ class Login(View):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/')
+            url = request.GET.get('next', '')
+            print url
+            return redirect(url)
         return redirect('/login')
 
 

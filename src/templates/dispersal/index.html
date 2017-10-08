@@ -154,7 +154,7 @@
 					</span></td>
 					<td data-th="extra_time_out"><span class="bt-content">{{invoice.remarks}}</span></td>
 					<td data-th="extra_time_out"><span class="bt-content">{{invoice.total_price}}</span></td>
-					<td data-th="total_time"><span class="bt-content">{{invoice.employee}}</span></td>
+					<td data-th="total_time"><span class="bt-content"><a href="/employee/profile?q={{invoice.employee.id}}">{{invoice.employee}}</a></span></td>
 					</tr>
 					{% endfor %}
 				</tbody>

@@ -21,7 +21,7 @@ class EmployeeProfile(models.Model):
     address = models.CharField(max_length=50,)
     contact_number = models.CharField(max_length=11)
     finger_print = models.BooleanField(default=False)
-    picture = models.ImageField(upload_to='employee/', max_length=250, blank=True, null=True)
+    photo = models.ImageField(upload_to='employee/', max_length=250, blank=True, null=True)
 
     def get_user(self, user_id):
         try:
@@ -46,6 +46,7 @@ class OjtProfile(models.Model):
     address = models.CharField(max_length=50,)
     contact_number = models.CharField(max_length=11)
     finger_print = models.BooleanField(default=False)
+    photo = models.ImageField(upload_to='employee/', max_length=250, blank=True, null=True)
 
     def get_user(self, user_id):
         try:

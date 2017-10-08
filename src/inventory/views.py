@@ -1,4 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required, permission_required
+from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -9,6 +11,7 @@ from models import Item
 class Index(View):
     template_name = 'inventory/index.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         user = request.user
         item_list = Item.objects.filter(employee=user)

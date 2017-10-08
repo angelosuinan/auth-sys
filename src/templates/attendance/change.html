@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
+<script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#table').basictable();
+
+      $('#table-breakpoint').basictable({
+        breakpoint: 768
+      });
+
+      $('#table-swap-axis').basictable({
+        swapAxis: true
+      });
+
+      $('#table-force-off').basictable({
+        forceResponsive: false
+      });
+
+      $('#table-no-resize').basictable({
+        noResize: true
+      });
+
+      $('#table-two-axis').basictable();
+
+      $('#table-max-height').basictable({
+        tableWrapper: true
+      });
+    });
+</script>
+{% endblock extrahead %}
+{% block bodyclass %}
+<body class="dashboard-page">
+{% endblock bodyclass %}
+{% block content %}
+<div class="main-grid">
+
+  <div class="agile-tables my-div col-md-8 col-md-offset-2" style="">
+    <div class="w3l-table-info">
+    <table id="table-two-axis" class="two-axis" >
+    <form method="post" class="valida" autocomplete="off" novalidate="novalidate" enctype = "multipart/form-data">
+      {% csrf_token %}
+    <thead>
+      <tr>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+      <td data-th="name" style="font-weight:bold; font-size:20px; width:280px "><span class="bt-content">Date</span></td>
+      <td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue; "><span class="bt-content">{{attendance.date}}</span></td>
+
+      </tr>
+
+      <tr>
+      <td data-th="orders"><span class="bt-content" style="font-weight:bold;font-size:20px">Time in am</span></td>
+      <td data-th="orders_value"><span class="bt-content">{{attendance.time_in_am}}</span></td>
+      </tr>
+
+      <tr>
+      <td data-th="name"><span class="bt-content" style="font-weight:bold; font-size:20px">Time out am</span></td>
+      <td data-th="address"><span class="bt-content">{{attendance.time_out_am}}</span></td>
+      </tr>
+      <tr>
+      <td data-th="name"><span class="bt-content" style="font-weight:bold; font-size:20px">Time in pm</span></td>
+      <td data-th="address"><span class="bt-content">{{attendance.time_in_pm}}</span></td>
+      </tr>
+
+      <tr>
+      <td data-th="name"><span class="bt-content" style="font-weight:bold; font-size:20px">Time out pm</span></td>
+      <td data-th="address"><span class="bt-content">{{attendance.time_out_pm}}</span></td>
+      </tr>
+
+      <tr>
+      <td data-th="name"><span class="bt-content" style="font-weight:bold; font-size:20px">Extra time in</span></td>
+      <td data-th="address"><span class="bt-content">{{attendance.extra_time_in}}</span></td>
+      </tr>
+
+      <tr>
+      <td data-th="name"><span class="bt-content" style="font-weight:bold; font-size:20px">Extra time out</span></td>
+      <td data-th="address"><span class="bt-content">{{attendance.extra_time_out}}</span></td>
+      </tr>
+
+      <tr>
+      <td data-th="name"><span class="bt-content" style="font-weight:bold; font-size:20px">Total time</span></td>
+      <td data-th="address"><span class="bt-content">{{attendance.total_time}}</span></td>
+      </tr>
+
+      <tr>
+      <td data-th="name"><span class="bt-content" style="font-weight:bold; font-size:20px">Notes</span></td>
+      <td data-th="address"><span class="bt-content">
+        <div class="form-group valid-form">
+            <textarea type="number" name="notes" maxlength="75" class="form-control" >{{attendance.notes}}</textarea>
+        </div>
+      </span></td>
+      </tr>
+
+      <tr>
+      <td data-th="name"><span class="bt-content">
+
+      </span></td>
+      <td data-th="address"><span class="bt-content">
+        <input type="submit" name="sub-1" value="Submit" class="btn btn-primary">
+        <input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">
+      </span></td>
+
+      </tr>
+
+    </tbody>
+    </form>
+    </table>
+    </div>
+  <!-- //tables -->
+  </div>
+</div>
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/proton.js" %}"></script>
+{% endblock content %}

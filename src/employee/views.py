@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from models import EmployeeProfile, OjtProfile
 from annoying.functions import get_object_or_None
+from itertools import chain
+
 # Create your views here.
 
 
@@ -11,6 +13,12 @@ class Index(View):
     template_name = 'employee/index.html'
 
     def get(self, request):
+        context = {}
+
+        emp_profiles = EmployeeProfile.objects.all().order_by('pk')
+        ojt_profiles = OjtProfile.objects.all().order_by('pk')
+        profiles = list(chain(emp_profiles, ojt_profiles))
+        context['profiles'] = profiles
         return render(request, self.template_name, context)
 
 

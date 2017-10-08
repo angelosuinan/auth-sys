@@ -66,7 +66,7 @@
                 <th>Quantity</th>
                 <th>Date acquired</th>
                 <th>Amount</th>
-                <th>Recieved_by</th>
+                <th>Received_by</th>
                 <th>Issued_by</th>
                 <th>Remarks</th>
                 </tr>
@@ -80,8 +80,8 @@
                 <td data-th="quantity"><span class="bt-content">{{item.quantity}}</span></td>
                 <td data-th="date_acquired"><span class="bt-content">{{item.date_acquired}}</span></td>
                 <td data-th="amount"><span class="bt-content">{{item.amount}}</span></td>
-                <td data-th="recieved_by"><span class="bt-content">{{item.recieved_by}}</span></td>
-                <td data-th="issued_by"><span class="bt-content">{{item.issued_by}}</span></td>
+                <td data-th="recieved_by"><span class="bt-content"><a href="/employee/profile?q={{item.received_by.id}}">{{item.received_by}}</a></span></td>
+                <td data-th="issued_by"><span class="bt-content"><a href="/employee/profile?q={{item.issued_by.id}}">{{item.issued_by}}</a></span></td>
                 <td data-th="remarks"><span class="bt-content">{{item.remarks}}</span></td>
                 </tr>
                 {% endfor %}

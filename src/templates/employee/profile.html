@@ -16,14 +16,23 @@
      <h3><i class="fa fa-user"></i>Profile</h3>
      <div class="profile-bottom-top">
      <div class="col-md-4 profile-bottom-img">
-       <img src="/media/{{profile.picture}}" alt="" height="242" width="242">
+       <img src="/media/{{profile.photo}}"
+       {% if profile.gender == 'M' %}
+       onerror="this.src='{% static "images/male-default.jpeg" %}'"
+       {% endif %}
+       {% if profile.gender == 'F' %}
+       onerror="this.src='{% static "images/female-default.jpg" %}'"
+       {% endif %}
+        alt="" height="242" width="242">
      </div>
      <div class="col-md-8 profile-text">
        <h6>{{get_user.first_name}} {{get_user.last_name}}</h6>
        <table>
+        {% if profile.position %}
        <tr><td>Postion</td>
        <td>:</td>
        <td>{{ profile.position}}</td></tr>
+       {% endif %}
 
        <tr>
        <td>Email</td>
@@ -40,6 +49,23 @@
        <td>:</td>
        <td> {{ profile.contact_number}}</td>
        </tr>
+
+       {% if profile.school %}
+       <tr>
+       <td>School</td>
+       <td>:</td>
+       <td> {{ profile.school}}</td>
+       </tr>
+       {% endif %}
+
+       {% if profile.required_hours %}
+       <tr>
+       <td>Required hours</td>
+       <td>:</td>
+       <td> {{ profile.required_hours}} hours</td>
+       </tr>
+       {% endif %}
+
        <tr>
        <td>Fingerprint</td>
        <td>:</td>

@@ -127,7 +127,7 @@
 					<tr>
 					<td data-th="name"><span class="bt-content"><a href="change?id={{harvest.id}}">{{harvest.fish}}</a></span></td>
 					<td data-th="date_acquired"><span class="bt-content">{{harvest.quantity }}</span></td>
-					<td data-th="address"><span class="bt-content">{{harvest.employee_attended}}</span></td>
+					<td data-th="address"><span class="bt-content"><a href="/employee/profile?q={{harvest.employee_attended.id}}">{{harvest.employee_attended}}</a></span></td>
 					<td data-th="region"><span class="bt-content">{{harvest.date_listed}}</span></td>
 					</tr>
 					{% endfor %}
