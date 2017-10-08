@@ -32,10 +32,11 @@ class Index(View):
         return render(request, self.template_name, context)
 
 
-class Notes(View):
-    template_name = 'attendance/notes.html'
+class Change(View):
+    template_name = 'attendance/change.html'
 
     def get(self, request,):
+        context = {}
         key = request.GET.get('id')
         try:
             attendance = Attendance.objects.get(pk=key)
@@ -44,5 +45,23 @@ class Notes(View):
 
         if attendance.employee != request.user:
             return redirect('/error')
-        context = {}
+        context['attendance'] = attendance
         return render(request, self.template_name, context)
+
+    def post(self, request,):
+        context = {}
+        key = request.GET.get('id')
+        try:
+            attendance = Attendance.objects.get(pk=key)
+        except ObjectDoesNotExist:
+            return redirect('/error')
+
+        if attendance.employee != request.user:
+            return redirect('/error')
+
+        notes = request.POST.get('notes', '')
+        attendance.notes = notes
+        print attendance.notes
+        attendance.save()
+
+        return redirect('/attendance/change?id='+key)

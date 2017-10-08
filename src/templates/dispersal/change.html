@@ -38,9 +38,11 @@
 {% block content %}
 <div class="main-grid">
 
-  <div class="agile-tables my-div col-md-10 col-md-offset-1" style="">
+  <div class="agile-tables my-div col-md-8 col-md-offset-2" style="">
     <div class="w3l-table-info">
-    <table id="table-two-axis" class="two-axis" style="border: 1px solid black;">
+    <table id="table-two-axis" class="two-axis" >
+    <form method="post" class="valida" autocomplete="off" novalidate="novalidate" enctype = "multipart/form-data">
+      {% csrf_token %}
     <thead>
       <tr>
       </tr>
@@ -48,7 +50,7 @@
     <tbody>
 
       <tr>
-      <td data-th="name" style="font-weight:bold; font-size:20px; "><span class="bt-content">Customer Name</span></td>
+      <td data-th="name" style="font-weight:bold; font-size:20px; width:250px "><span class="bt-content">Customer Name</span></td>
       <td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue;"><span class="bt-content">{{invoice.customer}}</span></td>
 
       </tr>
@@ -127,6 +129,7 @@
       </tr>
 
     </tbody>
+    </form>
     </table>
     </div>
   <!-- //tables -->

@@ -40,25 +40,27 @@
 	<div class="main-grid">
 
 		<div class="agile-bottom-grids">
-			<div class=" col-xs-12 col-md-4">
+			<div class=" col-xs-12 col-md-4 col-xs-4">
 				<ul class="bt-list">
 					<li><a href="/dispersal/add" class="hvr-icon-float-away col-24" style="width:300%">Order</a></li>
 				</ul>
 			</div>
-			<div class="col-xs-12 col-md-4">
+			<div class="col-xs-12 col-md-4 col-xs-4">
 				<ul class="bt-list">
 					<li ><a href="#" class="hvr-icon-float-away col-23" style="width:300%" >Customer</a></li>
 				</ul>
 			</div>
-			<div class="col-xs-12 col-md-4">
+			<div class="col-xs-12 col-md-4 col-xs-4">
 				<ul class="bt-list">
 					<li ><a href="#" class="hvr-icon-float-away col-23" style="width:300%" >Graphs</a></li>
 				</ul>
 			</div>
 		</div>
+  <div class="clearfix"> </div>
 		<div class="agile-grids">
 			<!-- tables -->
-
+      <div class="col-md-12 count">
+        <div class="count-grid">
 			<div class="table-heading">
 				<h2  style="color:black">Orders</h2>
 			</div>
@@ -101,11 +103,9 @@
 				</div>
 				<div class="form-group col-md-2">
 					<div class="form-group col-md-6">
-						<label for="field-4">Submit</label>
 						<input type="submit" name="sub-1" value="Submit" class="btn btn-primary">
 					</div>
 					<div class="form-group col-md-6">
-						<label for="field-5">Reset</label>
 						<input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">
 					</div>
 
@@ -154,14 +154,16 @@
 					</span></td>
 					<td data-th="extra_time_out"><span class="bt-content">{{invoice.remarks}}</span></td>
 					<td data-th="extra_time_out"><span class="bt-content">{{invoice.total_price}}</span></td>
-					<td data-th="total_time"><span class="bt-content">{{invoice.employee}}</span></td>
+					<td data-th="total_time"><span class="bt-content"><a href="/employee/profile?q={{invoice.employee.id}}">{{invoice.employee}}</a></span></td>
 					</tr>
 					{% endfor %}
 				</tbody>
 				</table>
 			</div>
 			<!-- //tables -->
-		</div>
+		  </div>
+      </div>
+    </div>
 	</div>
 	<div class="pagination">
 		<span class="step-links">

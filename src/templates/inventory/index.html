@@ -46,11 +46,9 @@
       </ul>
     </div>
     <div class="clearfix"> </div>
-		<div class="agile-two-grids">
-			<div class="col-md-12 count">
-				<div class="count-grid">
-
           <div class="agile-grids">
+            <div class="col-md-12 count">
+      				<div class="count-grid">
             <!-- tables -->
 
             <div class="table-heading">
@@ -68,7 +66,7 @@
                 <th>Quantity</th>
                 <th>Date acquired</th>
                 <th>Amount</th>
-                <th>Recieved_by</th>
+                <th>Received_by</th>
                 <th>Issued_by</th>
                 <th>Remarks</th>
                 </tr>
@@ -82,38 +80,38 @@
                 <td data-th="quantity"><span class="bt-content">{{item.quantity}}</span></td>
                 <td data-th="date_acquired"><span class="bt-content">{{item.date_acquired}}</span></td>
                 <td data-th="amount"><span class="bt-content">{{item.amount}}</span></td>
-                <td data-th="recieved_by"><span class="bt-content">{{item.recieved_by}}</span></td>
-                <td data-th="issued_by"><span class="bt-content">{{item.issued_by}}</span></td>
+                <td data-th="recieved_by"><span class="bt-content"><a href="/employee/profile?q={{item.received_by.id}}">{{item.received_by}}</a></span></td>
+                <td data-th="issued_by"><span class="bt-content"><a href="/employee/profile?q={{item.issued_by.id}}">{{item.issued_by}}</a></span></td>
                 <td data-th="remarks"><span class="bt-content">{{item.remarks}}</span></td>
                 </tr>
                 {% endfor %}
               </tbody>
               </table>
+              <div class="pagination">
+                <span class="step-links">
+                    {% if items.has_previous %}
+                        <a href="?page={{ items.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ items.number }} of {{ items.paginator.num_pages }}.
+                    </span>
+
+                    {% if items.has_next %}
+                        <a href="?page={{ items.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+              </div>
             </div>
             <!-- //tables -->
           </div>
           </div>
-          <div class="pagination">
-            <span class="step-links">
-                {% if items.has_previous %}
-                    <a href="?page={{ items.previous_page_number }}">previous</a>
-                {% endif %}
 
-                <span class="current">
-                    Page {{ items.number }} of {{ items.paginator.num_pages }}.
-                </span>
-
-                {% if items.has_next %}
-                    <a href="?page={{ items.next_page_number }}">next</a>
-                {% endif %}
-            </span>
-          </div>
 				</div>
 				<!-- instert-->
 			</div>
 
 			<div class="clearfix"> </div>
-		</div>
 	</div>
 
 <script src="{% static "js/bootstrap.js" %}"></script>

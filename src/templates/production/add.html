@@ -28,67 +28,32 @@
 								<div class="my-div col-md-8 col-md-offset-2" >
 
 										<div class="input-info">
-											<h3>Add an item</h3>
+											<h3>Add a Harvest</h3>
 										</div>
 
-										<label class="labels" for="field-1" >Name&nbsp;</label>
+										<label class="labels" for="field-1" >Fish&nbsp;</label>
 										<div class="form-group">
-											<input type="text" name="name" id="field-1" required="true" class="form-control">
+                      <select name="fish"  class="form-control" required="true" >
+                        <option value=""></option>
+                        {% for fish in fishes %}
+                        <option value="{{fish}}">{{ fish }}</option>
+                        {% endfor %}
+                      </select>
 										</div>
 
-										<label for="field-2">Description (less than 25 char)&nbsp;</label>
+										<label for="field-2">Quantity &nbsp;</label>
 										<div class="form-group">
-											<input type="text" name="description" id="field-2" required="true" maxlength="10" class="form-control" >
+											<input type="number" name="quantity" id="field-2" required="true" class="form-control" >
 										</div>
 
-										<label for="field-4">Quantity &nbsp;</label>
+										<label for="field-3">Date Listed &nbsp;</label>
 										<div class="form-group">
-											<input type="number" name="quantity" id="field-4" required="true" class="form-control" >
+											<input type="date" name="date_listed" id="field-3" required="true" class="form-control" >
 										</div>
 
-										<label for="field-3">Unit (eg 25kg, 40oz, 3m)&nbsp;</label>
+                    <label for="field-5">Remarks &nbsp;</label>
 										<div class="form-group">
-											<input type="text" name="unit" id="field-3" required="true" class="form-control" >
-										</div>
-
-										<label for="field-5">Date Acquired &nbsp;</label>
-										<div class="form-group">
-											<input type="date" name="date_acquired" id="field-5" required="true" class="form-control" >
-										</div>
-
-										<label for="field-6">Amount &nbsp;</label>
-										<div class="form-group">
-											<input type="number" name="amount" id="field-5" required="true" class="form-control" >
-										</div>
-
-										<label for="field-7">Issued by&nbsp;</label>
-										<div class="form-group">
-											<select name="issued_by" id="field-7"  class="form-control" required="true">
-												<option value=""></option>
-												{% for employee in employees %}
-												<option value="{{employee}}">{{ employee }}</option>
-												{% endfor %}
-											</select>
-										</div>
-
-										<label for="field-8">Received by&nbsp;</label>
-										<div class="form-group">
-											<select name="received_by" id="field-8"  class="form-control" required="true">
-												<option value=""></option>
-												{% for employee in employees %}
-												<option value="{{employee}}">{{ employee }}</option>
-												{% endfor %}
-											</select>
-										</div>
-
-										<label for="field-9">Remarks (optional, maxlength: 50)&nbsp;</label>
-										<div class="form-group  has-feedback">
-											<textarea name="remarks" id="field-9" maxlength="50" class="form-control"></textarea>
-										</div>
-
-										<label for="field-10">Photo (optional) &nbsp;</label>
-										<div class="form-group">
-											<input type="file" name="photo" id="field-10" class="form-control" >
+											<textarea name="remarks" id="field-5" maxlength="150" class="form-control"></textarea>
 										</div>
 
 										<hr>

@@ -34,11 +34,13 @@
   <body>
   {% endblock bodyclass %}
   <script>
+
   				var theme = $.cookie('protonTheme') || 'default';
   				$('body').removeClass (function (index, css) {
   						return (css.match (/\btheme-\S+/g) || []).join(' ');
   				});
   				if (theme !== 'default') $('body').addClass(theme);
+
   			</script>
   <nav class="main-menu">
     <ul>
@@ -110,7 +112,7 @@
         </ul>
       </li>
       <li class="has-subnav">
-        <a href="javascript:;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/production">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <i class="fa fa-tasks nav_icon" style="color:white"></i>
         <span class="nav-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Fish Productions
@@ -119,10 +121,10 @@
         </a>
         <ul>
           <li>
-            <a class="subnav-text" href="inputs.html">Add a Harvest</a>
+            <a class="subnav-text" href="/production/add">Add a Harvest</a>
           </li>
           <li>
-            <a class="subnav-text" href="validation.html">View Productions</a>
+            <a class="subnav-text" href="/production">View Harvests</a>
           </li>
         </ul>
       </li>
@@ -139,6 +141,14 @@
           <i class="icon-table nav-icon"></i>
           <span class="nav-text">
           Calendar of Events
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="/employee">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <i class="icon-table fa-users"></i>
+          <span class="nav-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Employees
           </span>
         </a>
       </li>
@@ -192,7 +202,7 @@
   							</a>
   							<ul class="dropdown-menu drp-mnu">
   								<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-  								<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li>
+  								<li> <a href="/employee/profile?q={{user.id}}"><i class="fa fa-user"></i> Profile</a> </li>
   								<li> <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
   							</ul>
   						</li>
@@ -205,18 +215,22 @@
   	</section>
       {% block header %}
       {% endblock header %}
-
+      <div class="hidden">
       {% block content %}
       {% endblock content %}
-
+      </div>
 
       {% block footer %}
       {% endblock footer %}
 
 
       {% block bodyjs %}
-
-
+      <script>
+      $(document).ready(function () {
+        console.log($('div.hidden'));
+        $('div.hidden').fadeIn(3000).removeClass('hidden').animate({"left":"1300px"},4000);
+      });
+      </script>
       {% block extrajs %}
       {% endblock extrajs%}
 

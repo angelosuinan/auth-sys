@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bodyclass %}
+<body class="dashboard-page">
+{% endblock bodyclass %}
+{% block content %}
+
+<div class="main-grid">
+  <div class="agile-grids">
+    <!-- gallery -->
+    <div class="grids-heading gallery-heading">
+      <h2>Gallery</h2>
+    </div>
+    <div class="gallery-grids">
+        {% for profile in profiles %}
+        <div class="show-reel">
+          <div class="col-md-3 agile-gallery-grid">
+            <div class="agile-gallery">
+              <a href="/media/{{profile.photo}}" class="lsb-preview" data-lsb-group="header">
+                <img src="/media/{{profile.photo}}"
+                {% if profile.gender == 'M' %}
+                onerror="this.src='{% static "images/male-default.jpeg" %}'"
+                {% endif %}
+                {% if profile.gender == 'F' %}
+                onerror="this.src='{% static "images/female-default.jpg" %}'"
+                {% endif %}
+                alt="" height="300" width="300"/>
+                <div class="agileits-caption">
+                  <h4 >{{profile.user.first_name}} {{profile.user.last_name}}</h4>
+                  <p>{{ profile.position}}</p>
+                  {% if profile.postion is None %}
+                  <p>On the Job Trainee</p>
+                  {% endif %}
+                  <p style="color:blue" onclick="window.location.href='profile?q={{profile.user.id}}'">View Profile</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <script>
+          $(window).load(function() {
+            $.fn.lightspeedBox();
+          });
+
+        </script>
+    </div>
+  <!-- //gallery -->
+
+  </div>
+</div>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+
+<!-- gallery -->
+<link rel="stylesheet" href="{% static 'css/lsb.css' %}">
+<script src="{% static 'js/lsb.js' %}"></script>
+<!-- //gallery -->
+<script src="{% static 'js/proton.js' %}"></script>
+{% endblock content%}
