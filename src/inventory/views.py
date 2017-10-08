@@ -16,8 +16,18 @@ class Index(View):
     def get(self, request):
         user = request.user
         item_list = Item.objects.filter(employee=user)
-        paginator = Paginator(item_list, 20)
 
+        order_sort = request.GET.get('order', '')
+        if order_sort:
+            if order_sort == 'desc':
+                item_list = item_list.order_by('-pk')
+
+        start_date = request.GET.get('start_date', '')
+        end_date = request.GET.get('end_date', '')
+        if start_date and end_date:
+            item_list = item_list.filter(date_acquired__range=[start_date, end_date])
+
+        paginator = Paginator(item_list, 20)
         page = request.GET.get('page')
         if page is None:
             return redirect('/inventory?page=1')
@@ -33,6 +43,26 @@ class Index(View):
 
         context = {'items': items}
         return render(request, self.template_name, context)
+
+    def post(self, request):
+        context = {}
+        page = request.POST.get('page', '')
+        url = '/inventory?page=' + page + '&'
+        order = request.POST.get('order', '')
+        url += 'order=' + order + '&'
+        start_date = request.POST.get('start_date', '')
+        try:
+            start_date = datetime.strptime(start_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+        url += 'start_date=' + start_date + '&'
+        end_date = request.POST.get('end_date', '')
+        try:
+            end_date = datetime.strptime(end_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+        url += 'end_date=' + end_date + '&'
+        return redirect(url)
 
 
 class Add(View):

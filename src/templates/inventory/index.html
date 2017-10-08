@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extrahead %}
+<link href="{% static "css/jquery-ui.css" %}" rel="stylesheet" />
+<script src="{% static "js/jquery_.min.js" %}"></script>
+<script src="{% static "js/jquery-ui.js" %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
 <link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
 <script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
@@ -37,83 +40,144 @@
 {% endblock bodyclass %}
 {% block content %}
 
-	<div class="main-grid">
-    <div class="">
-      <ul class="bt-list">
-        <li><a href="/inventory/add" class="hvr-icon-float-away col-24" style="width:130%">ADD AN ITEM</a></li>
-        &nbsp;
-        &nbsp;
-      </ul>
-    </div>
-    <div class="clearfix"> </div>
-          <div class="agile-grids">
-            <div class="col-md-12 count">
-      				<div class="count-grid">
-            <!-- tables -->
+<div class="main-grid">
+  <div class="">
+    <ul class="bt-list">
+      <li><a href="/inventory/add" class="hvr-icon-float-away col-24" style="width:130%">ADD AN ITEM</a></li>
+      &nbsp;
+      &nbsp;
+    </ul>
+  </div>
+  <div class="clearfix"> </div>
+      <div class="agile-grids">
+        <div class="col-md-12 count">
+  				<div class="count-grid">
+        <!-- tables -->
 
-            <div class="table-heading">
-              <h2  style="color:black">My Items</h2>
-            </div>
-            <div class="agile-tables">
-              <div class="w3l-table-info">
+        <div class="table-heading">
+          <h2  style="color:black">My Items</h2>
+        </div>
+        <div class="sort">
+  				<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
+          {% csrf_token %}
+          <input type="hidden" name="page"  class="form-control" value="{{harvests.number}}">
+  				<div class="form-group col-md-3 col-xs-6">
+  					<label for="field-1">Order</label>
+  					<select name="order" class="form-control" id="field-1">
+  						<option value="asc">Ascending</option>
+  						<option value="desc">Descending</option>
+  					</select>
+  				</div>
+  				<div class="form-group col-md-5 col-xs-12">
+  					<div class="form-group col-md-6 col-xs-6">
+  						<label for="field-4">Start date</label>
+  						<input type="text" name="start_date"  class="form-control" id="field-4">
+  					</div>
+  					<div class="form-group col-md-6 col-xs-6">
+  						<label for="field-5">End date</label>
+  						<input type="text" name="end_date"  class="form-control" id="field-5">
+  					</div>
+  				</div>
+  				<div class="form-group col-md-2 col-xs-12">
+  					<div class="form-group col-md-6 col-xs-6">
+  						<label for="field-4"></label>
+  						<input type="submit" name="sub-1" value="Submit" class="btn btn-primary">
+  					</div>
+  					<div class="form-group col-md-6 col-xs-6">
+  						<label for="field-5"></label>
+  						<input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">
+  					</div>
+  					</select>
+  				</div>
+  			</form>
+  			</div>
+        <div class="agile-tables">
+          <div class="w3l-table-info">
 
-              <table id="table-two-axis" class="two-axis">
-              <thead>
-                <tr>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-                <th>Date acquired</th>
-                <th>Amount</th>
-                <th>Received_by</th>
-                <th>Issued_by</th>
-                <th>Remarks</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for item in items %}
-                <tr>
-                <td data-th="name"><span class="bt-content"><a href="change?id={{item.id}}">{{item.name}}</a></span></td>
-                <td data-th="description"><span class="bt-content">{{item.description}}</span></td>
-                <td data-th="unit"><span class="bt-content">{{item.unit}}</span></td>
-                <td data-th="quantity"><span class="bt-content">{{item.quantity}}</span></td>
-                <td data-th="date_acquired"><span class="bt-content">{{item.date_acquired}}</span></td>
-                <td data-th="amount"><span class="bt-content">{{item.amount}}</span></td>
-                <td data-th="recieved_by"><span class="bt-content"><a href="/employee/profile?q={{item.received_by.id}}">{{item.received_by}}</a></span></td>
-                <td data-th="issued_by"><span class="bt-content"><a href="/employee/profile?q={{item.issued_by.id}}">{{item.issued_by}}</a></span></td>
-                <td data-th="remarks"><span class="bt-content">{{item.remarks}}</span></td>
-                </tr>
-                {% endfor %}
-              </tbody>
-              </table>
-              <div class="pagination">
-                <span class="step-links">
-                    {% if items.has_previous %}
-                        <a href="?page={{ items.previous_page_number }}">previous</a>
-                    {% endif %}
+          <table id="table-two-axis" class="two-axis">
+          <thead>
+            <tr>
+            <th>Item Name</th>
+            <th>Description</th>
+            <th>Unit</th>
+            <th>Quantity</th>
+            <th>Date acquired</th>
+            <th>Amount</th>
+            <th>Received_by</th>
+            <th>Issued_by</th>
+            <th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+            <tr>
+            <td data-th="name"><span class="bt-content"><a href="change?id={{item.id}}">{{item.name}}</a></span></td>
+            <td data-th="description"><span class="bt-content">{{item.description}}</span></td>
+            <td data-th="unit"><span class="bt-content">{{item.unit}}</span></td>
+            <td data-th="quantity"><span class="bt-content">{{item.quantity}}</span></td>
+            <td data-th="date_acquired"><span class="bt-content">{{item.date_acquired}}</span></td>
+            <td data-th="amount"><span class="bt-content">{{item.amount}}</span></td>
+            <td data-th="recieved_by"><span class="bt-content"><a href="/employee/profile?q={{item.received_by.id}}">{{item.received_by}}</a></span></td>
+            <td data-th="issued_by"><span class="bt-content"><a href="/employee/profile?q={{item.issued_by.id}}">{{item.issued_by}}</a></span></td>
+            <td data-th="remarks"><span class="bt-content">{{item.remarks}}</span></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          </table>
+          <div class="pagination">
+            <span class="step-links">
+                {% if items.has_previous %}
+                    <a href="?page={{ items.previous_page_number }}">previous</a>
+                {% endif %}
 
-                    <span class="current">
-                        Page {{ items.number }} of {{ items.paginator.num_pages }}.
-                    </span>
-
-                    {% if items.has_next %}
-                        <a href="?page={{ items.next_page_number }}">next</a>
-                    {% endif %}
+                <span class="current">
+                    Page {{ items.number }} of {{ items.paginator.num_pages }}.
                 </span>
-              </div>
-            </div>
-            <!-- //tables -->
-          </div>
-          </div>
 
-				</div>
-				<!-- instert-->
-			</div>
+                {% if items.has_next %}
+                    <a href="?page={{ items.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+          </div>
+        </div>
+        <!-- //tables -->
+      </div>
+      </div>
 
-			<div class="clearfix"> </div>
+		</div>
+		<!-- instert-->
 	</div>
 
+		<div class="clearfix"> </div>
+</div>
+  <script>
+  $("[name='start_date']").datepicker().datepicker("setDate", new Date());
+  $("[name='end_date']").datepicker().datepicker("setDate", new Date());
+  </script>
+  <script>
+
+    $(document).ready(function() {
+
+      var url = new URL(window.location.href);
+      var c = url.searchParams.get('order');
+      $('[name=order]').val( c );
+      var c = url.searchParams.get('start_date');
+      $('[name=start_date]').val( format(c) );
+      var c = url.searchParams.get('end_date');
+      $('[name=end_date]').val( format(c) );
+      function format(inputDate) {
+        var date = new Date(inputDate);
+        if (inputDate == null){
+          date = new Date();
+          return
+        }
+        if (!isNaN(date.getTime())) {
+            // Months use 0 index.
+            return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+        }
+      }
+    });
+  </script>
 <script src="{% static "js/bootstrap.js" %}"></script>
 <script src="{% static "js/proton.js" %}"></script>
 {% endblock content %}

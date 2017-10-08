@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extrahead %}
+<link href="{% static "css/jquery-ui.css" %}" rel="stylesheet" />
+<script src="{% static "js/jquery_.min.js" %}"></script>
+<script src="{% static "js/jquery-ui.js" %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
 <link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
 <script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
@@ -54,17 +57,17 @@
 	<div class="main-grid hidden">
 
 		<div class="agile-bottom-grids">
-			<div class="col-md-4 col-xs-12">
+			<div class="col-md-4 col-xs-4">
 				<ul class="bt-list">
 					<li><a href="/production/add" class="hvr-icon-float-away col-24" style="width:300%">Add a Fish Harvest</a></li>
 				</ul>
 			</div>
-			<div class="col-md-4 col-xs-12">
+			<div class="col-md-4 col-xs-4">
 				<ul class="bt-list">
 					<li ><a href="#" class="hvr-icon-forward col-2" style="width:300%" >Single DataSet Charts</a></li>
 				</ul>
 			</div>
-			<div class="col-md-4 col-xs-12">
+			<div class="col-md-4 col-xs-4">
 				<ul class="bt-list">
 					<li ><a href="#" class="hvr-icon-forward col-2" style="width:300%" >Multiple DataSet Charts</a></li>
 				</ul>
@@ -169,21 +172,32 @@
 	$("[name='start_date']").datepicker().datepicker("setDate", new Date());
 	$("[name='end_date']").datepicker().datepicker("setDate", new Date());
 	</script>
-<script>
+	<script>
 
-  $(document).ready(function() {
-    var url = new URL(window.location.href);
-    var c = url.searchParams.get('fish');
-    $('[name=fish]').val( c );
-    var c = url.searchParams.get('order');
-    $('[name=order]').val( c );
-    var c = url.searchParams.get('start_date');
-    $('[name=start_date]').val( c );
-    var c = url.searchParams.get('end_date');
-    $('[name=end_date]').val( c );
+	  $(document).ready(function() {
 
-  });
-</script>
+	    var url = new URL(window.location.href);
+	    var c = url.searchParams.get('fish');
+	    $('[name=fish]').val( c );
+	    var c = url.searchParams.get('order');
+	    $('[name=order]').val( c );
+			var c = url.searchParams.get('start_date');
+ 		 	$('[name=start_date]').val( format(c) );
+ 		 	var c = url.searchParams.get('end_date');
+ 		 	$('[name=end_date]').val( format(c) );
+ 		 	function format(inputDate) {
+ 			 var date = new Date(inputDate);
+ 			 if (inputDate == null){
+ 				 date = new Date();
+ 				 return
+ 			 }
+ 			 if (!isNaN(date.getTime())) {
+ 					 // Months use 0 index.
+ 					 return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+ 			 }
+ 		 }
+	  });
+	</script>
 <script src="{% static "js/bootstrap.js" %}"></script>
 <script src="{% static "js/proton.js" %}"></script>
 {% endblock content %}

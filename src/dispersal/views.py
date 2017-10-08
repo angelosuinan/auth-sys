@@ -15,10 +15,24 @@ class Index(View):
         context = {}
         user = request.user
         invoice_list = Invoice.objects.filter(employee=user)
+
+        customer_sort = request.GET.get('customer', '')
+        if customer_sort:
+            invoice_list = invoice_list.filter(customer__name__icontains=customer_sort)
+
+        order_sort = request.GET.get('order', '')
+        if order_sort:
+            if order_sort == 'desc':
+                invoice_list = invoice_list.order_by('-pk')
+
+        start_date = request.GET.get('start_date', '')
+        end_date = request.GET.get('end_date', '')
+        if start_date and end_date:
+            invoice_list = invoice_list.filter(date_acquired__range=[start_date, end_date])
+
         customers = Customer.objects.all()
         fishes = Fish.objects.all()
         paginator = Paginator(invoice_list, 20)
-
         page = request.GET.get('page')
         if page is None:
             return redirect('/dispersal?page=1')
@@ -36,6 +50,28 @@ class Index(View):
         context['customers'] = customers
         context['fishes'] = fishes
         return render(request, self.template_name, context)
+
+    def post(self, request):
+        context = {}
+        page = request.POST.get('page', '')
+        url = '/dispersal?page=' + page + '&'
+        customer_name = request.POST.get('customer', '')
+        url += 'customer=' + customer_name + '&'
+        order = request.POST.get('order', '')
+        url += 'order=' + order + '&'
+        start_date = request.POST.get('start_date', '')
+        try:
+            start_date = datetime.strptime(start_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+        url += 'start_date=' + start_date + '&'
+        end_date = request.POST.get('end_date', '')
+        try:
+            end_date = datetime.strptime(end_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+        url += 'end_date=' + end_date + '&'
+        return redirect(url)
 
 
 class Add(View):
