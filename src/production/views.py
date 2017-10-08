@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from models import Harvest
 from fish.models import Fish
+from datetime import datetime
 
 
 class Index(View):
@@ -58,8 +59,16 @@ class Index(View):
         order = request.POST.get('order', '')
         url += 'order=' + order + '&'
         start_date = request.POST.get('start_date', '')
+        try:
+            start_date = datetime.strptime(start_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+        except ValueError:
+            pass
         url += 'start_date=' + start_date + '&'
         end_date = request.POST.get('end_date', '')
+        try:
+            end_date = datetime.strptime(end_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+        except ValueError:
+            pass
         url += 'end_date=' + end_date + '&'
         return redirect(url)
 
@@ -83,6 +92,7 @@ class Add(View):
 
         fish = Fish.objects.get(name=fish_name)
 
+        date_listed = datetime.strptime(date_listed, "%m/%d/%Y").strftime("%Y-%m-%d")
         harvest = Harvest()
         harvest.fish = fish
         harvest.quantity = quantity
@@ -91,7 +101,7 @@ class Add(View):
         harvest.employee_attended = employee
         harvest.save()
 
-        return redirect('/production')
+        return redirect('/production/change?id='+str(harvest.id))
 
 
 class Change(View):

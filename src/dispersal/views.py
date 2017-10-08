@@ -4,8 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from models import Customer, Payment, Invoice
 from fish.models import Fish
-
-from fish.models import Fish
+from datetime import datetime
 # Create your views here.
 
 
@@ -80,7 +79,9 @@ class Add(View):
         first_payment.save()
 
         invoice = Invoice()
-        invoice.date_acquired = request.POST.get('date_acquired', '')
+        date_acquired = request.POST.get('date_acquired', '')
+        date_acquired = datetime.strptime(date_acquired, "%m/%d/%Y").strftime("%Y-%m-%d")
+        invoice.date_acquired = date_acquired
         invoice.remarks = request.POST.get('remarks', '')
         invoice.employee = request.user
         invoice.customer = customer

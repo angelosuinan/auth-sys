@@ -1,16 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extrahead %}
-<link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
-<link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
-<script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
-<style>
 
-	label {
-	    color: blue;
-	}
-
-</style>
+<link href="{% static "css/jquery-ui.css" %}" rel="stylesheet" />
+	<script src="{% static "js/jquery_.min.js" %}"></script>
+	<script src="{% static "js/jquery-ui.js" %}"></script>
 {% endblock extrahead %}
 {% block bodyclass %}
 <body class="dashboard-page">
@@ -53,7 +47,7 @@
 
 										<label for="field-5">Date Acquired &nbsp;</label>
 										<div class="form-group">
-											<input type="date" name="date_acquired" id="field-5" required="true" class="form-control" >
+											<input type="text" name="date_acquired" id="field-5" required="true" class="form-control" >
 										</div>
 
 										<label for="field-6">Amount &nbsp;</label>
@@ -110,7 +104,9 @@
 		</div>
 	<script src="{% static 'js/bootstrap.js' %}"></script>
 
-
+	<script>
+	$("[name='date_acquired']").datepicker().datepicker("setDate", new Date());
+	</script>
 	<script type="text/javascript" src="{% static 'js/valida.2.1.6.min.js' %}"></script>
 	<!-- input-forms -->
 		<script type="text/javascript" >

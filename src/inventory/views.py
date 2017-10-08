@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from models import Item
+from datetime import datetime
 
 
 class Index(View):
@@ -59,6 +60,8 @@ class Add(View):
             photo = request.FILES[filename]
         received_by = User.objects.get(username=received_by)
         issued_by = User.objects.get(username=issued_by)
+
+        date_acquired = datetime.strptime(date_acquired, "%m/%d/%Y").strftime("%Y-%m-%d")
         item = Item(
             employee=request.user, name=name, description=description,
             unit=unit, quantity=quantity,
