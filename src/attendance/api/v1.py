@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.conf import settings
 from django.contrib.auth.models import User
-from employee.models import EmployeeProfile
+from employee.models import EmployeeProfile, OjtProfile
 from attendance.models import Attendance
 from django.db import IntegrityError
 import requests
@@ -26,7 +26,9 @@ class Register(APIView):
 
         employee = EmployeeProfile.objects.filter(user=user[0])
         if not employee:
-            return Response({'success': 'False', 'error': 'employee profile DoesNotExist'})
+            employee = OjtProfile.objects.filter(user=user[0])
+        if not employee:
+            return Response({'success': 'False', 'error': 'employee or ojt profile DoesNotExist'})
         employee[0].finger_print = True
         employee[0].save()
         return Response({'success': 'True'})
@@ -42,6 +44,8 @@ class Punch(APIView):
         username = request.data.get('username', '')
         employee = EmployeeProfile.objects.filter(user__username=username)
 
+        if not employee:
+            employee = OjtProfile.objects.filter(user__username=username)
         if not employee:
             return Response({'success': 'False', 'error': 'employee profile DoesNotExist'})
         user = User.objects.filter(username=username)

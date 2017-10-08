@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extrahead %}
+<link href="{% static "css/jquery-ui.css" %}" rel="stylesheet" />
+	<script src="{% static "js/jquery_.min.js" %}"></script>
+	<script src="{% static "js/jquery-ui.js" %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
 <link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
 <script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
@@ -40,17 +43,17 @@
 	<div class="main-grid">
 
 		<div class="agile-bottom-grids">
-			<div class=" col-xs-12 col-md-4 col-xs-4">
+			<div class=" col-xs-4 col-md-4 ">
 				<ul class="bt-list">
 					<li><a href="/dispersal/add" class="hvr-icon-float-away col-24" style="width:300%">Order</a></li>
 				</ul>
 			</div>
-			<div class="col-xs-12 col-md-4 col-xs-4">
+			<div class="col-xs-4 col-md-4 ">
 				<ul class="bt-list">
 					<li ><a href="#" class="hvr-icon-float-away col-23" style="width:300%" >Customer</a></li>
 				</ul>
 			</div>
-			<div class="col-xs-12 col-md-4 col-xs-4">
+			<div class="col-xs-4 col-md-4 ">
 				<ul class="bt-list">
 					<li ><a href="#" class="hvr-icon-float-away col-23" style="width:300%" >Graphs</a></li>
 				</ul>
@@ -66,23 +69,15 @@
 			</div>
 			<div class="sort">
 				<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
-				<div class="form-group col-md-1">
+        {% csrf_token %}
+				<div class="form-group col-md-2 col-xs-6" >
 					<label for="field-1">Order</label>
 					<select name="order"  class="form-control" id="field-1">
 						<option value="asc">Ascending</option>
 						<option value="desc">Descending</option>
 					</select>
 				</div>
-				<div class="form-group col-md-2">
-					<label for="field-2">Fish</label>
-					<select name="fish"  class="form-control" id="field-2">
-						<option value=""></option>
-						{% for fish in fishes %}
-							<option value="{{fish}}">{{fish}}</option>
-						{% endfor %}
-					</select>
-				</div>
-				<div class="form-group col-md-2">
+				<div class="form-group col-md-3 col-xs-6">
 					<label for="field-3">Customer</label>
 					<select name="customer"  class="form-control" id="field-3">
 						<option value=""></option>
@@ -91,21 +86,21 @@
 						{% endfor %}
 					</select>
 				</div>
-				<div class="form-group col-md-5">
-					<div class="form-group col-md-6">
+				<div class="form-group col-md-5 col-xs-12">
+					<div class="form-group col-md-6 col-xs-6">
 						<label for="field-4">Start date</label>
-						<input type="date" name="start_date"  class="form-control" id="field-4">
+						<input type="text" name="start_date"  class="form-control" id="field-4">
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-6 col-xs-6">
 						<label for="field-5">End date</label>
-						<input type="date" name="end_date"  class="form-control" id="field-5">
+						<input type="text" name="end_date"  class="form-control" id="field-5">
 					</div>
 				</div>
-				<div class="form-group col-md-2">
-					<div class="form-group col-md-6">
+				<div class="form-group col-md-2 col-xs-12">
+					<div class="form-group col-md-6 col-xs-6">
 						<input type="submit" name="sub-1" value="Submit" class="btn btn-primary">
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-6 col-xs-6">
 						<input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">
 					</div>
 
@@ -181,7 +176,36 @@
 		</span>
 	</div>
 	</div>
+  <script>
+  $("[name='start_date']").datepicker().datepicker("setDate", new Date());
+  $("[name='end_date']").datepicker().datepicker("setDate", new Date());
+  </script>
+  <script>
 
+    $(document).ready(function() {
+
+      var url = new URL(window.location.href);
+      var c = url.searchParams.get('customer');
+      $('[name=customer]').val( c );
+      var c = url.searchParams.get('order');
+      $('[name=order]').val( c );
+			var c = url.searchParams.get('start_date');
+      $('[name=start_date]').val( format(c) );
+      var c = url.searchParams.get('end_date');
+      $('[name=end_date]').val( format(c) );
+      function format(inputDate) {
+        var date = new Date(inputDate);
+        if (inputDate == null){
+          date = new Date();
+          return;
+        }
+        if (!isNaN(date.getTime())) {
+            // Months use 0 index.
+            return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+        }
+      }
+    });
+  </script>
 <script src="{% static "js/bootstrap.js" %}"></script>
 <script src="{% static "js/proton.js" %}"></script>
 {% endblock content %}

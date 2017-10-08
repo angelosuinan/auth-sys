@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extrahead %}
+<link href="{% static "css/jquery-ui.css" %}" rel="stylesheet" />
+	<script src="{% static "js/jquery_.min.js" %}"></script>
+	<script src="{% static "js/jquery-ui.js" %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static "css/table-style.css" %}"/>
 <link rel="stylesheet" type="text/css" href="{% static "css/basictable.css" %}"/>
 <script type="text/javascript" src="{% static "js/jquery.basictable.min.js" %}"></script>
@@ -38,64 +41,128 @@
 {% block content %}
 
 <div class="main-grid">
-			<div class="agile-grids">
-				<!-- tables -->
-        <div class="count-grid">
-				<div class="table-heading">
-					<h2  style="color:black">My Attendance</h2>
-				</div>
-				<div class="agile-tables">
-					<div class="w3l-table-info">
-
-				  <table id="table-two-axis" class="two-axis">
-					<thead>
-					  <tr>
-						<th>Date</th>
-						<th>time in am</th>
-						<th>time out am</th>
-						<th>time in pm</th>
-						<th>time out pm</th>
-						<th>extra time in</th>
-            <th>extra time out</th>
-            <th>total time</th>
-					  </tr>
-					</thead>
-					<tbody>
-            {% for attendance in attendances %}
-					  <tr>
-						<td data-th="date"><span class="bt-content"><a href="change?id={{attendance.id}}">{{attendance.date}}</a></span></td>
-						<td data-th="time_in_am"><span class="bt-content">{{attendance.time_in_am}}</span></td>
-						<td data-th="time_out_am"><span class="bt-content">{{attendance.time_out_am}}</span></td>
-						<td data-th="time_in_pm"><span class="bt-content">{{attendance.time_in_pm}}</span></td>
-						<td data-th="time_out_pm"><span class="bt-content">{{attendance.time_out_pm}}</span></td>
-						<td data-th="extra_time_in"><span class="bt-content">{{attendance.extra_time_in}}</span></td>
-            <td data-th="extra_time_out"><span class="bt-content">{{attendance.extra_time_out}}</span></td>
-            <td data-th="total_time"><span class="bt-content">{{attendance.total_time}}</span></td>
-					  </tr>
-            {% endfor %}
-					</tbody>
-				  </table>
-				</div>
-				<!-- //tables -->
-			</div>
+	<div class="agile-grids">
+		<!-- tables -->
+    <div class="count-grid">
+		<div class="table-heading">
+			<h2  style="color:black">My Attendance</h2>
 		</div>
-    <div class="pagination">
-      <span class="step-links">
-          {% if attendances.has_previous %}
-              <a href="?page={{ attendances.previous_page_number }}">previous</a>
-          {% endif %}
-
-          <span class="current">
-              Page {{ attendances.number }} of {{ attendances.paginator.num_pages }}.
-          </span>
-
-          {% if attendances.has_next %}
-              <a href="?page={{ attendances.next_page_number }}">next</a>
-          {% endif %}
-      </span>
+    <div class="sort">
+      <form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
+      {% csrf_token %}
+      <input type="hidden" name="page"  class="form-control" value="{{harvests.number}}">
+      <div class="form-group col-md-3 col-xs-6">
+        <label for="field-1">Order</label>
+        <select name="order" class="form-control" id="field-1">
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </div>
+      <div class="form-group col-md-5 col-xs-12">
+        <div class="form-group col-md-6 col-xs-6">
+          <label for="field-4">Start date</label>
+          <input type="text" name="start_date"  class="form-control" id="field-4">
+        </div>
+        <div class="form-group col-md-6 col-xs-6">
+          <label for="field-5">End date</label>
+          <input type="text" name="end_date"  class="form-control" id="field-5">
+        </div>
+      </div>
+      <div class="form-group col-md-2 col-xs-12">
+        <div class="form-group col-md-6 col-xs-6">
+          <label for="field-4"></label>
+          <input type="submit" name="sub-1" value="Submit" class="btn btn-primary">
+        </div>
+        <div class="form-group col-md-6 col-xs-6">
+          <label for="field-5"></label>
+          <input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">
+        </div>
+        </select>
+      </div>
+    </form>
     </div>
-    </div>
+		<div class="agile-tables">
+			<div class="w3l-table-info">
+
+		  <table id="table-two-axis" class="two-axis">
+			<thead>
+			  <tr>
+				<th>Date</th>
+				<th>time in am</th>
+				<th>time out am</th>
+				<th>time in pm</th>
+				<th>time out pm</th>
+				<th>extra time in</th>
+        <th>extra time out</th>
+        <th>total time</th>
+			  </tr>
+			</thead>
+			<tbody>
+        {% for attendance in attendances %}
+			  <tr>
+				<td data-th="date"><span class="bt-content"><a href="change?id={{attendance.id}}">{{attendance.date}}</a></span></td>
+				<td data-th="time_in_am"><span class="bt-content">{{attendance.time_in_am}}</span></td>
+				<td data-th="time_out_am"><span class="bt-content">{{attendance.time_out_am}}</span></td>
+				<td data-th="time_in_pm"><span class="bt-content">{{attendance.time_in_pm}}</span></td>
+				<td data-th="time_out_pm"><span class="bt-content">{{attendance.time_out_pm}}</span></td>
+				<td data-th="extra_time_in"><span class="bt-content">{{attendance.extra_time_in}}</span></td>
+        <td data-th="extra_time_out"><span class="bt-content">{{attendance.extra_time_out}}</span></td>
+        <td data-th="total_time"><span class="bt-content">{{attendance.total_time}}</span></td>
+			  </tr>
+        {% endfor %}
+			</tbody>
+		  </table>
+		</div>
+		<!-- //tables -->
+	</div>
+  </div>
+  <div class="pagination">
+    <span class="step-links">
+        {% if attendances.has_previous %}
+            <a href="?page={{ attendances.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ attendances.number }} of {{ attendances.paginator.num_pages }}.
+        </span>
+
+        {% if attendances.has_next %}
+            <a href="?page={{ attendances.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+  </div>
+  </div>
 </div>
+<script>
+$("[name='start_date']").datepicker().datepicker("setDate", new Date());
+$("[name='end_date']").datepicker().datepicker("setDate", new Date());
+</script>
+<script>
+
+  $(document).ready(function() {
+
+    var url = new URL(window.location.href);
+    var c = url.searchParams.get('fish');
+    $('[name=fish]').val( c );
+    var c = url.searchParams.get('order');
+    $('[name=order]').val( c );
+		var c = url.searchParams.get('start_date');
+		$('[name=start_date]').val( format(c) );
+		var c = url.searchParams.get('end_date');
+		$('[name=end_date]').val( format(c) );
+		function format(inputDate) {
+			var date = new Date(inputDate);
+			if (inputDate == null){
+				date = new Date();
+				return;
+			}
+			if (!isNaN(date.getTime())) {
+					// Months use 0 index.
+					return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+			}
+		}
+  });
+</script>
 <script src="{% static "js/bootstrap.js" %}"></script>
 <script src="{% static "js/proton.js" %}"></script>
 {% endblock content %}
