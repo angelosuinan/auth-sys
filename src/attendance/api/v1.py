@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from employee.models import EmployeeProfile, OjtProfile
 from attendance.models import Attendance
 from django.db import IntegrityError
+from django.contrib.auth import authenticate
 import requests
 import datetime
 
@@ -20,15 +21,22 @@ class Register(APIView):
 
     def post(self, request,):
         username = request.data.get('username', '')
-        user = User.objects.filter(username=username)
-        if not user:
-            return Response({'success': 'False', 'error': 'username DoesNotExist'})
+        password = request.data.get('password', '')
 
+        if not (username or password):
+            return Response({'success': 'false', 'message': 'incomplete inputs'})
+
+        user = authenticate(username='admin', password='admin1234')
+
+        if not user:
+            return Response({'success': 'false'})
+
+        user = User.objects.filter(username=username)
         employee = EmployeeProfile.objects.filter(user=user[0])
         if not employee:
             employee = OjtProfile.objects.filter(user=user[0])
         if not employee:
-            return Response({'success': 'False', 'error': 'employee or ojt profile DoesNotExist'})
+            return Response({'success': 'False', 'message': 'employee or ojt profile DoesNotExist'})
         employee[0].finger_print = True
         employee[0].save()
         return Response({'success': 'True'})

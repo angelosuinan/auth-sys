@@ -56,7 +56,8 @@ class InvoiceResource(resources.ModelResource):
     def dehydrate_Free(self, invoice):
         total_free = 0
         for payment in invoice.orders.all():
-            total_free += payment.free
+            if payment.free:
+                total_free += payment.free
         return total_free
 
     def dehydrate_Nature(self, invoice):
