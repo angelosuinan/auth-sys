@@ -32,8 +32,9 @@ class Login(View):
         if user is not None:
             login(request, user)
             url = request.GET.get('next', '')
-            print url
-            return redirect(url)
+            if not url:
+                url = "/"
+                return redirect(url)
         return redirect('/login')
 
 
@@ -48,6 +49,7 @@ class Faq(View):
 class Logout(View):
     template_name = 'home/logout.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request,):
         logout(request)
         return redirect('/login')

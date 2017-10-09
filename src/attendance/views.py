@@ -3,6 +3,8 @@ from django.views.generic import View
 from django.contrib.auth import login, authenticate, logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from models import Attendance
 from datetime import datetime
 # Create your views here.
@@ -11,6 +13,7 @@ from datetime import datetime
 class Index(View):
     template_name = 'attendance/index.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request,):
         user = request.user
         attendance_list = Attendance.objects.filter(employee=user)
@@ -43,6 +46,7 @@ class Index(View):
         context = {'attendances':attendances}
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         context = {}
         page = request.POST.get('page', '')
@@ -67,6 +71,7 @@ class Index(View):
 class Change(View):
     template_name = 'attendance/change.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request,):
         context = {}
         key = request.GET.get('id')
@@ -80,6 +85,7 @@ class Change(View):
         context['attendance'] = attendance
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request,):
         context = {}
         key = request.GET.get('id')

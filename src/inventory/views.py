@@ -44,6 +44,7 @@ class Index(View):
         context = {'items': items}
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         context = {}
         page = request.POST.get('page', '')
@@ -68,11 +69,13 @@ class Index(View):
 class Add(View):
     template_name = 'inventory/add.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request,):
         context = {}
         context['employees'] = self.get_employees(request)
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request,):
         context = {}
         context['employees'] = self.get_employees(request)
@@ -125,10 +128,12 @@ class Change(View):
         context['employees'] = self.get_employees(request)
         return context
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         context = self.process(request)
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         key = request.GET.get('id')
         remarks = request.POST.get('remarks', '')

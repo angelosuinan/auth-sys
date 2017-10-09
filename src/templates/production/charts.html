@@ -1,56 +1,245 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block extrahead %}
-<link href="{% static "css/style_grid.css" %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static "css/jquery-ui.css" %}" rel="stylesheet" />
+<script src="{% static "js/jquery_.min.js" %}"></script>
+<script src="{% static "js/jquery-ui.js" %}"></script>
+<!-- charts -->
+<script src="{% static "js/raphael-min.js" %}"></script>
+<script src="{% static "js/morris.js" %}"></script>
+<link rel="stylesheet" href="{% static "css/morris.css" %}">
+<!-- //charts -->
+<style>
+svg {
+	align-content: center;
+	padding-left: 15px;
+
+}
+</style>
 {% endblock extrahead %}
 {% block bodyclass %}
-<body class="dashboard-page">
+<body class="dashboard-page ">
 {% endblock bodyclass %}
 {% block content %}
 
-	<div class="main-grid">
-
-		<div class="social grid">
-			<div class="clearfix"></div>
-			<!-- //w3_agileits_top_nav-->
-			<!-- /inner_content-->
-					<div class="inner_content">
-							<!-- /inner_content_w3_agile_info-->
-						<div class="inner_content_w3_agile_info">
-						<!-- /agile_top_w3_grids-->
-							 <div class="agile_top_w3_grids">
-											insert here
-							 </div>
-						 <!-- //agile_top_w3_grids-->
-					 </div>
-				 </div>
-		</div>
-
+	<div class="main-grid hidden">
+		<div class="banner">
+	    <h2>
+	      <a href="/">Home</a>
+	      <i class="fa fa-angle-right"></i>
+	      <span><a href="/production">Fish Production</a></span>
+	      <i class="fa fa-angle-right"></i>
+	      <span>Single DataSet Chart</span>
+	    </h2>
+	  </div>
+	  <br>
+		<div class="clearfix"></div>
 		<div class="agile-grids">
-			<div class="col-md-12 ">
-				<!-- area-chart -->
-				<div class="area-grids">
-
-
-				</div>
-				<!-- //area-chart -->
+			<div class="col-md-12 count">
+			<div class="count-grid">
+			<div class="table-heading">
+				<h2  style="color:black">Production Charts</h2>
 			</div>
-			<div class="col-md-12 ">
-				<!-- updating-data -->
-				<div class="agile-Updating-grids">
-					<div class="area-grids-heading">
-						<h3>Updating data</h3>
+			<div class="sort">
+				<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
+        {% csrf_token %}
+        <input type="hidden" name="page"  class="form-control" value="{{harvests.number}}">
+				<div class="form-group col-md-3 col-xs-6">
+					<label for="field-1">Order</label>
+					<select name="order" class="form-control" id="field-1">
+						<option value="asc">Ascending</option>
+						<option value="desc">Descending</option>
+					</select>
+				</div>
+				<div class="form-group col-md-2 col-xs-6">
+					<label for="field-2">Fish</label>
+					<select name="fish"  class="form-control" id="field-2">
+						<option value=""></option>
+						{% for fish in fishes %}
+							<option value="{{fish}}">{{fish}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group col-md-5 col-xs-12">
+					<div class="form-group col-md-6 col-xs-6">
+						<label for="field-4">Start date</label>
+						<input type="text" name="start_date"  class="form-control" id="field-4">
 					</div>
-					<!-- instert-->
+					<div class="form-group col-md-6 col-xs-6">
+						<label for="field-5">End date</label>
+						<input type="text" name="end_date"  class="form-control" id="field-5">
+					</div>
 				</div>
-				<!-- //updating-data -->
+				<div class="form-group col-md-2 col-xs-12">
+					<div class="form-group col-md-6 col-xs-4">
+						<label for="field-4"></label>
+						<input type="submit" name="sub-1" value="Generate" class="btn btn-primary">
+					</div>
+					<div class="form-group col-md-6 col-xs-4">
+
+						<input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">
+					</div>
+					</select>
+				</div>
+			</form>
 			</div>
-			<div class="clearfix"> </div>
+
+			<div class="w3l-chart1" >
+				<h3>Max is 100 query</h3>
+				<div id="graph2"></div>
+			</div>
+			<!-- //tables -->
 		</div>
-
+		</div>
 	</div>
+	<div class="pagination">
+		<span class="step-links">
+				{% if harvests.has_previous %}
+						<a href="?page={{ harvests.previous_page_number }}">previous</a>
+				{% endif %}
 
+				<span class="current">
+						Page {{ harvests.number }} of {{ harvests.paginator.num_pages }}.
+				</span>
+
+				{% if harvests.has_next %}
+						<a href="?page={{ harvests.next_page_number }}">next</a>
+				{% endif %}
+		</span>
+	</div>
+	</div>
+	<script>
+	$("[name='start_date']").datepicker().datepicker("setDate", new Date());
+	$("[name='end_date']").datepicker().datepicker("setDate", new Date());
+	</script>
+	<script>
+	$('svg').attr('name', 'margin-left: 30px;');
+	 $(document).ready(function() {
+		 $('svg').attr('name', 'margin-left: 30px;');
+	 });
+	  $(document).ready(function() {
+
+	    var url = new URL(window.location.href);
+	    var c = url.searchParams.get('fish');
+	    $('[name=fish]').val( c );
+	    var c = url.searchParams.get('order');
+	    $('[name=order]').val( c );
+			var c = url.searchParams.get('start_date');
+ 		 	$('[name=start_date]').val( format(c) );
+ 		 	var c = url.searchParams.get('end_date');
+ 		 	$('[name=end_date]').val( format(c) );
+ 		 	function format(inputDate) {
+ 			 var date = new Date(inputDate);
+ 			 if (inputDate == null){
+ 				 date = new Date();
+ 				 return
+ 			 }
+ 			 if (!isNaN(date.getTime())) {
+ 					 // Months use 0 index.
+ 					 return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+ 			 }
+ 		 }
+	  });
+	</script>
+	<script>
+		$(function(){
+			$('#graph').graphify({
+				//options: true,
+				start: 'combo',
+				obj: {
+					id: 'ggg',
+					width: 620,
+					height: 375,
+					xGrid: false,
+					legend: true,
+					title: 'Linux vs Mac',
+					points: [
+						[7, 26, 33, 74, 12, 49, 33],
+						[32, 46, 75, 38, 62, 20, 52]
+					],
+					pointRadius: 3,
+					colors: ['blue', 'red'],
+					xDist: 70,
+					dataNames: ['Linux', 'Mac'],
+					xName: 'Day',
+					tooltipWidth: 15,
+					animations: true,
+					pointAnimation: true,
+					averagePointRadius: 10,
+					design: {
+						tooltipColor: '#fff',
+						gridColor: 'grey',
+						tooltipBoxColor: 'green',
+						averageLineColor: 'green',
+						pointColor: 'green',
+						lineStrokeColor: 'grey',
+					}
+				}
+			});
+			$('#graph2').graphify({
+				start: 'area',
+				obj: {
+					id: 'lol',
+					legend: false,
+					showPoints: true,
+					width: 775,
+					legendX: 450,
+					pieSize: 200,
+					shadow: true,
+					height: 400,
+					animations: true,
+					x:[{% for harvest in harvests %}
+						"{{harvest.date_listed}}",
+						{% endfor %}],
+					points:[{% for harvest in harvests %}
+								{{harvest.quantity}},
+								{% endfor %}],
+					//x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2005],
+				//	points: [17, 33, 64, 22, 87, 45, 38, 130],
+					xDist: 90,
+					scale: 160,
+					yDist: 35,
+					grid: false,
+					xName: 'Year',
+					dataNames: ['Amount'],
+					design: {
+						lineColor: 'red',
+						tooltipFontSize: '20px',
+						pointColor: 'red',
+						barColor: 'blue',
+						areaColor: 'orange'
+					}
+				}
+			});
+			var bar = new GraphBar({
+				attachTo: '#graph3',
+				special: 'combo',
+				height: 600,
+				width: 620,
+				yDist: 50,
+				xDist: 70,
+				showPoints: false,
+				xGrid: false,
+					legend: true,
+					points: [
+						[17, 21, 51, 74, 12, 49, 33],
+						[32, 15, 75, 20, 45, 90, 52]
+					],
+					colors: ['red', 'orange'],
+					dataNames: ['Hot', 'Warm'],
+					xName: 'Day',
+					tooltipWidth: 15,
+					design: {
+						tooltipColor: '#fff',
+						gridColor: 'black',
+						tooltipBoxColor: 'green',
+						averageLineColor: 'blue',
+					}
+			});
+			bar.init();
+		});
+	</script>
 <script src="{% static "js/bootstrap.js" %}"></script>
 <script src="{% static "js/proton.js" %}"></script>
-<script src='https://openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '1683319',appid: '9a097bc5403e7ab3dfeaefcf7081130f',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "https://openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator-2.0.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+<script src="{% static "js/graph.js" %}"></script>
 {% endblock content %}

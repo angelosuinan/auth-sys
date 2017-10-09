@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from models import EmployeeProfile, OjtProfile
 from annoying.functions import get_object_or_None
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from itertools import chain
 
 # Create your views here.
@@ -12,6 +14,7 @@ from itertools import chain
 class Index(View):
     template_name = 'employee/index.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         context = {}
 
@@ -25,6 +28,7 @@ class Index(View):
 class Profile(View):
     template_name = 'employee/profile.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         context = {}
         pk = request.GET.get('q')
@@ -47,6 +51,7 @@ class Profile(View):
 class Change(View):
     template_name = 'employee/change.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         context = {}
         pk = request.GET.get('q')
@@ -70,6 +75,7 @@ class Change(View):
 
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         pk = request.GET.get('q')
         user = User.objects.get(pk=pk)
@@ -100,6 +106,7 @@ class Change(View):
 class Password(View):
     template_name = 'employee/password.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         context = {}
         pk = request.GET.get('q')
@@ -115,6 +122,7 @@ class Password(View):
 
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         context = {}
         current_password = request.POST.get('current_password', '')
@@ -124,7 +132,5 @@ class Password(View):
         if user.check_password(current_password):
             user.set_password(new_password)
         else:
-            print 'error'
             return render(request, self.template_name, context)
-        print 'success'
         return render(request, self.template_name, context)

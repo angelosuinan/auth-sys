@@ -1,5 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import View
@@ -11,6 +13,7 @@ from datetime import datetime
 class Index(View):
     template_name = 'production/index.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         context = {}
         user = request.user
@@ -50,6 +53,7 @@ class Index(View):
         context['fishes'] = fishes
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         context = {}
         page = request.POST.get('page', '')
@@ -76,11 +80,13 @@ class Index(View):
 class Add(View):
     template_name = 'production/add.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         context = {}
         context['fishes'] = Fish.objects.all()
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request,):
         context = {}
 
@@ -107,6 +113,7 @@ class Add(View):
 class Change(View):
     template_name = 'production/change.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         context = {}
         key = request.GET.get('id')
@@ -118,6 +125,7 @@ class Change(View):
         context['harvest'] = harvest
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         context = {}
         key = request.GET.get('id')
@@ -134,10 +142,15 @@ class Change(View):
 class Chart(View):
     template_name = 'production/charts.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         context = {}
+
+        harvests = Harvest.objects.all()
+        context['harvests'] = harvests.filter().order_by('-pk')
         return render(request, self.template_name, context)
 
+    @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         context = {}
         return render(request, self.template_name, context)

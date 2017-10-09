@@ -41,7 +41,14 @@
 {% block content %}
 
 	<div class="main-grid">
-
+		<div class="banner">
+			<h2>
+				<a href="/">Home</a>
+				<i class="fa fa-angle-right"></i>
+				<span>Fish Dispersal</span>
+			</h2>
+		</div>
+		<br>
 		<div class="agile-bottom-grids">
 			<div class=" col-xs-4 col-md-4 ">
 				<ul class="bt-list">
@@ -156,25 +163,28 @@
 				</table>
 			</div>
 			<!-- //tables -->
+			<div class="pagination">
+				<span class="step-links">
+						{% if invoices.has_previous %}
+								<a href="?page={{ invoices.previous_page_number }}">previous</a>
+						{% endif %}
+
+						<span class="current">
+								Page {{ invoices.number }} of {{ invoices.paginator.num_pages }}.
+						</span>
+
+						{% if invoices.has_next %}
+								<a href="?page={{ attendances.next_page_number }}">next</a>
+						{% endif %}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						{{ invoices|length}} items
+				</span>
+			</div>
 		  </div>
       </div>
     </div>
 	</div>
-	<div class="pagination">
-		<span class="step-links">
-				{% if invoices.has_previous %}
-						<a href="?page={{ invoices.previous_page_number }}">previous</a>
-				{% endif %}
 
-				<span class="current">
-						Page {{ invoices.number }} of {{ invoices.paginator.num_pages }}.
-				</span>
-
-				{% if invoices.has_next %}
-						<a href="?page={{ attendances.next_page_number }}">next</a>
-				{% endif %}
-		</span>
-	</div>
 	</div>
   <script>
   $("[name='start_date']").datepicker().datepicker("setDate", new Date());
