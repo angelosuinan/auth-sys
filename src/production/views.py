@@ -129,3 +129,15 @@ class Change(View):
 
         context['harvest'] = harvest
         return redirect('/production/change?id='+key)
+
+
+class Chart(View):
+    template_name = 'production/charts.html'
+
+    def get(self, request):
+        context = {}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        context = {}
+        return render(request, self.template_name, context)

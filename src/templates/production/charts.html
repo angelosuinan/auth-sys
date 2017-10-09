@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extrahead %}
+<link href="{% static "css/style_grid.css" %}" rel="stylesheet" type="text/css" media="all" />
+{% endblock extrahead %}
+{% block bodyclass %}
+<body class="dashboard-page">
+{% endblock bodyclass %}
+{% block content %}
+
+	<div class="main-grid">
+
+		<div class="social grid">
+			<div class="clearfix"></div>
+			<!-- //w3_agileits_top_nav-->
+			<!-- /inner_content-->
+					<div class="inner_content">
+							<!-- /inner_content_w3_agile_info-->
+						<div class="inner_content_w3_agile_info">
+						<!-- /agile_top_w3_grids-->
+							 <div class="agile_top_w3_grids">
+											insert here
+							 </div>
+						 <!-- //agile_top_w3_grids-->
+					 </div>
+				 </div>
+		</div>
+
+		<div class="agile-grids">
+			<div class="col-md-12 ">
+				<!-- area-chart -->
+				<div class="area-grids">
+
+
+				</div>
+				<!-- //area-chart -->
+			</div>
+			<div class="col-md-12 ">
+				<!-- updating-data -->
+				<div class="agile-Updating-grids">
+					<div class="area-grids-heading">
+						<h3>Updating data</h3>
+					</div>
+					<!-- instert-->
+				</div>
+				<!-- //updating-data -->
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+
+	</div>
+
+<script src="{% static "js/bootstrap.js" %}"></script>
+<script src="{% static "js/proton.js" %}"></script>
+<script src='https://openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '1683319',appid: '9a097bc5403e7ab3dfeaefcf7081130f',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "https://openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator-2.0.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
+{% endblock content %}
