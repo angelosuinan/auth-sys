@@ -54,8 +54,14 @@
 {% endblock bodyclass %}
 {% block content %}
 
-	<div class="main-grid hidden">
-
+	<div class="main-grid">
+		<div class="banner">
+			<h2>
+				<a href="/">Home</a>
+				<i class="fa fa-angle-right"></i>
+				<span>Fish Production</span
+			</h2>
+		</div>
 		<div class="agile-bottom-grids">
 			<div class="col-md-4 col-xs-4">
 				<ul class="bt-list">
@@ -147,26 +153,29 @@
 				</tbody>
 				</table>
 			</div>
+			<div class="pagination">
+				<span class="step-links">
+						{% if harvests.has_previous %}
+								<a href="?page={{ harvests.previous_page_number }}">previous</a>
+						{% endif %}
+
+						<span class="current">
+								Page {{ harvests.number }} of {{ harvests.paginator.num_pages }}.
+						</span>
+
+						{% if harvests.has_next %}
+								<a href="?page={{ harvests.next_page_number }}">next</a>
+						{% endif %}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						{{ harvests|length}} items
+				</span>
+			</div>
 		</div>
 			<!-- //tables -->
 		</div>
 		</div>
 	</div>
-	<div class="pagination">
-		<span class="step-links">
-				{% if harvests.has_previous %}
-						<a href="?page={{ harvests.previous_page_number }}">previous</a>
-				{% endif %}
 
-				<span class="current">
-						Page {{ harvests.number }} of {{ harvests.paginator.num_pages }}.
-				</span>
-
-				{% if harvests.has_next %}
-						<a href="?page={{ harvests.next_page_number }}">next</a>
-				{% endif %}
-		</span>
-	</div>
 	</div>
 	<script>
 	$("[name='start_date']").datepicker().datepicker("setDate", new Date());

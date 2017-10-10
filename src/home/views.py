@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
-
+from production.models import Harvest
 
 # Create your views here.
 
@@ -13,8 +13,10 @@ class Index(View):
 
     @method_decorator(login_required(login_url='/login'), )
     def get(self, request,):
-        name = request.user
         context = {}
+
+        harvests = Harvest.objects.all()
+        context['harvests'] = harvests.filter().order_by('-pk')
         return render(request, self.template_name, context)
 
 
@@ -32,8 +34,9 @@ class Login(View):
         if user is not None:
             login(request, user)
             url = request.GET.get('next', '')
-            print url
-            return redirect(url)
+            if not url:
+                url = "/"
+                return redirect(url)
         return redirect('/login')
 
 
@@ -48,6 +51,7 @@ class Faq(View):
 class Logout(View):
     template_name = 'home/logout.html'
 
+    @method_decorator(login_required(login_url='/login'), )
     def get(self, request,):
         logout(request)
         return redirect('/login')
