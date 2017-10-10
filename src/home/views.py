@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
-
+from production.models import Harvest
 
 # Create your views here.
 
@@ -13,8 +13,10 @@ class Index(View):
 
     @method_decorator(login_required(login_url='/login'), )
     def get(self, request,):
-        name = request.user
         context = {}
+
+        harvests = Harvest.objects.all()
+        context['harvests'] = harvests.filter().order_by('-pk')
         return render(request, self.template_name, context)
 
 

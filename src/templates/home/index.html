@@ -2,6 +2,15 @@
 {% load static %}
 {% block extrahead %}
 <link href="{% static "css/style_grid.css" %}" rel="stylesheet" type="text/css" media="all" />
+<!-- charts -->
+<script src="{% static "js/raphael-min.js" %}"></script>
+<script src="{% static "js/morris.js" %}"></script>
+<link rel="stylesheet" href="{% static "css/morris.css" %}">
+<link href="{% static "css/jquery-ui.css" %}" rel="stylesheet" />
+<script src="{% static "js/jquery_.min.js" %}"></script>
+<script src="{% static "js/jquery-ui.js" %}"></script>
+<!-- charts -->
+<!-- //charts -->
 {% endblock extrahead %}
 {% block bodyclass %}
 <body class="dashboard-page">
@@ -71,7 +80,6 @@
 				<!-- area-chart -->
 				<div class="area-grids">
 
-
 				</div>
 				<!-- //area-chart -->
 			</div>
@@ -80,6 +88,7 @@
 				<div class="agile-Updating-grids">
 					<div class="area-grids-heading">
 						<h3>Updating data</h3>
+						<div id="graph"></div>
 					</div>
 					<!-- instert-->
 				</div>
@@ -153,8 +162,137 @@
 		<p>© 2016 Colored . All Rights Reserved . Design by <a href="http://w3layouts.com/">W3layouts</a></p>
 	</div>
 	<!-- //footer -->
+	<script>
+	$('svg').attr('name', 'margin-left: 30px;');
+	 $(document).ready(function() {
+		 $('svg').attr('name', 'margin-left: 30px;');
+	 });
+		$(document).ready(function() {
 
-<script src="{% static "js/bootstrap.js" %}"></script>
-<script src="{% static "js/proton.js" %}"></script>
+			var url = new URL(window.location.href);
+			var c = url.searchParams.get('fish');
+			$('[name=fish]').val( c );
+			var c = url.searchParams.get('order');
+			$('[name=order]').val( c );
+			var c = url.searchParams.get('start_date');
+			$('[name=start_date]').val( format(c) );
+			var c = url.searchParams.get('end_date');
+			$('[name=end_date]').val( format(c) );
+			function format(inputDate) {
+			 var date = new Date(inputDate);
+			 if (inputDate == null){
+				 date = new Date();
+				 return
+			 }
+			 if (!isNaN(date.getTime())) {
+					 // Months use 0 index.
+					 return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+			 }
+		 }
+		});
+	</script>
+	<script>
+		$(function(){
+			$('#graph').graphify({
+				//options: true,
+
+				obj: {
+					id: 'ggg',
+					width: 620,
+					height: 375,
+					xGrid: false,
+					legend: true,
+					title: 'Linux vs Mac',
+					points: [
+						[7, 26, 33, 74, 12, 49, 33, 74, 12, 49, 33],
+						[32, 46, 75, 38, 62, 20, 52, 74, 12, 49, 33]
+						[4, 12, 49, 33, 38, 62, 20, 52, 74, 12, 49, ],
+					],
+					pointRadius: 3,
+					colors: ['blue', 'red'],
+					xDist: 70,
+					dataNames: ['Linux', 'Mac' , 'Windows'],
+					xName: 'Day',
+					tooltipWidth: 15,
+					animations: true,
+					pointAnimation: true,
+					averagePointRadius: 10,
+					design: {
+						tooltipColor: '#fff',
+						gridColor: 'grey',
+						tooltipBoxColor: 'green',
+						averageLineColor: 'green',
+						pointColor: 'green',
+						lineStrokeColor: 'grey',
+					}
+				}
+			});
+			$('#graph2').graphify({
+				start: 'area',
+				obj: {
+					id: 'lol',
+					legend: false,
+					showPoints: true,
+					width: 775,
+					legendX: 450,
+					pieSize: 200,
+					shadow: true,
+					height: 400,
+					animations: true,
+					x:[{% for harvest in harvests %}
+						<a href="/">"{{harvest.date_listed}}"</a>,
+						{% endfor %}],
+					points:[{% for harvest in harvests %}
+								{{harvest.quantity}},
+								{% endfor %}],
+					//x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2005],
+				//	points: [17, 33, 64, 22, 87, 45, 38, 130],
+					xDist: 90,
+					scale: 160,
+					yDist: 35,
+					grid: false,
+					xName: 'Year',
+					dataNames: ['Amount'],
+					design: {
+						lineColor: 'red',
+						tooltipFontSize: '20px',
+						pointColor: 'red',
+						barColor: 'blue',
+						areaColor: 'orange'
+					}
+				}
+			});
+			var bar = new GraphBar({
+				attachTo: '#graph3',
+				special: 'combo',
+				height: 600,
+				width: 620,
+				yDist: 50,
+				xDist: 70,
+				showPoints: false,
+				xGrid: false,
+					legend: true,
+					points: [
+						[17, 21, 51, 74, 12, 49, 33],
+						[32, 15, 75, 20, 45, 90, 52]
+					],
+					colors: ['red', 'orange'],
+					dataNames: ['Hot', 'Warm'],
+					xName: 'Day',
+					tooltipWidth: 15,
+					design: {
+						tooltipColor: '#fff',
+						gridColor: 'black',
+						tooltipBoxColor: 'green',
+						averageLineColor: 'blue',
+					}
+			});
+			bar.init();
+		});
+	</script>
+	<script src="{% static "js/bootstrap.js" %}"></script>
+	<script src="{% static "js/proton.js" %}"></script>
+	<script src="{% static "js/graph.js" %}"></script>
+
 <script src='https://openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 11,cityid: '1683319',appid: '9a097bc5403e7ab3dfeaefcf7081130f',units: 'metric',containerid: 'openweathermap-widget-11',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "https://openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator-2.0.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>
 {% endblock content %}

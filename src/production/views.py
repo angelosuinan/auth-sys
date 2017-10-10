@@ -8,6 +8,8 @@ from django.views.generic import View
 from models import Harvest
 from fish.models import Fish
 from datetime import datetime
+from django.http import HttpResponse
+import csv
 
 
 class Index(View):
@@ -145,7 +147,8 @@ class Chart(View):
     @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         context = {}
-
+        fishes = Fish.objects.all()
+        context['fishes'] = fishes
         harvests = Harvest.objects.all()
         context['harvests'] = harvests.filter().order_by('-pk')
         return render(request, self.template_name, context)
@@ -153,4 +156,5 @@ class Chart(View):
     @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         context = {}
-        return render(request, self.template_name, context)
+
+        return response

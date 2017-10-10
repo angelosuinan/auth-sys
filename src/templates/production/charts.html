@@ -11,8 +11,8 @@
 <!-- //charts -->
 <style>
 svg {
-	align-content: center;
-	padding-left: 15px;
+
+	padding-left: -1015px;
 
 }
 </style>
@@ -47,48 +47,56 @@ svg {
 				<div class="form-group col-md-3 col-xs-6">
 					<label for="field-1">Order</label>
 					<select name="order" class="form-control" id="field-1">
-						<option value="asc">Ascending</option>
-						<option value="desc">Descending</option>
+						<option value="monthly">Monthtly</option>
+						<option value="quarterly">Quarterly</option>
 					</select>
 				</div>
-				<div class="form-group col-md-2 col-xs-6">
+				<div class="form-group col-md-3 col-xs-6">
+					<label for="field-1">Year</label>
+					<input type="text" name="year"  class="form-control" maxlength="4">
+				</div>
+				<div class="form-group col-md-3 col-xs-6">
 					<label for="field-2">Fish</label>
-					<select name="fish"  class="form-control" id="field-2">
+					<select name="fish"  class="form-control" id="field-2" multiple>
 						<option value=""></option>
 						{% for fish in fishes %}
 							<option value="{{fish}}">{{fish}}</option>
 						{% endfor %}
+						<option value="all">all</option>
 					</select>
 				</div>
-				<div class="form-group col-md-5 col-xs-12">
-					<div class="form-group col-md-6 col-xs-6">
-						<label for="field-4">Start date</label>
-						<input type="text" name="start_date"  class="form-control" id="field-4">
-					</div>
-					<div class="form-group col-md-6 col-xs-6">
-						<label for="field-5">End date</label>
-						<input type="text" name="end_date"  class="form-control" id="field-5">
-					</div>
-				</div>
-				<div class="form-group col-md-2 col-xs-12">
+
+				<div class="form-group col-md-3 col-xs-12">
+					<label> </label>
 					<div class="form-group col-md-6 col-xs-4">
 						<label for="field-4"></label>
-						<input type="submit" name="sub-1" value="Generate" class="btn btn-primary">
+						<input type="submit" name="sub-1" value="Submit" class="btn btn-primary">
 					</div>
 					<div class="form-group col-md-6 col-xs-4">
-
+						<label> </label>
 						<input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">
 					</div>
 					</select>
 				</div>
 			</form>
 			</div>
-
-			<div class="w3l-chart1" >
-				<h3>Max is 100 query</h3>
-				<div id="graph2"></div>
+			<div class="clearfix" ></div>
+			<div class="w3l-chart" style="padding-left:-1000px;">
+				<h3>.</h3>
+				<div id="graph" ></div>
+				<br>
+				<div class="clearfix"></div>
+				<div class="form-group ">
+					<label> </label>
+					<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
+	        {% csrf_token %}
+					<input type="submit" name="res-1" id="res-1" value="Export to CSV" class="btn btn-primary">
+					</form>
+				</div>
 			</div>
 			<!-- //tables -->
+
+
 		</div>
 		</div>
 	</div>
@@ -148,21 +156,28 @@ svg {
 				start: 'combo',
 				obj: {
 					id: 'ggg',
-					width: 620,
+					width: 1000,
 					height: 375,
 					xGrid: false,
 					legend: true,
-					title: 'Linux vs Mac',
+					//points:[{{for}}]
 					points: [
-						[7, 26, 33, 74, 12, 49, 33],
-						[32, 46, 75, 38, 62, 20, 52]
+						[32, 46, 75, 38, 62, 20, 52, 74, 12, 49, 3, 43],
+						[32, 46, 75, 38, 62, 20, 52, 74, 12, 49, 33, 45],
+						[32, 46, 75, 38, 62, 20, 52, 74, 12, 49, 55, 20],
+						[32, 46, 75, 38, 62, 20, 52, 74, 12, 49, 55, 45],
+						[32, 46, 75, 38, 62, 20, 52, 74, 12, 49, 55, 45],
 					],
+					x: ["jan", "jan","jan","jan","jan","jan","jan","jan","jan","jan","jan","jan",],
 					pointRadius: 3,
-					colors: ['blue', 'red'],
+					// colors:[{{for}}]
+					colors: ['blue', 'red', 'green', 'magenta', 'orange'],
 					xDist: 70,
-					dataNames: ['Linux', 'Mac'],
+					dataNames: ['Linux', 'Mac', 'Windows', 'Carp', 'Windows',],
 					xName: 'Day',
 					tooltipWidth: 15,
+					//{{scale}}
+					scale: 10,
 					animations: true,
 					pointAnimation: true,
 					averagePointRadius: 10,
