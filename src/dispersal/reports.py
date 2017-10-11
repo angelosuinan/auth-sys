@@ -53,14 +53,19 @@ class Report(object):
             fish_quantity = []
             fish_csv = [fish]
             for month in self.months_range:
-                query = queryset.filter(fish__name=fish, date_listed__month=month)
+                query = queryset.filter(date_acquired__month=month)
+                invoice_total = 0
+                for invoice in query:
+                    orders_total = 0
+                    for order in invoice.orders.all():
 
-                quantity = 0
-                for q in query:
-                    quantity += q.quantity
-                fish_quantity.append(quantity)
+                        if fish == order.fish.name:
+                            orders_total += order.quantity + order.free
+                    invoice_total += orders_total
+
+                fish_quantity.append(invoice_total)
             points.append(fish_quantity)
         average = [float(sum(l))/len(l) for l in zip(*points)]
         average = sum(average) / float(len(average))
 
-        return points, int(average )
+        return points, int(average/2)

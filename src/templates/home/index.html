@@ -11,6 +11,11 @@
 <script src="{% static "js/jquery-ui.js" %}"></script>
 <!-- charts -->
 <!-- //charts -->
+<style>
+svg {
+	padding-left: 15px;
+}
+</style>
 {% endblock extrahead %}
 {% block bodyclass %}
 <body class="dashboard-page">
@@ -75,27 +80,6 @@
 				 </div>
 		</div>
 
-		<div class="agile-grids">
-			<div class="col-md-12 ">
-				<!-- area-chart -->
-				<div class="area-grids">
-
-				</div>
-				<!-- //area-chart -->
-			</div>
-			<div class="col-md-12 ">
-				<!-- updating-data -->
-				<div class="agile-Updating-grids">
-					<div class="area-grids-heading">
-						<h3>Updating data</h3>
-						<div id="graph"></div>
-					</div>
-					<!-- instert-->
-				</div>
-				<!-- //updating-data -->
-			</div>
-			<div class="clearfix"> </div>
-		</div>
 
 		<div class="agile-bottom-grids">
 			<div class="col-md-8 agile-bottom-right">
@@ -107,53 +91,30 @@
 			<div class="col-md-4 agile-bottom-left">
 				<div class="agile-bottom-grid">
 					<div class="area-grids-heading">
-						<h3>Stacked Bars chart</h3>
+						<h3>Calendar</h3>
 					</div>
 				<!-- instert-->
 				</div>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
-		<div class="agile-last-grids">
-			<div class="col-md-4 agile-last-left">
-				<div class="agile-last-grid">
-					<div class="area-grids-heading">
-						<h3>Daylight savings time</h3>
-					</div>
-				<!-- instert-->
-				</div>
-			</div>
-			<div class="col-md-4 agile-last-left agile-last-middle">
-				<div class="agile-last-grid">
-					<div class="area-grids-heading">
-						<h3>Daylight savings time</h3>
-					</div>
-				<!-- instert-->
-				</div>
-			</div>
-			<div class="col-md-4 agile-last-left agile-last-right">
-				<div class="agile-last-grid">
-					<div class="area-grids-heading">
-						<h3>Daylight savings time</h3>
-					</div>
-				<!-- instert-->
-				</div>
-			</div>
-			<div class="clearfix"> </div>
-		</div>
+
 		<div class="agile-two-grids">
 			<div class="col-md-6 count">
-				<div class="count-grid">
-					<h3 class="title">Countdown</h3>
+				<div class="count-grid w3l-chart">
+					<h3 class="title">Latest Production</h3>
+					<div id="graph2"></div>
 				</div>
 				<!-- instert-->
 			</div>
-			<div class="col-md-6 weather">
+			<div class="col-md-6 count w3l-chart">
 				<div class="count-grid">
-					<h3 class="title">Countdown</h3>
-				<!-- instert-->
+					<h3 class="title">Latest Dispersal</h3>
+					<div id="graph3"></div>
 				</div>
+				<!-- instert-->
 			</div>
+
 			<div class="clearfix"> </div>
 		</div>
 	</div>
@@ -174,9 +135,9 @@
 			$('[name=fish]').val( c );
 			var c = url.searchParams.get('order');
 			$('[name=order]').val( c );
-			var c = url.searchParams.get('start_date');
 			$('[name=start_date]').val( format(c) );
 			var c = url.searchParams.get('end_date');
+			var c = url.searchParams.get('start_date');
 			$('[name=end_date]').val( format(c) );
 			function format(inputDate) {
 			 var date = new Date(inputDate);
@@ -193,41 +154,43 @@
 	</script>
 	<script>
 		$(function(){
-			$('#graph').graphify({
-				//options: true,
 
+			$('#graph2').graphify({
+				start: 'area',
 				obj: {
-					id: 'ggg',
-					width: 620,
-					height: 375,
-					xGrid: false,
-					legend: true,
-					title: 'Linux vs Mac',
-					points: [
-						[7, 26, 33, 74, 12, 49, 33, 74, 12, 49, 33],
-						[32, 46, 75, 38, 62, 20, 52, 74, 12, 49, 33]
-						[4, 12, 49, 33, 38, 62, 20, 52, 74, 12, 49, ],
-					],
-					pointRadius: 3,
-					colors: ['blue', 'red'],
-					xDist: 70,
-					dataNames: ['Linux', 'Mac' , 'Windows'],
-					xName: 'Day',
-					tooltipWidth: 15,
+					id: 'lo',
+					legend: false,
+					showPoints: true,
+					width: 975,
+					legendX: 450,
+					pieSize: 200,
+					shadow: true,
+					height: 400,
 					animations: true,
-					pointAnimation: true,
-					averagePointRadius: 10,
+					x: [{% for harvest in harvests%}
+								"{{harvest.date_listed}}",
+							{% endfor %}
+						],
+					points: [{% for harvest in harvests%}
+								{{harvest.quantity}},
+							{% endfor %}
+						],
+					xDist: 120,
+					scale: {{average_harvest}},
+					yDist: 35,
+					grid: false,
+					xName: 'Year',
+					dataNames: ['Amount'],
 					design: {
-						tooltipColor: '#fff',
-						gridColor: 'grey',
-						tooltipBoxColor: 'green',
-						averageLineColor: 'green',
-						pointColor: 'green',
-						lineStrokeColor: 'grey',
+						lineColor: 'red',
+						tooltipFontSize: '20px',
+						pointColor: 'red',
+						barColor: 'blue',
+						areaColor: 'orange'
 					}
 				}
 			});
-			$('#graph2').graphify({
+			$('#graph3').graphify({
 				start: 'area',
 				obj: {
 					id: 'lol',
@@ -239,14 +202,16 @@
 					shadow: true,
 					height: 400,
 					animations: true,
-					x:[{% for harvest in harvests %}
-						<a href="/">"{{harvest.date_listed}}"</a>,
-						{% endfor %}],
-					points:[{% for harvest in harvests %}
-								{{harvest.quantity}},
-								{% endfor %}],
-					//x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2005],
-				//	points: [17, 33, 64, 22, 87, 45, 38, 130],
+					x: [{% for invoice in invoices%}
+								"{{invoice.date_acquired}}",
+							{% endfor %}
+						],
+					points: [{% for invoice in invoices%}
+										{% for order in invoice.orders.all %}
+
+										{% endfor %},
+							{% endfor %}
+						],
 					xDist: 90,
 					scale: 160,
 					yDist: 35,
@@ -262,32 +227,7 @@
 					}
 				}
 			});
-			var bar = new GraphBar({
-				attachTo: '#graph3',
-				special: 'combo',
-				height: 600,
-				width: 620,
-				yDist: 50,
-				xDist: 70,
-				showPoints: false,
-				xGrid: false,
-					legend: true,
-					points: [
-						[17, 21, 51, 74, 12, 49, 33],
-						[32, 15, 75, 20, 45, 90, 52]
-					],
-					colors: ['red', 'orange'],
-					dataNames: ['Hot', 'Warm'],
-					xName: 'Day',
-					tooltipWidth: 15,
-					design: {
-						tooltipColor: '#fff',
-						gridColor: 'black',
-						tooltipBoxColor: 'green',
-						averageLineColor: 'blue',
-					}
-			});
-			bar.init();
+
 		});
 	</script>
 	<script src="{% static "js/bootstrap.js" %}"></script>

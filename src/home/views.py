@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
 from production.models import Harvest
+from dispersal.models import Invoice
 
 # Create your views here.
 
@@ -16,7 +17,14 @@ class Index(View):
         context = {}
 
         harvests = Harvest.objects.all()
-        context['harvests'] = harvests.filter().order_by('-pk')
+        context['harvests'] = harvests.filter().order_by('-pk')[:5]
+        average_harvest = 0
+        for harvest in harvests:
+            average_harvest += harvest.quantity
+        context['average_harvest'] = int(average_harvest / 2)
+        invoices = Invoice.objects.all()
+        context['invoices'] = invoices.filter().order_by('-pk')[:5]
+
         return render(request, self.template_name, context)
 
 
