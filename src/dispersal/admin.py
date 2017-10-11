@@ -105,13 +105,14 @@ class InvoiceAdmin(ImportExportModelAdmin):
 class PaymentAdmin(admin.ModelAdmin):
     list_display = (
         'fish',
+        'id',
         'amount',
         'quantity',
         'free',
         'nature',
     )
     list_filter = [
-        'free'
+
     ]
 
 

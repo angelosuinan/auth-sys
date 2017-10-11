@@ -44,6 +44,8 @@ class Index(View):
             attendances = paginator.page(paginator.num_pages)
 
         context = {'attendances':attendances}
+        length = len(attendance_list)
+        context['length'] = length
         return render(request, self.template_name, context)
 
     @method_decorator(login_required(login_url='/login'), )

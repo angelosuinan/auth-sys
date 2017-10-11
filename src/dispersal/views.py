@@ -7,6 +7,7 @@ from django.views.generic import View
 from models import Customer, Payment, Invoice
 from fish.models import Fish
 from datetime import datetime
+from reports import Report
 # Create your views here.
 
 
@@ -17,7 +18,7 @@ class Index(View):
     def get(self, request):
         context = {}
         user = request.user
-        invoice_list = Invoice.objects.filter(employee=user)
+        invoice_list = Invoice.objects.filter(employee=user).order_by('pk')
 
         customer_sort = request.GET.get('customer', '')
         if customer_sort:
@@ -49,6 +50,8 @@ class Index(View):
             # If page is out of range (e.g. 9999), deliver last page of results.
             invoices = paginator.page(paginator.num_pages)
 
+        length = len(invoice_list)
+        context['length'] = length
         context['invoices'] = invoices
         context['customers'] = customers
         context['fishes'] = fishes
@@ -127,8 +130,11 @@ class Add(View):
         invoice.remarks = request.POST.get('remarks', '')
         invoice.employee = request.user
         invoice.customer = customer
-        invoice.total_price = 0
+        invoice.total_price = first_payment.amount
         invoice.save()
+        invoice.orders.add(first_payment)
+
+        print invoice
         total_price = 0
         for index in range(0, counter+1):
             payment = Payment()
@@ -185,3 +191,84 @@ class Change(View):
 
         context['invoice'] = invoice
         return redirect('/dispersal/change?id='+key)
+
+
+class Chart(View):
+    template_name = 'dispersal/charts.html'
+
+    @method_decorator(login_required(login_url='/login'), )
+    def get(self, request):
+        context = {}
+        fishes = Fish.objects.all()
+        context['fishes'] = fishes
+
+        fishes = request.GET.get('fish', '')
+        fishes_list = ''
+        if fishes:
+            fishes_list = fishes.split(",")
+
+        year = request.GET.get('year', None)
+        order = request.GET.get('order', '')
+        order = 'monthly'
+
+        if year and order and fishes:
+            if (len(year) == 0) or (len(order) == 0) or (len(fishes) == 0):
+                context['error'] = 'error'
+                return render(request, self.template_name, context)
+        else:
+            return render(request, self.template_name, context)
+        report = Report(year, order, fishes_list)
+
+        xaxis = report.get_headers()[:-1]
+
+        context['xaxis'] = xaxis
+        queryset = Invoice.objects.all()
+        queryset = queryset.filter(date_acquired__year=year)
+        field = 'quantity'
+        points, average = report.sample(queryset, field)
+
+        scale = request.GET.get('scale', '')
+        context['scale'] = average
+        if (len(scale) != 0):
+            context['scale'] = scale
+        context['points'] = points
+        return render(request, self.template_name, context)
+
+    @method_decorator(login_required(login_url='/login'), )
+    def post(self, request):
+        context = {}
+        url = '/dispersal/charts?'
+        fishes = request.POST.getlist('fish', '')
+        _fishes = ''
+        for fish in fishes:
+            _fishes += fish + ","
+        if _fishes:
+            _fishes = _fishes[:-1]
+        url += 'fish=' + str(_fishes) + '&'
+        order = request.POST.get('order', '')
+        url += 'order=' + str(order) + '&'
+        year = request.POST.get('year', '')
+        url += 'year=' + str(year) + '&'
+        scale = request.POST.get('scale', '')
+        url += 'scale=' + str(scale) + '&'
+
+        if 'export' in request.POST:
+            year = request.GET.get('year', '')
+            fishes = request.GET.getlist('fish', '')
+            _fishes = []
+            for fish in fishes:
+                _fishes.append(fish)
+            _fishes = fishes[0].split(",")
+
+            queryset = Invoice.objects.all()
+            order = 'monthly'
+
+            report = Report(year, order, _fishes)
+            field = 'quantity'
+
+            queryset = queryset.filter(date_acquired__year=year)
+            points, average = report.sample(queryset, field)
+
+            resp = report.parse(points)
+            return resp
+        return redirect(url)

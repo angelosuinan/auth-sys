@@ -9,6 +9,7 @@ from models import Harvest
 from fish.models import Fish
 from datetime import datetime
 from django.http import HttpResponse
+from reports import Report
 import csv
 
 
@@ -51,6 +52,8 @@ class Index(View):
             # If page is out of range (e.g. 9999), deliver last page of results.
             harvests = paginator.page(paginator.num_pages)
 
+        length = len(harvest_list)
+        context['length'] = length
         context['harvests'] = harvests
         context['fishes'] = fishes
         return render(request, self.template_name, context)
@@ -149,12 +152,74 @@ class Chart(View):
         context = {}
         fishes = Fish.objects.all()
         context['fishes'] = fishes
-        harvests = Harvest.objects.all()
-        context['harvests'] = harvests.filter().order_by('-pk')
+
+        fishes = request.GET.get('fish', '')
+        fishes_list = ''
+        if fishes:
+            fishes_list = fishes.split(",")
+
+        year = request.GET.get('year', None)
+        order = request.GET.get('order', '')
+        order = 'monthly'
+
+        if year and order and fishes:
+            if (len(year) == 0) or (len(order) == 0) or (len(fishes) == 0):
+                context['error'] = 'error'
+                return render(request, self.template_name, context)
+        else:
+            return render(request, self.template_name, context)
+        report = Report(year, order, fishes_list)
+
+        xaxis = report.get_headers()[:-1]
+
+        context['xaxis'] = xaxis
+        queryset = Harvest.objects.all()
+        queryset = queryset.filter(date_listed__year=year)
+        field = 'quantity'
+        points, average = report.sample(queryset, field)
+
+        scale = request.GET.get('scale', '')
+        context['scale'] = average
+        if (len(scale) != 0):
+            context['scale'] = scale
+        context['points'] = points
         return render(request, self.template_name, context)
 
     @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         context = {}
+        url = '/production/charts?'
+        fishes = request.POST.getlist('fish', '')
+        _fishes = ''
+        for fish in fishes:
+            _fishes += fish + ","
+        if _fishes:
+            _fishes = _fishes[:-1]
+        url += 'fish=' + str(_fishes) + '&'
+        order = request.POST.get('order', '')
+        url += 'order=' + str(order) + '&'
+        year = request.POST.get('year', '')
+        url += 'year=' + str(year) + '&'
+        scale = request.POST.get('scale', '')
+        url += 'scale=' + str(scale) + '&'
 
-        return response
+        if 'export' in request.POST:
+            year = request.GET.get('year', '')
+            fishes = request.GET.getlist('fish', '')
+            _fishes = []
+            for fish in fishes:
+                _fishes.append(fish)
+            _fishes = fishes[0].split(",")
+
+            queryset = Harvest.objects.all()
+            order = 'monthly'
+
+            report = Report(year, order, _fishes)
+            field = 'quantity'
+
+            queryset = queryset.filter(date_listed__year=year)
+            points, average = report.sample(queryset, field)
+
+            resp = report.parse(points)
+            return resp
+        return redirect(url)
