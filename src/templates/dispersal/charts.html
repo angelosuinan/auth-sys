@@ -24,7 +24,7 @@ svg {
 	    <h2>
 	      <a href="/">Home</a>
 	      <i class="fa fa-angle-right"></i>
-	      <span><a href="/production">Fish Production</a></span>
+	      <span><a href="/dispersal">Fish Dispersal</a></span>
 	      <i class="fa fa-angle-right"></i>
 	      <span>Single DataSet Chart</span>
 	    </h2>
@@ -35,7 +35,7 @@ svg {
 			<div class="col-md-12 count">
 			<div class="count-grid">
 			<div class="table-heading">
-				<h2  style="color:black">Production Charts</h2>
+				<h2  style="color:black">Fish Dispersal Charts</h2>
 			</div>
 			<div class="sort">
 				<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
@@ -52,6 +52,7 @@ svg {
 						{% for fish in fishes %}
 							<option value="{{fish}}">{{fish}}</option>
 						{% endfor %}
+						<option value="all">all</option>
 					</select>
 				</div>
 				<div class="form-group col-md-2 col-xs-4">
@@ -149,9 +150,9 @@ svg {
 				start: 'combo',
 				obj: {
 					id: 'ggg',
+					xGrid: false,
 					width: 1150,
 					height: 375,
-					xGrid: false,
 					legend: true,
 					//points:[{{for}}]
 					points: {{ points}},
@@ -160,7 +161,7 @@ svg {
 						{% endfor %}],
 					pointRadius: 3,
 					// colors:[{{for}}]
-					colors: ['blue', 'red', 'green', 'magenta', 'orange', 'yellow'],
+					colors: ['blue', 'red', 'magenta', 'orange', 'yellow'],
 					xDist: 70,
 					dataNames: [
 						{% for fish in fishes %}
