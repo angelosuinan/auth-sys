@@ -34,13 +34,16 @@ class InvoiceResource(resources.ModelResource):
         return '%s' % (invoice.customer.name, )
 
     def dehydrate_Gender(self, invoice):
-        return '%s' % (invoice.customer.gender, )
+        customer = invoice.customer
+        print customer.gender
+
+        return '%s' % (customer.get_gender_display(), )
 
     def dehydrate_Address(self, invoice):
         return '%s' % (invoice.customer.address, )
 
     def dehydrate_Region(self, invoice):
-        return '%s' % (invoice.customer.region, )
+        return '%s' % (invoice.customer.get_region_display(), )
 
     def dehydrate_Employee_attended(self, invoice):
         first_name = invoice.employee.first_name

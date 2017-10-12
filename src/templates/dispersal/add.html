@@ -60,10 +60,10 @@
 
 										<label for="field-0-3">Gender</label>
 										<div class="form-group valid-form">
-											<select name="fish"  class="form-control" id="gender" name="gender">
+											<select  class="form-control" id="gender" name="gender">
 												<option value=""></option>
 												<option value="M">Male</option>
-												<option value="M">Female</option>
+												<option value="F">Female</option>
 											</select>
 										</div>
 
@@ -79,7 +79,7 @@
 
 										<label for="field-0-6">Region</label>
 										<div class="form-group valid-form">
-											<select name="fish"  class="form-control" id="region" name="region">
+											<select class="form-control" id="region" name="region">
 												<option value=""></option>
 												<option value="NCR">National Capital Region(NCR)</option>
 												<option value="I">REGION I</option>
@@ -113,7 +113,7 @@
 													<div class="col-xs-12 col-sm-3">
 														<label for="field-1">Fish</label>
 														<div class="form-group">
-															<select name="fish"  class="form-control"  >
+															<select name="fish"  class="form-control" required="true" >
 																<option value=""></option>
 																{% for fish in fishes %}
 																<option value="{{fish}}">{{ fish }}</option>
@@ -124,19 +124,19 @@
 													<div class="col-xs-12 col-sm-3">
 														<label for="field-2">Amount</label>
 														<div class="form-group">
-															<input type="number" name="amount"  class="form-control"   >
+															<input type="number" name="amount"  class="form-control" required="true">
 														</div>
 													</div>
 													<div class="col-xs-12 col-sm-2">
 														<label for="field-3">Quantity</label>
 														<div class="form-group">
-															<input type="number" name="quantity"  class="form-control"  >
+															<input type="number" name="quantity"  class="form-control" required="true">
 														</div>
 													</div>
 													<div class="col-xs-12 col-sm-2">
 														<label for="field-4">Free</label>
 														<div class="form-group">
-															<input type="number" name="free" class="form-control"   >
+															<input type="number" name="free" class="form-control" required="true">
 														</div>
 													</div>
 
@@ -298,18 +298,24 @@ $( "#add" ).click(function() {
 
 $('#fishes').on('click', '.number', function() {
 	remove_id = $(this).val();
-
+	if (remove_id !=0){
 	$('div[id='+remove_id+"]").fadeOutAndRemove('slow');
+	}
 });
 
 $('#existing').change(function() {
-	if($(this).val()){
+	len = $('#existing').val();
+
+	if(len.length!=0){
+		console.log(len.length)
 		$('#name').attr('disabled', 'disabled');
 		$('#gender').attr('disabled', 'disabled');
 		$('#telephone').attr('disabled', 'disabled');
 		$('#address').attr('disabled', 'disabled');
 		$('#region').attr('disabled', 'disabled');
-		$('.new').toggle();
+
+		$('.new').hide();;
+
 	}
 	else{
 		$('#name').removeAttr("disabled");
@@ -317,9 +323,9 @@ $('#existing').change(function() {
 		$('#telephone').removeAttr("disabled");
 		$('#address').removeAttr("disabled");
 		$('#region').removeAttr("disabled");
-
+		if(len.length==0){
 		$('.new').toggle();
-
+	}
 	}
 
 });
