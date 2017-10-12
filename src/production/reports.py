@@ -27,8 +27,11 @@ class Report(object):
         for point, fish in zip(points, self.fishes):
             the_list = []
             the_list.append(fish)
+            total = 0
             for p in point:
                 the_list.append(p)
+                total += p
+            the_list.append(total)
             writer.writerow(the_list)
 
         return response

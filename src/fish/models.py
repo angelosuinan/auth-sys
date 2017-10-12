@@ -12,7 +12,7 @@ class Category(Base):
 
 
 class Fish(Base):
-    name = models.CharField(max_length=50, blank=False)
+    name = models.CharField(max_length=50, blank=False, unique=True)
     scientific_name = models.CharField(max_length=75, blank=True)
     image = models.FileField(upload_to='fish/', blank=True, null=True)
     category = models.ForeignKey(Category)

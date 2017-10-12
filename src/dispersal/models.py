@@ -7,35 +7,32 @@ from employee.models import EmployeeProfile
 from fish.models import Fish
 
 
-GENDER_CHOICES = (
-    ('M', 'Male'),
-    ('F', 'Female'),
-    ('O', 'Organization')
-)
-
-REGION_CHOICES = (
-    ('I', 'REGION I (Ilocos Region) in Luzon'),
-    ('II', 'REGION 2 (Cagayan Valley) in Luzon'),
-    ('III', 'REGION III (Central Luzon)'),
-    ('IV-A', 'REGION IV-A (CALABARZON) Luzon'),
-    ('IV-B', 'REGION IV-B(MIMAROPA) 17th region Visayas'),
-    ('V', 'REGION V(Bicol Region) Luzon'),
-    ('VI', 'REGION VI (Western Visayas'),
-    ('VII', 'REGION VII (Central Visayas'),
-    ('VIII', 'REGION VIII (Eastern Visayas)'),
-    ('IX', 'REGION IX (Zamboanga Peninsula)'),
-    ('X', 'REGION X (Northern Mindanao)'),
-    ('XI', 'REGION XI (Davao Region)'),
-    ('XII', 'REGION XII (Soccsksargen)'),
-    ('XIII', 'REGION XIII (CARAGA)'),
-    ('NCR', '(NCR) National Capital Region in Luzon'),
-    ('XIV', 'REGION 14 Cordillera Administrative Region (CAR) in Luzon'),
-    ('XV', 'REGION XV - Autonomous Region in Muslim Mindanao (ARMM)'),
-    ('XVIII', 'Region XVIII - NIR - Negros Island Region'),
-)
-
-
 class Customer(Base):
+    REGION_CHOICES = (
+        ('I', 'REGION I (Ilocos Region) in Luzon'),
+        ('II', 'REGION 2 (Cagayan Valley) in Luzon'),
+        ('III', 'REGION III (Central Luzon)'),
+        ('IV-A', 'REGION IV-A (CALABARZON) Luzon'),
+        ('IV-B', 'REGION IV-B(MIMAROPA) 17th region Visayas'),
+        ('V', 'REGION V(Bicol Region) Luzon'),
+        ('VI', 'REGION VI (Western Visayas'),
+        ('VII', 'REGION VII (Central Visayas'),
+        ('VIII', 'REGION VIII (Eastern Visayas)'),
+        ('IX', 'REGION IX (Zamboanga Peninsula)'),
+        ('X', 'REGION X (Northern Mindanao)'),
+        ('XI', 'REGION XI (Davao Region)'),
+        ('XII', 'REGION XII (Soccsksargen)'),
+        ('XIII', 'REGION XIII (CARAGA)'),
+        ('NCR', '(NCR) National Capital Region in Luzon'),
+        ('XIV', 'REGION 14 Cordillera Administrative Region (CAR) in Luzon'),
+        ('XV', 'REGION XV - Autonomous Region in Muslim Mindanao (ARMM)'),
+        ('XVIII', 'Region XVIII - NIR - Negros Island Region'),
+    )
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Organization')
+    )
     name = models.CharField(max_length=50, blank=False)
     address = models.CharField(max_length=100, blank=False)
     gender = models.CharField(

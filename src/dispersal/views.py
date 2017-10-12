@@ -106,10 +106,11 @@ class Add(View):
             customer.address = request.POST.get('address', '')
             customer.telephone = request.POST.get('telephone', '')
             customer.region = request.POST.get('region', '')
+
             customer.save()
 
         counter = int(request.POST.get('counter', ''))
-        print counter
+
         first_payment = Payment()
         fish_name = request.POST.get('fish', '')
         fish = Fish.objects.get(name=fish_name)
@@ -134,8 +135,7 @@ class Add(View):
         invoice.save()
         invoice.orders.add(first_payment)
 
-        print invoice
-        total_price = 0
+        total_price = first_payment.amount
         for index in range(0, counter+1):
             payment = Payment()
             fish_name = request.POST.get('fish'+str(index), '')
@@ -161,7 +161,7 @@ class Add(View):
                 invoice.total_price = total_price
                 invoice.orders.add(payment)
                 invoice.save()
-        return redirect('/dispersal')
+        return redirect('/dispersal/change?id='+str(invoice.id))
 
 
 class Change(View):

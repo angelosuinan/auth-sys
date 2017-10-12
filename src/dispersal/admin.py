@@ -14,10 +14,9 @@ class CustomerAdmin(admin.ModelAdmin):
         'telephone',
         'region',
     )
-    list_filter = [
-        'name',
+    list_filter =[
         'region'
-           ]
+    ]
 
 
 class InvoiceAdmin(ImportExportModelAdmin):
@@ -93,11 +92,10 @@ class InvoiceAdmin(ImportExportModelAdmin):
         'remarks',
     )
     list_filter = (
-        'customer__name',
         'orders__fish__name',
         ('date_acquired', DateRangeFilter),
     )
-    search_fields = (
+    search_fields = ('customer__name',
     )
     readonly_fields = ('total_price', )
 
@@ -125,9 +123,11 @@ class CustomerAdmin(admin.ModelAdmin):
         'region'
     )
     list_filter = [
-        'name',
+
         'region',
     ]
+    search_fields=('name',)
+
 
 
 admin.site.register(Invoice, InvoiceAdmin)
