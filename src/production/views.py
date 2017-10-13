@@ -157,6 +157,7 @@ class Chart(View):
         fishes_list = ''
         if fishes:
             fishes_list = fishes.split(",")
+        context['fishes_list'] = fishes_list
 
         year = request.GET.get('year', None)
         order = request.GET.get('order', '')

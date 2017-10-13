@@ -52,7 +52,6 @@ svg {
 						{% for fish in fishes %}
 							<option value="{{fish}}">{{fish}}</option>
 						{% endfor %}
-						<option value="all">all</option>
 					</select>
 				</div>
 				<div class="form-group col-md-2 col-xs-4">
@@ -164,7 +163,7 @@ svg {
 					colors: ['blue', 'red', 'magenta', 'orange', 'yellow'],
 					xDist: 70,
 					dataNames: [
-						{% for fish in fishes %}
+						{% for fish in fishes_list %}
 						"{{fish}}",
 						{% endfor %}
 					],

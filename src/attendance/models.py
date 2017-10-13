@@ -27,11 +27,14 @@ class Attendance(Base):
         unique_together = ('employee', 'date')
 
     def clean(self):
-        time_in_am = self.time_in_am
+        time_in_am = self.time_in_am.strftime('%H:%M:%S')
         time_out_am = self.time_out_am
         sum_time = 0
+        print self.time_in_am.strftime('%H:%M:%S')
         if time_in_am and time_out_am:
+            time_diff = {}
             time_diff = helper.time_diff(time_in_am, time_out_am)
+
             if time_diff['fail']:
                 raise ValidationError('Time in and time out in AM difference is lower than 5 mins')
             else:

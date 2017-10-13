@@ -1,3 +1,5 @@
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources, fields
 from django.contrib import admin
 from .models import Item
 from django.contrib import messages
@@ -11,7 +13,18 @@ def get_total(modeladmin, request, queryset):
 get_total.short_description = "Get total of mark item/s"
 
 
-class DispersalAdmin(admin.ModelAdmin):
+class BookResource(resources.ModelResource):
+
+    class Meta:
+        model = Item
+        fields = ('id', 'name', 'amount', 'description', 'date_acquired')
+        export_order = (
+            'id', 'name', 'amount', 'description', 'date_acquired'
+        )
+
+
+class DispersalAdmin(ImportExportModelAdmin):
+    resource_class = BookResource
     list_display = (
         'name',
         'amount',
