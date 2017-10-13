@@ -36,6 +36,7 @@ class Login(View):
         return render(request, self.template_name, context)
 
     def post(self, request):
+        context = {}
         username = request.POST.get('Username', '')
         password = request.POST.get('Password', '')
         user = authenticate(username=username, password=password)
@@ -45,6 +46,9 @@ class Login(View):
             if not url:
                 url = "/"
                 return redirect(url)
+        else:
+            context["wrong"] = 'Invalid username or password'
+            return render(request, self.template_name, context)
         return redirect('/login')
 
 

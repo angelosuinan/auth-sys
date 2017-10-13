@@ -31,9 +31,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="content2">
 				<div class="grids-heading gallery-heading signup-heading">
 					<h2>Login</h2>
+
 				</div>
 				<form method="post">
 					{% csrf_token %}
+					<br>
+					<p  style="color:red">{{wrong}}</p>
 					<input type="text" name="Username" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}">
 					<input type="password" name="Password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
 					<input type="submit" class="register" value="Login">
