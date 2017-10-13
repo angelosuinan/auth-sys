@@ -36,8 +36,9 @@
                 <div class="agileits-caption">
                   <h4 >{{profile.user.first_name}} {{profile.user.last_name}}</h4>
                   <p>{{ profile.position}}</p>
-                  {% if profile.postion is None %}
+                  {% if profile.position  == None %}
                   <p>On the Job Trainee</p>
+
                   {% endif %}
                   <p style="color:blue" onclick="window.location.href='profile?q={{profile.user.id}}'">View Profile</p>
                 </div>
