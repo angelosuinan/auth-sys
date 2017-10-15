@@ -62,7 +62,9 @@ class Report(object):
                     for order in invoice.orders.all():
 
                         if fish == order.fish.name:
-                            orders_total += order.quantity + order.free
+                            orders_total += order.quantity
+                            if order.free:
+                                orders_total += order.free
                     invoice_total += orders_total
 
                 fish_quantity.append(invoice_total)

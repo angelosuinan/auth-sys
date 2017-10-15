@@ -8,6 +8,7 @@ from models import Customer, Payment, Invoice
 from fish.models import Fish
 from datetime import datetime
 from reports import Report
+from stocks import Stocks
 # Create your views here.
 
 
@@ -18,7 +19,7 @@ class Index(View):
     def get(self, request):
         context = {}
         user = request.user
-        invoice_list = Invoice.objects.filter(employee=user).order_by('pk')
+        invoice_list = Invoice.objects.filter(employee=user).order_by('-pk')
 
         customer_sort = request.GET.get('customer', '')
         if customer_sort:
@@ -27,7 +28,7 @@ class Index(View):
         order_sort = request.GET.get('order', '')
         if order_sort:
             if order_sort == 'desc':
-                invoice_list = invoice_list.order_by('-pk')
+                invoice_list = invoice_list.order_by('pk')
 
         start_date = request.GET.get('start_date', '')
         end_date = request.GET.get('end_date', '')
@@ -271,5 +272,68 @@ class Chart(View):
             points, average = report.sample(queryset, field)
 
             resp = report.parse(points)
+            return resp
+        return redirect(url)
+
+
+class Stock(View):
+    template_name = 'dispersal/stocks.html'
+
+    @method_decorator(login_required(login_url='/login'), )
+    def get(self, request):
+        context = {}
+        fishes = Fish.objects.all()
+        context['fishes'] = fishes
+
+        fish = request.GET.get('fish', '')
+
+        context['fish'] = fish
+        year = request.GET.get('year', None)
+        order = request.GET.get('order', '')
+        order = 'monthly'
+
+        if year and order and fishes:
+            if (len(year) == 0) or (len(order) == 0) or (len(fishes) == 0):
+                context['error'] = 'error'
+                return render(request, self.template_name, context)
+        else:
+            return render(request, self.template_name, context)
+        print Stock
+        stocks = Stocks(year, order, fish)
+
+        xaxis = stocks.get_headers()[:-1]
+
+        context['xaxis'] = xaxis
+
+        points, average = stocks.charts()
+
+        scale = request.GET.get('scale', '')
+        context['scale'] = average
+        if (len(scale) != 0):
+            context['scale'] = scale
+        context['points'] = points
+        return render(request, self.template_name, context)
+
+    @method_decorator(login_required(login_url='/login'), )
+    def post(self, request):
+        context = {}
+        url = '/dispersal/stocks?'
+        fish = request.POST.get('fish', '')
+
+        url += 'fish=' + fish + '&'
+
+        year = request.POST.get('year', '')
+        url += 'year=' + str(year) + '&'
+        scale = request.POST.get('scale', '')
+        url += 'scale=' + str(scale) + '&'
+
+        if 'export' in request.POST:
+            year = request.GET.get('year', '')
+            fish = request.GET.get('fish', '')
+
+            order = 'monthly'
+            stocks = Stocks(year, order, fish)
+            points, average = stocks.charts()
+            resp = stocks.export(points)
             return resp
         return redirect(url)
