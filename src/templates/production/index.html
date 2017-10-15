@@ -130,15 +130,17 @@
 				<table id="table-two-axis" class="two-axis">
 				<thead>
 					<tr>
+					<th>id</th>
 					<th>Fish</th>
 					<th>Quantity</th>
-          <th>Employee Attended</th>
+          <th>Employee Assisted</th>
           <th>Date Harvested</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for harvest in harvests %}
 					<tr>
+					<td data-th="name"><span class="bt-content"><a href="change?id={{harvest.id}}">{{harvest.id}}</a></span></td>
 					<td data-th="name"><span class="bt-content"><a href="change?id={{harvest.id}}">{{harvest.fish}}</a></span></td>
 					<td data-th="date_acquired"><span class="bt-content">{{harvest.quantity }}</span></td>
 					<td data-th="address"><span class="bt-content"><a href="/employee/profile?q={{harvest.employee_attended.id}}">{{harvest.employee_attended}}</a></span></td>

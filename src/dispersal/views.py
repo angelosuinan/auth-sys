@@ -106,6 +106,7 @@ class Add(View):
             customer.address = request.POST.get('address', '')
             customer.telephone = request.POST.get('telephone', '')
             customer.region = request.POST.get('region', '')
+            customer.organization = request.POST.get('organization', '')
 
             customer.save()
 
@@ -135,7 +136,7 @@ class Add(View):
         invoice.save()
         invoice.orders.add(first_payment)
 
-        total_price = first_payment.amount
+        total_price = float(first_payment.amount)
         for index in range(0, counter+1):
             payment = Payment()
             fish_name = request.POST.get('fish'+str(index), '')
@@ -145,8 +146,8 @@ class Add(View):
                 payment.fish = fish
             amount = request.POST.get('amount'+str(index), '')
             if amount:
-                payment.amount = float(amount)
-                total_price += float(amount)
+                payment.amount = float(str(amount))
+                total_price += float(str(amount))
             quantity = request.POST.get('quantity'+str(index), '')
             if quantity:
                 payment.quantity = quantity

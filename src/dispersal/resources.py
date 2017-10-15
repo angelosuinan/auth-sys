@@ -7,7 +7,10 @@ class InvoiceResource(resources.ModelResource):
     Date = fields.Field()
     Name = fields.Field()
     Gender = fields.Field()
+    Organization = fields.Field()
     Address = fields.Field()
+    Quantity = fields.Field()
+    Total_Quantity = fields.Field()
     Region = fields.Field()
     Employee_attended = fields.Field()
     Fishes = fields.Field()
@@ -22,8 +25,8 @@ class InvoiceResource(resources.ModelResource):
             'remarks',
         )
         export_order = (
-            'id', 'Date', 'Name', 'Gender', 'Address', 'Region',
-            'Employee_attended', 'Fishes', 'total_price', 'Free', 'Nature',
+            'id', 'Date', 'Name', 'Gender', 'Organization', 'Address', 'Region',
+            'Employee_attended', 'Fishes', 'Quantity', 'Total_Quantity', 'total_price', 'Free', 'Nature',
             'remarks',
         )
 
@@ -39,6 +42,9 @@ class InvoiceResource(resources.ModelResource):
 
         return '%s' % (customer.get_gender_display(), )
 
+    def dehydrate_Organization(self, invoice):
+        return '%s' % (invoice.customer.organization, )
+
     def dehydrate_Address(self, invoice):
         return '%s' % (invoice.customer.address, )
 
@@ -53,8 +59,20 @@ class InvoiceResource(resources.ModelResource):
     def dehydrate_Fishes(self, invoice):
         fishes = ''
         for payment in invoice.orders.all():
-            fishes += '%s-%s\n' % (payment.fish.name, payment.quantity)
+            fishes += '%s\n' % ( payment.fish)
         return fishes
+
+    def dehydrate_Quantity(self, invoice):
+        fishes = ''
+        for payment in invoice.orders.all():
+            fishes += '%s\n' % (payment.quantity)
+        return fishes
+
+    def dehydrate_Total_Quantity(self, invoice):
+        total = 0
+        for payment in invoice.orders.all():
+            total += payment.amount
+        return total
 
     def dehydrate_Free(self, invoice):
         total_free = 0

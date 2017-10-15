@@ -2,7 +2,7 @@ from import_export.admin import ImportExportModelAdmin
 from daterange_filter.filter import DateRangeFilter
 from resources import HarvestResource
 from django.contrib import admin
-from models import Harvest
+from models import Harvest, AreaHarvested
 # Register your models here.
 
 
@@ -27,5 +27,16 @@ class HarvestAdmin(ImportExportModelAdmin):
         ('date_listed', DateRangeFilter),
     )
     search_fields = (
+    )
+    readonly_fields = ()
+
+
+@admin.register(AreaHarvested)
+class AreaHarvestedAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+    )
+    search_fields = (
+        ('name',)
     )
     readonly_fields = ()

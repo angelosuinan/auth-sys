@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from models import Harvest
+from models import Harvest, AreaHarvested
 from fish.models import Fish
 from datetime import datetime
 from django.http import HttpResponse
@@ -20,7 +20,7 @@ class Index(View):
     def get(self, request):
         context = {}
         user = request.user
-        harvest_list = Harvest.objects.all()
+        harvest_list = Harvest.objects.all().order_by('-pk')
 
         fish_sort = request.GET.get('fish', '')
         if fish_sort:
@@ -30,7 +30,7 @@ class Index(View):
 
         if order_sort:
             if order_sort == 'desc':
-                harvest_list = harvest_list.order_by('-pk')
+                harvest_list = harvest_list.order_by('pk')
 
         start_date = request.GET.get('start_date', '')
         end_date = request.GET.get('end_date', '')
@@ -89,6 +89,7 @@ class Add(View):
     def get(self, request):
         context = {}
         context['fishes'] = Fish.objects.all()
+        context['area_harvesteds'] = AreaHarvested.objects.all()
         return render(request, self.template_name, context)
 
     @method_decorator(login_required(login_url='/login'), )
@@ -98,11 +99,12 @@ class Add(View):
         fish_name = request.POST.get('fish', '')
         quantity = request.POST.get('quantity', '')
         date_listed = request.POST.get('date_listed', '')
+        area_harvested = request.POST.get('area_harvested', '')
         remarks = request.POST.get('remarks', '')
         employee = request.user
 
         fish = Fish.objects.get(name=fish_name)
-
+        area_harvested = AreaHarvested.objects.get(name=area_harvested)
         date_listed = datetime.strptime(date_listed, "%m/%d/%Y").strftime("%Y-%m-%d")
         harvest = Harvest()
         harvest.fish = fish
@@ -110,6 +112,7 @@ class Add(View):
         harvest.date_listed = date_listed
         harvest.remarks = remarks
         harvest.employee_attended = employee
+        harvest.area_harvested = area_harvested
         harvest.save()
 
         return redirect('/production/change?id='+str(harvest.id))
