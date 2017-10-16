@@ -11,6 +11,17 @@ helper = Helper()
 
 
 class Attendance(Base):
+    LEAVE_CHOICES = (
+        ('OB', 'Official Leave'),
+        ('SL', 'Sick Leave'),
+        ('VL', 'Vacation Leave'),
+        ('SIL', 'Service Incentive Leave'),
+        ('ML', 'Maternity Leave'),
+        ('PL', 'Paternity Leave'),
+        ('PAL', 'Parental Leave'),
+        ('RL', 'Rehabilitation Leave'),
+        ('STL', 'Study Leave'),
+    )
     employee = models.ForeignKey(User, )
     date = models.DateField('Date')
     time_in_am = models.TimeField(blank=True, null=True)
@@ -21,6 +32,10 @@ class Attendance(Base):
     extra_time_out = models.TimeField(blank=True, null=True)
     total_time = models.CharField(max_length=10, blank=True, null=True)
     approved = models.BooleanField(default="False")
+    leave_of_absence = models.CharField(
+        max_length=3,
+        choices=LEAVE_CHOICES, blank=True,
+    )
     notes = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -30,7 +45,6 @@ class Attendance(Base):
         time_in_am = self.time_in_am.strftime('%H:%M:%S')
         time_out_am = self.time_out_am
         sum_time = 0
-        print self.time_in_am.strftime('%H:%M:%S')
         if time_in_am and time_out_am:
             time_diff = {}
             time_diff = helper.time_diff(time_in_am, time_out_am)

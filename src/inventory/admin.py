@@ -17,9 +17,12 @@ class BookResource(resources.ModelResource):
 
     class Meta:
         model = Item
-        fields = ('id', 'name', 'amount', 'description', 'date_acquired')
+        fields = (
+            'id', 'name', 'property_number', 'description', 'quantity', 'unit',
+            'amount', 'category__name', 'date_acquired')
         export_order = (
-            'id', 'name', 'amount', 'description', 'date_acquired'
+            'id', 'name', 'property_number', 'description', 'quantity', 'unit',
+            'amount', 'category__name', 'date_acquired'
         )
 
 
