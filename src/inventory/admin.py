@@ -1,7 +1,7 @@
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources, fields
 from django.contrib import admin
-from .models import Item
+from .models import Item, Category
 from django.contrib import messages
 
 
@@ -23,23 +23,35 @@ class BookResource(resources.ModelResource):
         )
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'name',
+        )
+
+
 class DispersalAdmin(ImportExportModelAdmin):
     resource_class = BookResource
     list_display = (
         'name',
-        'amount',
+        'id',
         'description',
+        'quantity',
+        'unit',
+        'amount',
+        'category',
         'employee',
         'date_acquired',
     )
     list_filter = [
         'employee',
-        'name',
-        'date_acquired'
+        'date_acquired',
+        'category__name'
            ]
     search_fields = (
+        'employee',
             )
     readonly_fields = (
+        'property_number',
             )
     actions = [
         get_total
@@ -47,3 +59,4 @@ class DispersalAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Item, DispersalAdmin)
+admin.site.register(Category, CategoryAdmin)

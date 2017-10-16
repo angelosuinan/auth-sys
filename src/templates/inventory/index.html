@@ -105,6 +105,7 @@
           <table id="table-two-axis" class="two-axis">
           <thead>
             <tr>
+            <th>id</th>
             <th>Item Name</th>
             <th>Description</th>
             <th>Quantity</th>
@@ -119,12 +120,13 @@
           <tbody>
             {% for item in items %}
             <tr>
+            <td data-th="name"><span class="bt-content"><a href="change?id={{item.id}}">{{item.id}}</a></span></td>
             <td data-th="name"><span class="bt-content"><a href="change?id={{item.id}}">{{item.name}}</a></span></td>
             <td data-th="description"><span class="bt-content">{{item.description}}</span></td>
             <td data-th="quantity"><span class="bt-content">{{item.quantity}}</span></td>
             <td data-th="unit"><span class="bt-content">{{item.unit}}</span></td>
             <td data-th="date_acquired"><span class="bt-content">{{item.date_acquired}}</span></td>
-            <td data-th="amount"><span class="bt-content">{{item.amount}}</span></td>
+            <td data-th="amount"><span class="bt-content">{{item.amount}} php</span></td>
             <td data-th="recieved_by"><span class="bt-content"><a href="/employee/profile?q={{item.received_by.id}}">{{item.received_by}}</a></span></td>
             <td data-th="issued_by"><span class="bt-content"><a href="/employee/profile?q={{item.issued_by.id}}">{{item.issued_by}}</a></span></td>
             <td data-th="remarks"><span class="bt-content">{{item.remarks}}</span></td>

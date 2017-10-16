@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from models import Item
+from models import Item, Category
 from datetime import datetime
 
 
@@ -15,12 +15,12 @@ class Index(View):
     @method_decorator(login_required(login_url='/login'), )
     def get(self, request):
         user = request.user
-        item_list = Item.objects.filter(employee=user)
+        item_list = Item.objects.filter(employee=user).order_by('-pk')
 
         order_sort = request.GET.get('order', '')
         if order_sort:
             if order_sort == 'desc':
-                item_list = item_list.order_by('-pk')
+                item_list = item_list.order_by('pk')
 
         start_date = request.GET.get('start_date', '')
         end_date = request.GET.get('end_date', '')
@@ -75,6 +75,7 @@ class Add(View):
     def get(self, request,):
         context = {}
         context['employees'] = self.get_employees(request)
+        context['categories'] = Category.objects.all()
         return render(request, self.template_name, context)
 
     @method_decorator(login_required(login_url='/login'), )
@@ -97,11 +98,22 @@ class Add(View):
         issued_by = User.objects.get(username=issued_by)
 
         date_acquired = datetime.strptime(date_acquired, "%m/%d/%Y").strftime("%Y-%m-%d")
-        item = Item(
-            employee=request.user, name=name, description=description,
-            unit=unit, quantity=quantity,
-            date_acquired=date_acquired, amount=amount, issued_by=issued_by,
-            received_by=received_by, remarks=remarks, photo=photo)
+
+        category = request.POST.get('category', '')
+        category = Category.objects.get(name=category)
+        item = Item()
+        item.employee = request.user
+        item.name = name
+        item.description = description
+        item.unit = unit
+        item.quantity = quantity
+        item.category = category
+        item.date_acquired = date_acquired
+        item.amount = amount
+        item.issued_by = issued_by
+        item.received_by = received_by
+        item.remarks = remarks
+        item.photo = photo
         item.save()
         return redirect('/inventory?change='+str(item.pk))
 

@@ -10,10 +10,10 @@ from fish.models import Fish
 def increment_invoice_number():
     last_invoice = Invoice.objects.all().order_by('id').last()
     if not last_invoice:
-         return 'BFARNIFTC-0001'
+        return 'BFARNIFTC-0001'
     invoice_no = last_invoice.invoice_number
     invoice_int = int(invoice_no.split('BFARNIFTC-')[-1])
-    new_invoice_int = invoice_int + 1
+    new_invoice_int = last_invoice.id
     new_invoice_no = 'BFARNIFTC-' + str(new_invoice_int)
     return new_invoice_no
 
