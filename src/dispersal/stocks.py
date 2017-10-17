@@ -59,9 +59,9 @@ class Stocks(object):
             harvest_list.append(harvest_total)
         points.append(invoice_list)
         points.append(harvest_list)
-        average = [float(sum(l))/len(l) for l in zip(*points)]
-        average = sum(average) / float(len(average))
-        return points, int(average/2)
+        average = map(max, points)
+        average = max(average) / 10
+        return points, int(average)
 
     def export(self, points):
         response = HttpResponse(content_type='text/csv')

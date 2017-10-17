@@ -5,16 +5,18 @@ from core.models import Base
 from django.contrib.auth.models import User
 from employee.models import EmployeeProfile
 from fish.models import Fish
+from datetime import datetime
 
 
 def increment_invoice_number():
+    now = datetime.now()
     last_invoice = Invoice.objects.all().order_by('id').last()
     if not last_invoice:
-        return 'BFARNIFTC-0001'
+        return 'bfarniftc-'+str(now.year) + str(now.month) + str(now.day) + '1'
     invoice_no = last_invoice.invoice_number
     invoice_int = int(invoice_no.split('BFARNIFTC-')[-1])
     new_invoice_int = last_invoice.id
-    new_invoice_no = 'BFARNIFTC-' + str(new_invoice_int)
+    new_invoice_no = 'bfarniftc-'+str(now.year) + str(now.month) + str(now.day) + str(new_invoice_int)
     return new_invoice_no
 
 
@@ -44,7 +46,7 @@ class Customer(Base):
         ('F', 'Female'),
         ('O', 'Organization')
     )
-    name = models.CharField(max_length=50, blank=False)
+    name = models.CharField(max_length=75, blank=False)
     organization = models.CharField(max_length=30, blank=False)
     address = models.CharField(max_length=100, blank=False)
     gender = models.CharField(

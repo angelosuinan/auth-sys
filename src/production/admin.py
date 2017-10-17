@@ -16,6 +16,7 @@ class HarvestAdmin(ImportExportModelAdmin):
 
     list_display = (
         '_fish_name',
+        'id',
         'quantity',
         'date_listed',
         'employee_attended',
@@ -24,6 +25,7 @@ class HarvestAdmin(ImportExportModelAdmin):
     list_filter = (
         'fish__name',
         'date_listed',
+        'id',
         ('date_listed', DateRangeFilter),
     )
     search_fields = (

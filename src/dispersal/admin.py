@@ -98,6 +98,7 @@ class InvoiceAdmin(ImportExportModelAdmin):
     )
     list_filter = (
         'orders__fish__name',
+        'date_acquired',
         ('date_acquired', DateRangeFilter),
     )
     search_fields = ('customer__name',
@@ -115,23 +116,28 @@ class PaymentAdmin(admin.ModelAdmin):
         'nature',
     )
     list_filter = [
-
+        'fish',
     ]
+    search_fields = ('id',
+    )
 
 
 class CustomerAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        print type(obj.name)
+        obj.save()
     list_display = (
         'name',
+        'organization',
         'address',
         'gender',
         'telephone',
         'region'
     )
     list_filter = [
-
         'region',
     ]
-    search_fields=('name',)
+    search_fields=('name', 'organization',)
 
 
 

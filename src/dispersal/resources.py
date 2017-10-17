@@ -20,12 +20,12 @@ class InvoiceResource(resources.ModelResource):
     class Meta:
         model = Invoice
         fields = (
-            'id', 'Date', 'Name', 'Gender', 'Address', 'Region',
+            'invoice_number', 'Date', 'Name', 'Gender', 'Address', 'Region',
             'Employee_attended', 'Fishes', 'total_price', 'Free', 'Nature',
             'remarks',
         )
         export_order = (
-            'id', 'Date', 'Name', 'Gender', 'Organization', 'Address', 'Region',
+            'invoice_number', 'Date', 'Name', 'Gender', 'Organization', 'Address', 'Region',
             'Employee_attended', 'Fishes', 'Quantity', 'Total_Quantity', 'total_price', 'Free', 'Nature',
             'remarks',
         )
@@ -38,7 +38,6 @@ class InvoiceResource(resources.ModelResource):
 
     def dehydrate_Gender(self, invoice):
         customer = invoice.customer
-        print customer.gender
 
         return '%s' % (customer.get_gender_display(), )
 
@@ -71,7 +70,7 @@ class InvoiceResource(resources.ModelResource):
     def dehydrate_Total_Quantity(self, invoice):
         total = 0
         for payment in invoice.orders.all():
-            total += payment.amount
+            total += payment.quantity
         return total
 
     def dehydrate_Free(self, invoice):

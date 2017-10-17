@@ -97,11 +97,13 @@ class Add(View):
     @method_decorator(login_required(login_url='/login'), )
     def post(self, request):
         existing_customer = request.POST.get('existing', '')
+        print "ADSDsadsadsadsdasdsa"
         customer = ""
         if existing_customer:
             customer = Customer.objects.get(name=existing_customer)
         else:
             customer = Customer()
+
             customer.name = request.POST.get('name', '')
             customer.gender = request.POST.get('gender', '')
             customer.address = request.POST.get('address', '')

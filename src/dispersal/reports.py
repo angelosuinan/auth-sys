@@ -69,7 +69,7 @@ class Report(object):
 
                 fish_quantity.append(invoice_total)
             points.append(fish_quantity)
-        average = [float(sum(l))/len(l) for l in zip(*points)]
-        average = sum(average) / float(len(average))
+        average = map(max, points)
+        average = max(average) / 10
 
-        return points, int(average/2)
+        return points, int(average)
