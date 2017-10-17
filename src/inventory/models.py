@@ -19,7 +19,7 @@ def increment_property_number():
     now = datetime.datetime.now()
     last_item = Item.objects.all().order_by('id').last()
     if not last_item:
-        return str(now.year) + "1
+        return str(now.year) + "1"
     new_item_no = str(now.year) + '-' + str(int(last_item.id) + 1)
     return new_item_no
 
