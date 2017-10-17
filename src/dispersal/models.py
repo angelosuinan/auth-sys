@@ -7,6 +7,17 @@ from employee.models import EmployeeProfile
 from fish.models import Fish
 
 
+def increment_invoice_number():
+    last_invoice = Invoice.objects.all().order_by('id').last()
+    if not last_invoice:
+        return 'BFARNIFTC-0001'
+    invoice_no = last_invoice.invoice_number
+    invoice_int = int(invoice_no.split('BFARNIFTC-')[-1])
+    new_invoice_int = last_invoice.id
+    new_invoice_no = 'BFARNIFTC-' + str(new_invoice_int)
+    return new_invoice_no
+
+
 class Customer(Base):
     REGION_CHOICES = (
         ('I', 'REGION I (Ilocos Region) in Luzon'),
@@ -34,11 +45,13 @@ class Customer(Base):
         ('O', 'Organization')
     )
     name = models.CharField(max_length=50, blank=False)
+    organization = models.CharField(max_length=30, blank=False)
     address = models.CharField(max_length=100, blank=False)
     gender = models.CharField(
         max_length=2,
         choices=GENDER_CHOICES,
         default='M',
+        verbose_name="Sex"
     )
     telephone = models.CharField(max_length=11, blank=False)
     region = models.CharField(
@@ -68,6 +81,7 @@ class Payment(Base):
 
 
 class Invoice(Base):
+    invoice_number = models.CharField(max_length=500, default=increment_invoice_number, null=True, blank=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="customer")
     orders = models.ManyToManyField(Payment)
     employee = models.ForeignKey(User, on_delete=models.CASCADE, related_name="employee")

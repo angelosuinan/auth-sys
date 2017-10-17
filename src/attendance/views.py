@@ -16,13 +16,13 @@ class Index(View):
     @method_decorator(login_required(login_url='/login'), )
     def get(self, request,):
         user = request.user
-        attendance_list = Attendance.objects.filter(employee=user)
+        attendance_list = Attendance.objects.filter(employee=user).order_by('-date')
 
         order_sort = request.GET.get('order', '')
 
         if order_sort:
             if order_sort == 'desc':
-                attendance_list = attendance_list.order_by('-pk')
+                attendance_list = attendance_list.order_by('date')
 
         start_date = request.GET.get('start_date', '')
         end_date = request.GET.get('end_date', '')

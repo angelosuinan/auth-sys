@@ -61,6 +61,10 @@ class InvoiceAdmin(ImportExportModelAdmin):
         return obj.customer.region
     get_customer_region.short_description = 'region'
 
+    def get_customer_organization(self, obj):
+        return obj.customer.organization
+    get_customer_organization.short_description = 'organization'
+
     def get_orders_free(self, obj):
         total = 0
         for payment in obj.orders.all():
@@ -82,6 +86,7 @@ class InvoiceAdmin(ImportExportModelAdmin):
         'date_acquired',
         'get_customer_name',
         'get_customer_gender',
+        'get_customer_organization',
         'get_customer_address',
         'get_customer_region',
         'employee',
@@ -97,7 +102,7 @@ class InvoiceAdmin(ImportExportModelAdmin):
     )
     search_fields = ('customer__name',
     )
-    readonly_fields = ('total_price', )
+    readonly_fields = ('total_price', 'customer', 'orders' )
 
 
 class PaymentAdmin(admin.ModelAdmin):

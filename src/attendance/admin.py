@@ -7,6 +7,7 @@ from .models import Attendance
 from django.contrib import messages
 from .utils import Helper
 import tablib
+from datetime import time
 
 
 class BookResource(resources.ModelResource):
@@ -42,6 +43,14 @@ class AttendanceAdmin(ImportExportModelAdmin):
         if 'delete_selected' in actions:
             del actions['delete_selected']
         return actions
+
+    def save_model(self, request, obj, form, change):
+        if obj.leave_of_absence:
+            obj.time_in_am = time(8, 0, 0)
+            obj.time_out_am = time(12, 0, 0)
+            obj.time_in_pm = time(13, 0, 0)
+            obj.time_out_pm = time(16, 0, 0)
+        obj.save()
     resource_class = BookResource
     list_display = (
             'date',
@@ -58,6 +67,7 @@ class AttendanceAdmin(ImportExportModelAdmin):
             'employee',
             'date',
             'active',
+            'leave_of_absence',
             ('date', DateRangeFilter),
            )
     search_fields = (

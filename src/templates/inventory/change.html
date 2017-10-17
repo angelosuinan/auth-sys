@@ -63,39 +63,44 @@
 									<td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue; "><span class="bt-content">{{item.name}}</span></td>
 								</tr>
 
+                <tr>
+									<td data-th="name" style="font-weight:bold; font-size:20px; width:280px "><span class="bt-content">Property number</span></td>
+									<td data-th="name_value" style="font-weight:bold; font-size:16px; color:blue; "><span class="bt-content">{{item.property_number}}</span></td>
+								</tr>
+
 								<tr>
 									<td data-th="name" style="font-weight:bold; font-size:20px; width:280px "><span class="bt-content">Description</span></td>
-									<td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue; "><span class="bt-content">{{item.description}}</span></td>
+									<td data-th="name_value" style="font-weight:bold; font-size:16px;  "><span class="bt-content">{{item.description}}</span></td>
 								</tr>
 
 								<tr>
 									<td data-th="name" style="font-weight:bold; font-size:20px; width:280px "><span class="bt-content">Quantity/unit</span></td>
-									<td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue; "><span class="bt-content">{{item.quantity}} {{item.unit}}</span></td>
+									<td data-th="name_value" style="font-weight:bold; font-size:16px; "><span class="bt-content">{{item.quantity}} {{item.unit}}</span></td>
 								</tr>
 
 								<tr>
 									<td data-th="name" style="font-weight:bold; font-size:20px; width:280px "><span class="bt-content">Date Acquired</span></td>
-									<td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue; "><span class="bt-content">{{item.date_acquired}}</span></td>
+									<td data-th="name_value" style="font-weight:bold; font-size:16px;"><span class="bt-content">{{item.date_acquired}}</span></td>
 								</tr>
 
 								<tr>
 									<td data-th="name" style="font-weight:bold; font-size:20px; width:280px "><span class="bt-content">Amount</span></td>
-									<td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue; "><span class="bt-content">{{item.amount}}</span></td>
+									<td data-th="name_value" style="font-weight:bold; font-size:16px; "><span class="bt-content">{{item.amount}} php</span></td>
 								</tr>
 
 								<tr>
 									<td data-th="name" style="font-weight:bold; font-size:20px; width:280px "><span class="bt-content">Issued by</span></td>
-									<td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue; "><span class="bt-content">{{item.issued_by}}</span></td>
+									<td data-th="name_value" style="font-weight:bold; font-size:16px;"><span class="bt-content">{{item.issued_by}}</span></td>
 								</tr>
 
 								<tr>
 									<td data-th="name" style="font-weight:bold; font-size:20px; width:280px "><span class="bt-content">Recieved by</span></td>
-									<td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue; "><span class="bt-content">{{item.received_by}}</span></td>
+									<td data-th="name_value" style="font-weight:bold; font-size:16px;"><span class="bt-content">{{item.received_by}}</span></td>
 								</tr>
 
 								<tr>
 									<td data-th="name" style="font-weight:bold; font-size:20px; width:280px "><span class="bt-content">Remarks</span></td>
-									<td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue; ">
+									<td data-th="name_value" style="font-weight:bold; font-size:16px; ">
 										<span class="bt-content">
 											<div class="form-group  has-feedback">
 												<textarea name="remarks" id="field-9" maxlength="50" class="form-control">{{ item.remarks}}</textarea>
@@ -108,7 +113,7 @@
 										<span class="bt-content">
 											Image
 										</span></td>
-									<td data-th="name_value" style="font-weight:bold; font-size:20px; color:blue; ">
+									<td data-th="name_value" style="font-weight:bold; font-size:16px;">
 										<span class="bt-content">
 											<div class="form-group">
 												{% if item.photo %}
@@ -123,7 +128,7 @@
 								</tr>
 								<tr>
 										<td data-th="name"><span class="bt-content">Remarks</span></td>
-										<td data-th="name" style="font-weight:bold; font-size:20px; width:280px ">
+										<td data-th="name" style="font-weight:bold; font-size:16px;">
 											<span class="bt-content">
 												<input type="submit" name="sub-1" value="Submit" class="btn btn-primary">
 												<input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">

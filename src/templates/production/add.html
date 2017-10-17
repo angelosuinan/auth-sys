@@ -7,7 +7,7 @@
 <style>
 
 	label {
-	    color: blue;
+	    font-size: : 16pt;
 	}
 
 </style>
@@ -41,30 +41,43 @@
 								<div class="my-div col-md-8 col-md-offset-2" >
 
 										<div class="input-info">
-											<h3>Add a Harvest</h3>
+											<h2>Add a Harvest</h2>
+										</div>
+										<br>
+										<div class="row">
+
+											<div class="form-group col-md-3">
+												<label class="labels" for="field-1" style="font-size:16pt; color:black">Fish&nbsp;</label>
+		                    <select name="fish"  class="form-control" required="true" >
+		                      <option value=""></option>
+		                      {% for fish in fishes %}
+		                      <option value="{{fish}}">{{ fish }}</option>
+		                      {% endfor %}
+		                    </select>
+											</div>
+
+											<div class="form-group col-md-3">
+												<label for="field-2" style="font-size:16pt; color:black">Quantity &nbsp;</label>
+												<input type="text" name="quantity" id="field-2" required="true" filter="greater_than:0" class="form-control" data-required="Given value must be positive">
+											</div>
+											<div class="form-group col-md-3">
+												<label for="field-3" style="font-size:16pt; color:black">Date Listed &nbsp;</label>
+												<input type="text" name="date_listed" id="mydate" id="field-3" required="true" class="form-control" >
+											</div>
+											<div class="form-group col-md-3">
+												<label for="field-3" style="font-size:16pt; color:black">Area Harvested &nbsp;</label>
+												<select name="area_harvested"  class="form-control" required="true" >
+		                      <option value=""></option>
+		                      {% for area in area_harvesteds %}
+		                      <option value="{{area}}">{{ area }}</option>
+		                      {% endfor %}
+		                    </select>
+											</div>
 										</div>
 
-										<label class="labels" for="field-1" >Fish&nbsp;</label>
-										<div class="form-group">
-                      <select name="fish"  class="form-control" required="true" >
-                        <option value=""></option>
-                        {% for fish in fishes %}
-                        <option value="{{fish}}">{{ fish }}</option>
-                        {% endfor %}
-                      </select>
-										</div>
 
-										<label for="field-2">Quantity &nbsp;</label>
-										<div class="form-group">
-											<input type="number" name="quantity" id="field-2" required="true" class="form-control" >
-										</div>
 
-										<label for="field-3">Date Listed &nbsp;</label>
-										<div class="form-group">
-											<input type="text" name="date_listed" id="mydate" id="field-3" required="true" class="form-control" >
-										</div>
-
-                    <label for="field-5">Remarks &nbsp;</label>
+                    <label for="field-5" style="font-size:16pt; color:black">Remarks &nbsp;</label>
 										<div class="form-group">
 											<textarea name="remarks" id="field-5" maxlength="150" class="form-control"></textarea>
 										</div>

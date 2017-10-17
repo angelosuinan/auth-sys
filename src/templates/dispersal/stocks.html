@@ -48,7 +48,7 @@ svg {
 			<div class="col-md-12 count">
 			<div class="count-grid">
 			<div class="table-heading">
-				<h2  style="color:black">Fish Dispersal Charts</h2>
+				<h2  style="color:black">Comparison of Dispersal and Stocks</h2>
 			</div>
 			<div class="sort">
 				<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
@@ -60,7 +60,7 @@ svg {
 				</div>
 				<div class="form-group col-md-3 col-xs-6">
 					<label for="field-2">Fish</label>
-					<select name="fish"  class="form-control" id="field-2" multiple>
+					<select name="fish"  class="form-control" id="field-2" >
 						<option value=""></option>
 						{% for fish in fishes %}
 							<option value="{{fish}}">{{fish}}</option>
@@ -176,9 +176,7 @@ svg {
 					colors: ['blue', 'red', 'magenta', 'orange', 'yellow'],
 					xDist: 70,
 					dataNames: [
-						{% for fish in fishes_list %}
-						"{{fish}}",
-						{% endfor %}
+						"Dispersal", "Production"
 					],
 					xName: 'Day',
 					tooltipWidth: 15,
