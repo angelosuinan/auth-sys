@@ -72,7 +72,7 @@
       <div class="col-md-12 count">
         <div class="count-grid">
 			<div class="table-heading">
-				<h2  style="color:black">Orders</h2>
+				<h2  style="color:black">INVOICES</h2>
 			</div>
 			<div class="sort">
 				<form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
@@ -86,12 +86,7 @@
 				</div>
 				<div class="form-group col-md-3 col-xs-6">
 					<label for="field-3">Customer</label>
-					<select name="customer"  class="form-control" id="field-3">
-						<option value=""></option>
-						{% for customer in customers %}
-							<option value="{{customer}}">{{customer}}</option>
-						{% endfor %}
-					</select>
+					<input type="text" name="customer"  class="form-control" >
 				</div>
 				<div class="form-group col-md-5 col-xs-12">
 					<div class="form-group col-md-6 col-xs-6">

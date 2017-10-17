@@ -102,7 +102,7 @@ class InvoiceAdmin(ImportExportModelAdmin):
     )
     search_fields = ('customer__name',
     )
-    readonly_fields = ('total_price', )
+    readonly_fields = ('total_price', 'customer', 'orders' )
 
 
 class PaymentAdmin(admin.ModelAdmin):
