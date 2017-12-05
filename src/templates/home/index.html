@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}HOME{% endblock title %}
 {% block extrahead %}
 <link href="{% static "css/style_grid.css" %}" rel="stylesheet" type="text/css" media="all" />
 <!-- charts -->
@@ -119,7 +120,7 @@ svg {
 		</div>
 	</div>
 	<!-- footer -->
-	
+
 	<!-- //footer -->
 	<script>
 	$('svg').attr('name', 'margin-left: 30px;');

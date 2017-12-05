@@ -22,12 +22,12 @@ def increment_invoice_number():
 
 class Customer(Base):
     REGION_CHOICES = (
-        ('I', 'REGION I (Ilocos Region) in Luzon'),
-        ('II', 'REGION 2 (Cagayan Valley) in Luzon'),
+        ('I', 'REGION I (Ilocos Region)'),
+        ('II', 'REGION 2 (Cagayan Valley)'),
         ('III', 'REGION III (Central Luzon)'),
-        ('IV-A', 'REGION IV-A (CALABARZON) Luzon'),
-        ('IV-B', 'REGION IV-B(MIMAROPA) 17th region Visayas'),
-        ('V', 'REGION V(Bicol Region) Luzon'),
+        ('IV-A', 'REGION IV-A (CALABARZON)'),
+        ('IV-B', 'REGION IV-B(MIMAROPA)'),
+        ('V', 'REGION V(Bicol Region)'),
         ('VI', 'REGION VI (Western Visayas'),
         ('VII', 'REGION VII (Central Visayas'),
         ('VIII', 'REGION VIII (Eastern Visayas)'),
@@ -36,8 +36,8 @@ class Customer(Base):
         ('XI', 'REGION XI (Davao Region)'),
         ('XII', 'REGION XII (Soccsksargen)'),
         ('XIII', 'REGION XIII (CARAGA)'),
-        ('NCR', '(NCR) National Capital Region in Luzon'),
-        ('XIV', 'REGION 14 Cordillera Administrative Region (CAR) in Luzon'),
+        ('NCR', '(NCR) National Capital Region'),
+        ('XIV', 'REGION 14 Cordillera Administrative Region (CAR)'),
         ('XV', 'REGION XV - Autonomous Region in Muslim Mindanao (ARMM)'),
         ('XVIII', 'Region XVIII - NIR - Negros Island Region'),
     )

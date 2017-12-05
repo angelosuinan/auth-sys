@@ -42,7 +42,7 @@ class Attendance(Base):
         unique_together = ('employee', 'date')
 
     def clean(self):
-        time_in_am = self.time_in_am.strftime('%H:%M:%S')
+        time_in_am = self.time_in_am
         time_out_am = self.time_out_am
         sum_time = 0
         if time_in_am and time_out_am:

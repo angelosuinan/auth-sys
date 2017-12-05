@@ -61,7 +61,8 @@ class AttendanceAdmin(ImportExportModelAdmin):
             'time_in_pm',
             'time_out_pm',
             'total_time',
-            'modified_time'
+            'modified_time',
+            'leave_of_absence'
             )
     list_filter = (
             'employee',
