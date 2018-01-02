@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Files{% endblock title %}
+{% block extrahead %}
+<link href="{% static "css/jquery-ui.css" %}" rel="stylesheet" />
+<script src="{% static "js/jquery_.min.js" %}"></script>
+<script src="{% static "js/jquery-ui.js" %}"></script>
+{% endblock extrahead %}
 {% block bodyclass %}
 <body class="dashboard-page">
 {% endblock bodyclass %}
@@ -25,14 +30,21 @@
       {% csrf_token %}
       <div class="form-group col-md-2 col-xs-6" >
         <label for="field-1">Category</label>
-        <select name="order"  class="form-control" id="field-1">
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
+        <select name="category"  class="form-control" id="field-1">
+          <option value=""></option>
+          {% for category in categories %}
+            <option value="{{ category }}">{{ category }}</option>
+          {% endfor %}
         </select>
       </div>
       <div class="form-group col-md-3 col-xs-6">
-        <label for="field-3">Author</label>
-        <input type="text" name="customer"  class="form-control" >
+        <label for="field-2">Author</label>
+        <select name="user"  class="form-control" id="field-2">
+          <option value=""></option>
+          {% for user in users %}
+            <option value="{{ user.id }}">{{ user }}</option>
+          {% endfor %}
+        </select>
       </div>
       <div class="form-group col-md-5 col-xs-12">
         <div class="form-group col-md-6 col-xs-6">
@@ -64,23 +76,23 @@
               <a href="/media/{{file.upload}}" >
                 <img src="/media/{{profile.photo}}"
                 {% if extensions.0 == '.doc' or extensions.0 == '.docx' %}
-                  onerror="this.src='{% static "images/male-default.jpeg" %}'"
+                  onerror="this.src='{% static "images/icons/doc.png" %}'"
                 {% elif profile.gender == '.pdf' %}
-                  onerror="this.src='{% static "images/female-default.jpg" %}'"
+                  onerror="this.src='{% static "images/icons/pdf.png" %}'"
                 {% elif profile.gender == '.jpg' %}
-                  onerror="this.src='{% static "images/female-default.jpg" %}'"
+                  onerror="this.src='{% static "images/icons/generic.jpg" %}'"
                 {% elif profile.gender == '.zip' %}
-                  onerror="this.src='{% static "images/female-default.jpg" %}'"
+                  onerror="this.src='{% static "images/icons/zip.png" %}'"
                 {% elif profile.gender == '.mp4' or extensions.0 == '.wmv' or extensions.0 == '.mov' or extensions.0 == '.avi'%}
-                  onerror="this.src='{% static "images/female-default.jpg" %}'"
+                  onerror="this.src='{% static "images/icons/mp4.png" %}'"
                 {% elif extensions.0 == '.xls' or extensions.0 == '.xlsx' %}
-                  onerror="this.src='{% static "images/male-default.jpeg" %}'"
+                  onerror="this.src='{% static "images/icons/xls.png" %}'"
                 {% elif extensions.0 == '.txt' or extensions.0 == '.txt' %}
-                  onerror="this.src='{% static "images/male-default.jpeg" %}'"
+                  onerror="this.src='{% static "txt.png" %}'"
                 {% else %}
-                  onerror="this.src='{% static "images/female-default.jpeg" %}'"
+                  onerror="this.src='{% static "zip.png" %}'"
                 {% endif %}
-                alt="" height="200" width="1"/>
+                alt="" height="300" width="100"/>
                 <div>
                   <h3>{{file.upload}} {{extensions.0}} </h3>
                 </div>
@@ -100,6 +112,36 @@
 
   </div>
 </div>
+<script>
+$("[name='start_date']").datepicker().datepicker("setDate", new Date());
+$("[name='end_date']").datepicker().datepicker("setDate", new Date());
+</script>
+<script>
+
+  $(document).ready(function() {
+
+    var url = new URL(window.location.href);
+    var c = url.searchParams.get('fish');
+    $('[name=fish]').val( c );
+    var c = url.searchParams.get('order');
+    $('[name=order]').val( c );
+    var c = url.searchParams.get('start_date');
+    $('[name=start_date]').val( format(c) );
+    var c = url.searchParams.get('end_date');
+    $('[name=end_date]').val( format(c) );
+    function format(inputDate) {
+     var date = new Date(inputDate);
+     if (inputDate == null){
+       date = new Date();
+       return
+     }
+     if (!isNaN(date.getTime())) {
+         // Months use 0 index.
+         return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear();
+     }
+   }
+  });
+</script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
 
 <!-- gallery -->
