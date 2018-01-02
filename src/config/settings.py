@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'dispersal',
     'production',
     'fish',
-
+    'files',
 
     # 3rd party apps
     'rest_framework',

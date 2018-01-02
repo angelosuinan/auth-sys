@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Files{% endblock title %}
+{% block bodyclass %}
+<body class="dashboard-page">
+{% endblock bodyclass %}
+{% block content %}
+
+<div class="main-grid">
+  <div class="banner">
+    <h2>
+      <a href="/">Home</a>
+      <i class="fa fa-angle-right"></i>
+      <span>Files</span>
+    </h2>
+  </div>
+  <br>
+  <div class="agile-grids">
+    <!-- gallery -->
+    <div class="grids-heading gallery-heading">
+      <h2>Files</h2>
+    </div>
+    <div class="sort">
+      <form method="post" action="#" class="valida" autocomplete="off" novalidate="novalidate">
+      {% csrf_token %}
+      <div class="form-group col-md-2 col-xs-6" >
+        <label for="field-1">Category</label>
+        <select name="order"  class="form-control" id="field-1">
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </div>
+      <div class="form-group col-md-3 col-xs-6">
+        <label for="field-3">Author</label>
+        <input type="text" name="customer"  class="form-control" >
+      </div>
+      <div class="form-group col-md-5 col-xs-12">
+        <div class="form-group col-md-6 col-xs-6">
+          <label for="field-4">Start date</label>
+          <input type="text" name="start_date"  class="form-control" id="field-4">
+        </div>
+        <div class="form-group col-md-6 col-xs-6">
+          <label for="field-5">End date</label>
+          <input type="text" name="end_date"  class="form-control" id="field-5">
+        </div>
+      </div>
+      <div class="form-group col-md-2 col-xs-12">
+        <div class="form-group col-md-6 col-xs-6">
+          <input type="submit" name="sub-1" value="Submit" class="btn btn-primary">
+        </div>
+        <div class="form-group col-md-6 col-xs-6">
+          <input type="reset" name="res-1" id="res-1" value="Reset" class="btn btn-danger">
+        </div>
+
+        </select>
+      </form>
+      </div>
+    </div>
+    <div class="gallery-grids">
+        {% for file in files %}
+        <div class="show-reel">
+          <div class="col-md-3 agile-gallery-grid" style="width: -70%">
+            <div class="agile-gallery">
+              <a href="/media/{{file.upload}}" >
+                <img src="/media/{{profile.photo}}"
+                {% if extensions.0 == '.doc' or extensions.0 == '.docx' %}
+                  onerror="this.src='{% static "images/male-default.jpeg" %}'"
+                {% elif profile.gender == '.pdf' %}
+                  onerror="this.src='{% static "images/female-default.jpg" %}'"
+                {% elif profile.gender == '.jpg' %}
+                  onerror="this.src='{% static "images/female-default.jpg" %}'"
+                {% elif profile.gender == '.zip' %}
+                  onerror="this.src='{% static "images/female-default.jpg" %}'"
+                {% elif profile.gender == '.mp4' or extensions.0 == '.wmv' or extensions.0 == '.mov' or extensions.0 == '.avi'%}
+                  onerror="this.src='{% static "images/female-default.jpg" %}'"
+                {% elif extensions.0 == '.xls' or extensions.0 == '.xlsx' %}
+                  onerror="this.src='{% static "images/male-default.jpeg" %}'"
+                {% elif extensions.0 == '.txt' or extensions.0 == '.txt' %}
+                  onerror="this.src='{% static "images/male-default.jpeg" %}'"
+                {% else %}
+                  onerror="this.src='{% static "images/female-default.jpeg" %}'"
+                {% endif %}
+                alt="" height="200" width="1"/>
+                <div>
+                  <h3>{{file.upload}} {{extensions.0}} </h3>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <script>
+          $(window).load(function() {
+            $.fn.lightspeedBox();
+          });
+
+        </script>
+    </div>
+  <!-- //gallery -->
+
+  </div>
+</div>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+
+<!-- gallery -->
+<link rel="stylesheet" href="{% static 'css/lsb.css' %}">
+<script src="{% static 'js/lsb.js' %}"></script>
+<!-- //gallery -->
+<script src="{% static 'js/proton.js' %}"></script>
+{% endblock content%}
