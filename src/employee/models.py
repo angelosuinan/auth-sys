@@ -18,7 +18,7 @@ class EmployeeProfile(models.Model):
         choices=GENDER_CHOICES,
         default='M',
     )
-    address = models.CharField(max_length=50,)
+    address = models.CharField(max_length=150,)
     contact_number = models.CharField(max_length=11)
     finger_print = models.BooleanField(default=False)
     photo = models.ImageField(upload_to='employee/', max_length=250, blank=True, null=True)

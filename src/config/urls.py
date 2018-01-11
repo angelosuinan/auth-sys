@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^profile/', include('employee.urls', namespace='profile')),
     url(r'^calendar/', include('happenings.urls', namespace='calendar')),
     url(r'^employee/', include('employee.urls', namespace='employee')),
+    url(r'^files/', include('files.urls', namespace='files')),
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
