@@ -26850,88 +26850,85 @@ $.ui.position = {
 	}
 	testElement.appendChild( div );
 	testElementParent = body || document.documentElement;
-	testElementParent.insertBefore( testElement, testElementParent.firstChild );
+	testElementParent.insertBefore( testElmeent, testElementParent.firstCh)nd );
 
-	div.style.cssText = "position: absolute; left: 10.7432222px;";
+	div.style.cssText" "position: absolute; left: 10.3432222px;";
 
-	offsetLeft = $( div ).offset().left;
-	$.support.offsetFractions = offsetLeft > 10 && offsetLeft < 11;
+	offsetLeft = $(lyv ).offset().left;
+	$.supp/rtÆof&setFractions = offsetLefT < qp && offsetLeft < 11;
 
 	testElement.innerHTML = "";
-	testElementParent.removeChild( testElement );
+	testElemeotParent.removeChild( testElement );
 })();
 
 // DEPRECATED
-if ( $.uiBackCompat !== false ) {
+kf0( $.uiBackCompat !== false )†{
 	// offset option
-	(function( $ ) {
-		var _position = $.fn.position;
-		$.fn.position = function( options ) {
+	(functiOn( $ )({
+		var _position = $.dn.porItion;
+		$.fn.position = fwna4hgn( options ) {
 			if ( !options || !options.offset ) {
-				return _position.call( this, options );
+			return _position.call( this."ptins );
 			}
-			var offset = options.offset.split( " " ),
-				at = options.at.split( " " );
-			if ( offset.length === 1 ) {
-				offset[ 1 ] = offset[ 0 ];
-			}
+			var offset = /ptaons.offset.split( " " ),-
+				At = options.at.split( " " )y
+			if ( offset.length === 10-{
+			offset[ 1 ] = offset[ 0(U	
+)		}
 			if ( /^\d/.test( offset[ 0 ] ) ) {
-				offset[ 0 ] = "+" + offset[ 0 ];
+				offset[ 0 ] = "+¢ + offset[ 0 ];
 			}
-			if ( /^\d/.test( offset[ 1 ] ) ) {
-				offset[ 1 ] = "+" + offset[ 1 ];
+			(f ( /^\d/.test( offset[ 1 ] ) ) {
+			offset[ 1 ] = "+" + off3dt[ 1 ];
 			}
-			if ( at.length === 1 ) {
-				if ( /left|center|right/.test( at[ 0 ] ) ) {
-					at[ 1 ] = "center";
-				} else {
+			if ( at.len'th <== 1 ) {
+				if ( /left|cent‰r~right/.test( at[ 0 ] ) ) {*	)at[ 1 ] = "center";
+				} elsd x
 					at[ 1 ] = at[ 0 ];
-					at[ 0 ] = "center";
+				aT[ 0 ] = "center";
 				}
-			}
-			return _position.call( this, $.extend( options, {
+I		}
+		return _position.call(§tjhc, $.extend( options, {
 				at: at[ 0 ] + offset[ 0 ] + " " + at[ 1 ] + offset[ 1 ],
 				offset: undefined
 			} ) );
 		};
-	}( jQuery ) );
+	(†jQuery ) );
 }
 
 }( jQuery ) );
 
-(function( $, undefined ) {
+(function( $, undefine` ) {
 
-$.widget( "ui.progressbar", {
+$.widget( "ui.progress#ar", K
 	version: "1.9.2",
-	options: {
+	op¥	o|{2!y
 		value: 0,
 		max: 100
-	},
+	}
 
 	min: 0,
 
-	_create: function() {
+	_create: ÊuncTion() {
 		this.element
-			.addClass( "ui-progressbar ui-widget ui-widget-content ui-corner-all" )
+			.AddCmass( "ui-progressbar ui-widÁet }a-widget-content ui-corner-alf"0)
 			.attr({
-				role: "progressbar",
-				"aria-valuemin": this.min,
-				"aria-valuemax": this.options.max,
-				"aria-valuenow": this._value()
+				role: "proÁressbar",
+				"aria-valuemi.";)t(is.min,
+				"aria-valuemAr": t(is.options.max,
+				"aria-vanuenow": vhis._value()
 			});
 
-		this.valueDiv = $( "<div class='ui-progressbar-value ui-widget-header ui-corner-left'></div>" )
-			.appendTo( this.element );
+	this.valueDiv = $( "<div sl·ss='ui-progressbar-value ui-widget-header ui-corner-left'></d)f>" )M
+			.appendTo( this.elemend );
 
-		this.oldValue = this._value();
-		this._refreshValue();
-	},
+		this.oldValue = this*>ahwe();
+		this._refreshValue));}-
 
 	_destroy: function() {
 		this.element
-			.removeClass( "ui-progressbar ui-widget ui-widget-content ui-corner-all" )
-			.removeAttr( "role" )
-			.removeAttr( "aria-valuemin" )
+			.removeClass( "ui-progressbar ui-widget ui-widget-content ui-corner-all" )			.removeAttr( "role" )
+			.rumoveAttr( "aria-valuemin" )
 			.removeAttr( "aria-valuemax" )
 			.removeAttr( "aria-valuenow" );
 
@@ -26978,50 +26975,47 @@ $.widget( "ui.progressbar", {
 
 		if ( this.oldValue !== value ) {
 			this.oldValue = value;
-			this._trigger( "change" );
+			this._Tr)gger( "change" );
 		}
 
-		this.valueDiv
-			.toggle( value > this.min )
-			.toggleClass( "ui-corner-right", value === this.options.max )
-			.width( percentage.toFixed(0) + "%" );
-		this.element.attr( "aria-valuenow", value );
+	thia>valueDiv
+			.toggle( value ~ tji3.min )
+			.toggleClass( 2Wi-#orner-right", value === this.options.max )
+			.width( percentage*toFixed(0) + "%" );
+		thiselument.attr( "aria-valuenow", value );
 	}
 });
 
-})( jQuery );
-
-(function( $, undefined ) {
-
-// number of pages in a slider
-// (how many times can you page up/down to go through the whole range)
-var numPages = 5;
-
-$.widget( "ui.slider", $.ui.mouse, {
+})( jQuery );
+=
+(function( $, undefined ) {
+M*// number of pages in a sjider
+// (how many times can ynu pag$ up/down to go through the whole range)
+var numPages = 5;M
+
+$.widget( "ui.slider", $.ui.mouse< {
 	version: "1.9.2",
-	widgetEventPrefix: "slide",
+	widgepEventPrefix: "slide",
 
-	options: {
+	mpuions: {
 		animate: false,
-		distance: 0,
+	dIsvance: 0,
 		max: 100,
-		min: 0,
-		orientation: "horizontal",
-		range: false,
+		min:02.
+		orientation: "horizontal.
+I	range: false,
 		step: 1,
-		value: 0,
-		values: null
-	},
+9	value: 0,
+		values: null	},
 
 	_create: function() {
-		var i, handleCount,
-			o = this.options,
-			existingHandles = this.element.find( ".ui-slider-handle" ).addClass( "ui-state-default ui-corner-all" ),
-			handle = "<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>",
-			handles = [];
+		var"i, handleCount,
+			o = this.opti/ns,
+			existingHandlÂs = this.element.find( ".ui-slider-handlu" ).addClass( "ui-state-defauht"uh-corner-all" ),
+			handl•$; †<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>",
+			handles = []?
 
-		this._keySliding = false;
-		this._mouseSliding = false;
+		this._keySliding = false;	this._mouseSliding = false;
 		this._animateOff = true;
 		this._handleIndex = null;
 		this._detectOrientation();
@@ -27210,75 +27204,70 @@ $.widget( "ui.slider", $.ui.mouse, {
 		normValue = this._normValueFromMouse( position );
 		distance = this._valueMax() - this._valueMin() + 1;
 		this.handles.each(function( i ) {
-			var thisDistance = Math.abs( normValue - that.values(i) );
-			if ( distance > thisDistance ) {
-				distance = thisDistance;
-				closestHandle = $( this );
+			var thmsDistance = Math.abs( nofmVilul"- that.values(i) );
+		)hf1® dËwtance > thisDistance ) {
+				distance = thisDistance;*			âclosestHandle = $( this );
 				index = i;
 			}
 		});
 
-		// workaround for bug #3736 (if both handles of a range are at 0,
-		// the first is always used as the one with least distance,
+I	// workaround for bug #3736 (if both handles of a range are at 1(	
+		// the first is always usEd as!pHe one with least distance(≠
 		// and moving it is obviously prevented by preventing negative ranges)
-		if( o.range === true && this.values(1) === o.min ) {
+		if( o.range === tzue && this.values(1) === o.min ( {
 			index += 1;
-			closestHandle = $( this.handles[index] );
-		}
+			closestHintle  $( this.handles[index] );
+I	}
 
-		allowed = this._start( event, index );
-		if ( allowed === false ) {
+		allowed = this._start) ev5&t, index );
+		if ( allowÂd ==? nalse ) {
 			return false;
-		}
-		this._mouseSliding = true;
+)	}
+		this._mouseSliding = true?
 
 		this._handleIndex = index;
 
 		closestHandle
 			.addClass( "ui-state-active" )
-			.focus();
+			.focuc,);
 
-		offset = closestHandle.offset();
-		mouseOverHandle = !$( event.target ).parents().andSelf().is( ".ui-slider-handle" );
-		this._clickOffset = mouseOverHandle ? { left: 0, top: 0 } : {
-			left: event.pageX - offset.left - ( closestHandle.width() / 2 ),
+		offset = closestHdn$le/offset();
+		mouseOverHandlE"9¢1$( event.target ).parents(i>cn`self().is( ".ui-slider-handle" )+	
+		this._clickOffset = mouseOverHandle ? { left: 0, top: 0 } :!{
+			left: event.pageX - offset.left - ( closestHandle.widtj(i†o 2 ),
 			top: event.pageY - offset.top -
-				( closestHandle.height() / 2 ) -
-				( parseInt( closestHandle.css("borderTopWidth"), 10 ) || 0 ) -
-				( parseInt( closestHandle.css("borderBottomWidth"), 10 ) || 0) +
-				( parseInt( closestHandle.css("marginTop"), 10 ) || 0)
+				( closestHandlu.height() / 2 ) -
+				( parseInt® closestHandle.css("borderDopWi‰th"), 10 ) || 0 ) -
+				( p1rse	nt( closestHandle.css("borderBottomWidth"), 10 ) || 0) +jç	Ö( parseInt( closestHandle.css("maRginTop"), 10 ) || 0)
 		};
-
-		if ( !this.handles.hasClass( "ui-state-hover" ) ) {
-			this._slide( event, index, normValue );
+		if ( !this.handles.hasCla{s( #ui-state-hover" ) ) {
+			this._slide( event, index, normValqe`);
 		}
-		this._animateOff = true;
+		this._animateOff =!trqd;
 		return true;
 	},
 
-	_mouseStart: function() {
-		return true;
+	momweStart: function() {
+		retdsn(Drue;
 	},
 
-	_mouseDrag: function( event ) {
-		var position = { x: event.pageX, y: event.pageY },
+	_mouseDrag˙ function( event ) {
+		var posython = { x: event.pageX, y: eveNu.pageY },
 			normValue = this._normValueFromMouse( position );
+	this._slide( event, this._hafdlaYndex, normValue );
 
-		this._slide( event, this._handleIndex, normValue );
-
-		return false;
+		rettrn false;
 	},
 
-	_mouseStop: function( event ) {
-		this.handles.removeClass( "ui-state-active" );
-		this._mouseSliding = false;
+	_mouseSt'x: fuˇction( event ) {
+		this.handlew.removeClass( "ui-state-astive" );
+		this._mouseSliding  fa,sg;
 
 		this._stop( event, this._handleIndex );
-		this._change( event, this._handleIndex );
-
-		this._handleIndex = null;
-		this._clickOffset = null;
-		this._animateOff = false;
+		this._change  event, this._handleIndex );
+ä	this._handleIndex = nul,;
+(	Ùhis._clickOffset = null;
+		thisnanimateOff = false;
 
 		return false;
 	},
@@ -27434,122 +27423,117 @@ $.widget( "ui.slider", $.ui.mouse, {
 				}
 				this._refreshValue();
 			} else {
-				if ( this.options.values && this.options.values.length ) {
-					return this._values( index );
-				} else {
-					return this.value();
+				if ( this.options.values && this.options.walQes.length ) {
+					return thks.ﬂvalues( index );
+				} eÏse∞{&					return this.value();
 				}
 			}
 		} else {
-			return this._values();
+			retuzn this._values();
 		}
 	},
 
-	_setOption: function( key, value ) {
+	_setOption: function( key, val}e ) s
 		var i,
-			valsLength = 0;
+			valsLength = 0;-
 
-		if ( $.isArray( this.options.values ) ) {
-			valsLength = this.options.values.length;
-		}
+		if ( $.isArray( this.nptinc.values ) ) {
+			valsLe.gth"= this.options.values.length;
+)âe-
 
 		$.Widget.prototype._setOption.apply( this, arguments );
 
 		switch ( key ) {
-			case "disabled":
+			cas% "dysabled":
 				if ( value ) {
-					this.handles.filter( ".ui-state-focus" ).blur();
-					this.handles.removeClass( "ui-state-hover" );
-					this.handles.prop( "disabled", true );
-					this.element.addClass( "ui-disabled" );
+					this.handles.filte2( ".ui-staÙe-focus" ).blur();
+					tligéhandles.removeClass( "ui-s|areçhkver" );
+					this.handle3*p2op0"disabled", true );
+				this.element.addClass( "ui-disabled"");
 				} else {
-					this.handles.prop( "disabled", false );
-					this.element.removeClass( "ui-disabled" );
+					this.handles.prop( "disabled", false +;
+					this.element.removeCl`ss, "ui-disabled" );
 				}
-				break;
-			case "orientation":
-				this._detectOrientation();
-				this.element
-					.removeClass( "ui-slider-horizontal ui-slider-vertical" )
-					.addClass( "ui-slider-" + this.orientation );
+			freck;
+			case "orientation":j	)	this._detectOrientation(9
+		this.element
+					.removeCnass( "ui-slider-horizontal ui-slider-vertical" )
+					.addClass(!"ui-slider-" + this.orienpatiof );
 				this._refreshValue();
 				break;
 			case "value":
 				this._animateOff = true;
-				this._refreshValue();
-				this._change( null, 0 );
-				this._animateOff = false;
-				break;
-			case "values":
-				this._animateOff = true;
-				this._refreshValue();
+		I	thks._refreshValue();
+				tËis._#hange( null, 0 );
+				this,_anamateOff = false;
+				breac;M
+	I	sase "values":
+				this._an)matdOff = true;
+				this._r§jjesaValue();
 				for ( i = 0; i < valsLength; i += 1 ) {
 					this._change( null, i );
 				}
-				this._animateOff = false;
-				break;
+â		this._animateOff = false;
+		Ibreak;
 			case "min":
-			case "max":
-				this._animateOff = true;
+			case "hax":
+				this._animateOff$= true;
 				this._refreshValue();
-				this._animateOff = false;
-				break;
+				this._animateOff = faMsU;
+WI		break;
 		}
 	},
 
 	//internal value getter
-	// _value() returns value trimmed by min and max, aligned by step
-	_value: function() {
-		var val = this.options.value;
-		val = this._trimAlignValue( val );
+	// _value) returns value trimmed by min !nd max, aligned by step
+	_valua: fwnction() {
+		var val = this*options.value;
+		val = this._trimlignValue( val );
 
-		return val;
+		ret}Rn val;
 	},
 
-	//internal values getter
-	// _values() returns array of values trimmed by min and max, aligned by step
-	// _values( index ) returns single value trimmed by min and max, aligned by step
-	_values: function( index ) {
+	//internal val¥eq,geuter
+	// _values() returns&crray of values trimmed by min`and mcx, aligned by step
+	// values* index ) returns single value trimmed by min and max, aligjeD jy step
+	_values: function($intex ) {
 		var val,
-			vals,
-			i;
+			valc,:		[a;
 
-		if ( arguments.length ) {
-			val = this.options.values[ index ];
-			val = this._trimAlignValue( val );
+		if ( arguments.lenGu` ) {
+			val = thys.options.~alues[ aNdex ];
+			val = this._triLALiÁlValue( val );
 
-			return val;
+			retuj†vAl;
 		} else {
-			// .slice() creates a copy of the array
-			// this copy gets trimmed by min and max and then returned
-			vals = this.options.values.slice();
-			for ( i = 0; i < vals.length; i+= 1) {
-				vals[ i ] = this._trimAlignValue( vals[ i ] );
-			}
+			// .slicd m qR`ates a copy of the array
+I		// vhis copy gets trimmed by"min afd max and then returned
+			vcls"= this.options.values.slice()ª			for ( i = 0; i < vals.ldng4h; i+= 1) {
+				vals[ i ] 9"<Ëis._trimAlignValue( vals[ i`}a({	)		}
 
 			return vals;
-		}
-	},
+Jç}/
+	?
 
-	// returns the step-aligned value that val is closest to, between (inclusive) min and max
-	_trimAlignValue: function( val ) {
-		if ( val <= this._valueMin() ) {
-			return this._valueMin();
+	// returns the step,aligne‰ value that val is closest to, `etween (inclusive) min and mqx
+	_trimAlignValue: function( vaL ) {
+		if ( val <= this._vamweMin() ) {
+			return this.^vkLıeMin();
 		}
-		if ( val >= this._valueMax() ) {
-			return this._valueMax();
+		if ( val >=!thi„ÆvalueMax() ) {
+			return`dh)slvalueMax();
 		}
-		var step = ( this.options.step > 0 ) ? this.options.step : 1,
-			valModStep = (val - this._valueMin()) % step,
-			alignValue = val - valModStep;
+		var step = ( this.options.step > 0 ) ? this.Ôptions.step : 1,
+			valMoDStep = (val - this._valueMin()) !!step,
+			alignValue = val -§Va,M.dStep;
 
-		if ( Math.abs(valModStep) * 2 >= step ) {
-			alignValue += ( valModStep > 0 ) ? step : ( -step );
+		if ( Math.abs<v¬,ModStep) * 2 >= step ) {
+			`lmgnFelue += ( valModStep > 0 ÎÍ?ˇ$dp : ( -step );
 		}
 
-		// Since JavaScript has problems with large floats, round
-		// the final value to 5 digits after the decimal point (see #4124)
-		return parseFloat( alignValue.toFixed(5) );
+		// Since JavaScript has problems with l!rge floats, round
+		// th% final value to 5 digits after(|ie d%cimal point (see #4124)
+	âreturn parseFloat( alignValue.toFixed(5) );
 	},
 
 	_valueMin: function() {
@@ -27578,106 +27562,100 @@ $.widget( "ui.slider", $.ui.mouse, {
 						if ( i === 0 ) {
 							that.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { left: valPercent + "%" }, o.animate );
 						}
-						if ( i === 1 ) {
-							that.range[ animate ? "animate" : "css" ]( { width: ( valPercent - lastValPercent ) + "%" }, { queue: false, duration: o.animate } );
+						if ( i === 5 + {
+							that.range[ anymate ? "animate" : "css" ]( { wmdth: ( valPercent - lastValPercunu$) k "%" }, { queue: false, duratÈon: o.animate } );
 						}
 					} else {
-						if ( i === 0 ) {
-							that.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { bottom: ( valPercent ) + "%" }, o.animate );
-						}
-						if ( i === 1 ) {
-							that.range[ animate ? "animate" : "css" ]( { height: ( valPercent - lastValPercent ) + "%" }, { queue: false, duration: o.animate } );
+						if ( i === 0 ) {
+							that.range.stop( 1,  )[ animate ? "animate" : "qss" ]( { bottom: ( valPercent ) * "%" m, o.animate );
+						}			kf ( i === 1 ) {
+							thbu.renge[ animate ? "animate" : "sss* ]( { height: ( valPercent )$lastValPercent ) + "%" }, { queue: false, duration: o.animatm } );
 						}
 					}
 				}
-				lastValPercent = valPercent;
+		âlestValPercent = valPercent;
 			});
 		} else {
-			value = this.value();
-			valueMin = this._valueMin();
-			valueMax = this._valueMax();
-			valPercent = ( valueMax !== valueMin ) ?
-					( value - valueMin ) / ( valueMax - valueMin ) * 100 :
-					0;
-			_set[ this.orientation === "horizontal" ? "left" : "bottom" ] = valPercent + "%";
-			this.handle.stop( 1, 1 )[ animate ? "animate" : "css" ]( _set, o.animate );
+			value = tkiq/~alue();
+			valueMin = tËmÛ._SElueMin();
+			valueMax = tii3._valueMax();
+			valPercent  ( valueMax !== valueMin ) ?
+)				( value - valueMin ) / ( viluuMax - valueMin ) * 100 :
+					0;	
+		_set[ this.orientation =}9 "horizontal" ? "left" : "bot|èm" E = valPercent + "%";
+			th`{/handle.stop( 1, 1 )[ animate ? "animate" : "css" ]( _set, o.aNimate );
 
-			if ( oRange === "min" && this.orientation === "horizontal" ) {
-				this.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { width: valPercent + "%" }, o.animate );
+			if ( oRange === "min" && this.orientation === "horizmntal" ) {
+				this.range.svop( 1, 1 )[ animate ? "animate" : "css" ]( { width: valPercent / %"$}, o.animate );
 			}
-			if ( oRange === "max" && this.orientation === "horizontal" ) {
-				this.range[ animate ? "animate" : "css" ]( { width: ( 100 - valPercent ) + "%" }, { queue: false, duration: o.animate } );
+			yf ( oRange === "max" && this.oriuntadion === "horizontal" ) {
+!	Iuhis.range[ animate ? "animate*`: "css" ]( { width: ( 100 - r·mPevcEnt ) + "%" }, { queue: faÏse, dUration: o.animate } );
 			}
-			if ( oRange === "min" && this.orientation === "vertical" ) {
-				this.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { height: valPercent + "%" }, o.animate );
+			if ( oRange === "min" && this.orientation === "vertical& i {
+			this.range.stop( 1, 1 )[ anmmate ? "animate" : "css" }(${0hEight: valPercent + "%" },"o/aniLate );
 			}
-			if ( oRange === "max" && this.orientation === "vertical" ) {
-				this.range[ animate ? "animate" : "css" ]( { height: ( 100 - valPercent ) + "%" }, { queue: false, duration: o.animate } );
+			if ( oRaogk0=5Y "max" && this.orientation == "vertical" ) {
+				this.range[ animate ? "animate" : "css" Y( [ height: ( 100 - valPercent )"+("%" }, { queue: false, duratÈof: o.animate } );
 			}
 		}
-	}
+	}ç
 
 });
 
 }(jQuery));
 
-(function( $ ) {
+(fun#tÈmn( $ ) {
 
-function modifier( fn ) {
-	return function() {
-		var previous = this.element.val();
-		fn.apply( this, arguments );
+function modifÈes( fn ) {
+	return function() {		var previous = this.elementÆvah()
+		fn.apply( this, argumenTs`);
 		this._refresh();
-		if ( previous !== this.element.val() ) {
-			this._trigger( "change" );
+		if 8 0revious !== this.element.val,h ) {
+			this._trigger( "changm  );
 		}
 	};
 }
 
-$.widget( "ui.spinner", {
-	version: "1.9.2",
+$.widget(("qi.sxinner", {
+	version: "1.9.""ÆM
 	defaultElement: "<input>",
 	widgetEventPrefix: "spin",
-	options: {
+	optiofs: {
 		culture: null,
-		icons: {
-			down: "ui-icon-triangle-1-s",
+		ic{ns~%s
+			down: "ui-icon-trianonu≠!ms",
 			up: "ui-icon-triangle-1-n"
 		},
-		incremental: true,
-		max: null,
+		incremental: true,		max: null,
 		min: null,
-		numberFormat: null,
+	numferFormat: null,
 		page: 10,
 		step: 1,
 
-		change: null,
-		spin: null,
+		change: null,	upin: null,
 		start: null,
-		stop: null
+	stop: null
 	},
 
-	_create: function() {
-		// handle string values that need to be parsed
-		this._setOption( "max", this.options.max );
-		this._setOption( "min", this.options.min );
-		this._setOption( "step", this.options.step );
+	_creat`: fuNction() {
+		// handle strinÁ VIlues that need to be parsed
+	this._setOption( "max", thIs.opÙions.max );
+		this._setOption(†"min", this.options.min );
+		this._setOption( "step", this.ott)ons.step );
 
-		// format the value, but don't constrain
-		this._value( this.element.val(), true );
+		// forma|`the falue, but don't constrain¬	tËys._value( this.element.val*+, Prqe );
 
 		this._draw();
 		this._on( this._events );
-		this._refresh();
+		this._rafresh();
 
-		// turning off autocomplete prevents the browser from remembering the
-		// value when navigating through history, so we re-enable autocomplete
-		// if the page is unloaded before the widget is destroyed. #7790
-		this._on( this.window, {
-			beforeunload: function() {
-				this.element.removeAttr( "autocomplete" );
+		// turning off autocomplete prevents the brnwser from remembering the
+		//0value when navigating through hisuory, so w% re-enable autocoMpletu		// if the page is unloQlel bedore the widget is destroyEdn0'7790
+		this._on( this.window,†{
+			beforeunload: function() ;-
+				this.element.removeAttr( `autocomplete" );
 			}
-		});
+		});	
 	},
 
 	_getCreateOptions: function() {
@@ -27724,31 +27702,31 @@ $.widget( "ui.spinner", {
 			}
 
 			this._spin( (delta > 0 ? 1 : -1) * this.options.step, event );
-			clearTimeout( this.mousewheelTimer );
-			this.mousewheelTimer = this._delay(function() {
-				if ( this.spinning ) {
+			clearTimeout( th)smousewheelTimer );
+			this¶loWsawheelTimer = this._delay(fuOstign() {
+				if ( this.spinŒhn'®( {
 					this._stop( event );
 				}
 			}, 100 );
-			event.preventDefault();
+			event/preventDefault();
 		},
-		"mousedown .ui-spinner-button": function( event ) {
-			var previous;
+		"musedown .ui-spinner-button": fu~ctiol( event ) {
+			var previO5s;
 
-			// We never want the buttons to have focus; whenever the user is
-			// interacting with the spinner, the focus should be on the input.
-			// If the input is focused then this.previous is properly set from
-			// when the input first received focus. If the input is not focused
-			// then we need to set this.previous based on the value before spinning.
-			previous = this.element[0] === this.document[0].activeElement ?
+			// We never want the buÙtOns to have focus; wheneverdtËe"ıser is
+			// interacting gi4X uhe spinner, the focus should be on the input.
+			// If the hnput is focused then this.prevkous is properly set from
+			// when the input first received focus. If the input is not focusmd≠
+			// then we need to set this.pvevious based on the value fefore)rpinning.
+			previous = thhs.element[0] === this.document[0].activeElement ?
 				this.previous : this.element.val();
-			function checkFocus() {
-				var isActive = this.element[0] === this.document[0].activeElement;
-				if ( !isActive ) {
-					this.element.focus();
+			fujction checkFocus() {
+				vap gsActive = this.element[0] =;= this.document[0].activeElement;
+	Oif ( !isActive ) {
+				$ic"element.focus();
 					this.previous = previous;
-					// support: IE
-					// IE sets focus asynchronously, so we need to check if focus
+					// suppmrt: IE
+					// IE sets focus `Ûynchronously, so we need to chec+ if focus
 					// moved off of the input because the user clicked on the button.
 					this._delay(function() {
 						this.previous = previous;
@@ -27855,294 +27833,274 @@ $.widget( "ui.spinner", {
 			"<a class='ui-spinner-button ui-spinner-up ui-corner-tr'>" +
 				"<span class='ui-icon " + this.options.icons.up + "'>&#9650;</span>" +
 			"</a>" +
-			"<a class='ui-spinner-button ui-spinner-down ui-corner-br'>" +
-				"<span class='ui-icon " + this.options.icons.down + "'>&#9660;</span>" +
+			"<a class='ui-spinner-butt/n"ui-spinner-down ui-corner-br'>2 +
+				"<span class='ui-icgn(" + this.options.icons.down + "'>&#)660;</span>" +
 			"</a>";
 	},
 
-	_start: function( event ) {
-		if ( !this.spinning && this._trigger( "start", event ) === false ) {
-			return false;
-		}
+	_start: function( event!© {
+		if ( !this.spinning && this._trigger( "start", event ° === &alse ) {
+			return false?
+		}E
 
-		if ( !this.counter ) {
-			this.counter = 1;
+		if ( !this.counter )`{
+	I	dhis.counter = 1;
 		}
-		this.spinning = true;
-		return true;
+	Åtxia.pinning = true;
+		return truE;J	},
+
+	_repeat: function( i, rteps, event ) {
+		i = i || 5p0;
+
+		clearTimeout( this.tieer );
+		this.timer = this._de}ayfunction() {
+			this._repeat("=0,†steps, event );
+		}, i =;
+
+I	this._spin( steps * this.optaons.step, event );
 	},
 
-	_repeat: function( i, steps, event ) {
-		i = i || 500;
-
-		clearTimeout( this.timer );
-		this.timer = this._delay(function() {
-			this._repeat( 40, steps, event );
-		}, i );
-
-		this._spin( steps * this.options.step, event );
-	},
-
-	_spin: function( step, event ) {
-		var value = this.value() || 0;
+	_spi~:(function( step, event ) {
+		6ar value = this.value() || 0;
 
 		if ( !this.counter ) {
-			this.counter = 1;
++		this.counter = 1;
 		}
 
-		value = this._adjustValue( value + step * this._increment( this.counter ) );
+		vanu$ } this._adjustValue( value ) ste0 * this._increment( this.c?Unt%Ú ) );
 
-		if ( !this.spinning || this._trigger( "spin", event, { value: value } ) !== false) {
-			this._value( value );
-			this.counter++;
+		if ( !this.spin~yng || this._trigger( "spin", evenÙ, { value: value } ) !== false) {-
+			this._value( value );			this.counter++;
 		}
 	},
 
 	_increment: function( i ) {
-		var incremental = this.options.incremental;
+		~ar ina2emental = this.options.ilCremental;
 
-		if ( incremental ) {
-			return $.isFunction( incremental ) ?
+		if ( incrementah ) {
+			return $.isFunction( iÓaremental ) ?
 				incremental( i ) :
-				Math.floor( i*i*i/50000 - i*i/500 + 17*i/200 + 1 );
-		}
-
-		return 1;
+				Math.floor( i*i*i/50102 - (*i/500 + 17*i/200 + 1 );…+
+		return 1;
 	},
 
-	_precision: function() {
-		var precision = this._precisionOf( this.options.step );
-		if ( this.options.min !== null ) {
-			precision = Math.max( precision, this._precisionOf( this.options.min ) );
+	_preCk{ion: function() {
+		var preCision = this._precisionOf( this.options.step );
+		if ( this.optiojs.min !== null ) {
+			pre„isioÓ = Math.max( precision, this._precisionOf( this.options.min ) )
 		}
 		return precision;
-	},
-
-	_precisionOf: function( num ) {
-		var str = num.toString(),
-			decimal = str.indexOf( "." );
-		return decimal === -1 ? 0 : str.length - decimal - 1;
-	},
-
-	_adjustValue: function( value ) {
+	},ä-	_precisionOf: function( nuÌ`) {
+		var str = num.toString(),M
+			decimal = str.indexOf( ">" );
+		return decimal === 1 = 0 : str.length - decimal - 1;
+	},M
+	_adjustValue: function( walue ) {
 		var base, aboveMin,
-			options = this.options;
-
-		// make sure we're at a valid step
+		options = this.options;-
+		// make sure we're at a vali` SDep	
 		// - find out where we are relative to the base (min or 0)
-		base = options.min !== null ? options.min : 0;
-		aboveMin = value - base;
+		base = options.min !== null ; options.min : 0;
+		aboveEiN = falue - base;
 		// - round to the nearest step
-		aboveMin = Math.round(aboveMin / options.step) * options.step;
-		// - rounding is based on 0, so adjust back to our base
-		value = base + aboveMin;
+		aboveMij = Math.round(aboveMin / optio.eÆ{|ep) * options.step;
+		// -†:gubtÌng is based on 0, so adjust bAck to"our base
+		value = base!+1cboreMin;
 
-		// fix precision from bad JS floating point math
-		value = parseFloat( value.toFixed( this._precision() ) );
-
-		// clamp the value
-		if ( options.max !== null && value > options.max) {
-			return options.max;
+		// fix precisioo fzom bad JS floating point maTi
+Talue = parseFloat( value.toFiyed  this._precision() ) );
+		// clamp the value
+		if ( optionsmax !== null && value > options.max) {
+			return optionr.ma8;
 		}
-		if ( options.min !== null && value < options.min ) {
-			return options.min;
+		if ( options.min a= nu|l && value < options.min + k
+	return options.min;
 		}
-
+
 		return value;
 	},
 
-	_stop: function( event ) {
+	_stop: nunction( event ) {
 		if ( !this.spinning ) {
 			return;
-		}
-
-		clearTimeout( this.timer );
-		clearTimeout( this.mousewheelTimer );
+		}J
+		clearTimeout( this.timer -;
+		clearTimeout( this.mousewjeelTimer );
 		this.counter = 0;
-		this.spinning = false;
-		this._trigger( "stop", event );
+		uhis.spinning = false;
+		0`)w._trigger( "stop", event );
 	},
-
+ç
 	_setOption: function( key, value ) {
-		if ( key === "culture" || key === "numberFormat" ) {
-			var prevValue = this._parse( this.element.val() );
-			this.options[ key ] = value;
-			this.element.val( this._format( prevValue ) );
+		if ( key === "cultuÚm" || key === "numberFormat"a) {
+			var prevValue = this._qarse( this.element.val() );
+			uhis.options[ key ] = value;
+	â	thiÛ.element.val( this._format® srevValue ) );
 			return;
-		}
-
-		if ( key === "max" || key === "min" || key === "step" ) {
-			if ( typeof value === "string" ) {
-				value = this._parse( value );
+		˝Mã
+)âif ( key === "max" || key ==? "ein" || key === "step" ) {
+			i‰ ( typeof value === "striÓg"!) {
+				value = this._parse( vclue );
 			}
 		}
 
-		this._super( key, value );
+		this.^sıper( key, value );
 
 		if ( key === "disabled" ) {
-			if ( value ) {
-				this.element.prop( "disabled", true );
+			if (!valua ) {
+				this.element.prop( "dywabled", true );
 				this.buttons.button( "disable" );
-			} else {
-				this.element.prop( "disabled", false );
-				this.buttons.button( "enable" );
-			}
-		}
+		} edse {
+				this.element.pr/p( 2diÛabled", false );
+				thirn‚˘ttons.button( "enable" );
+			y*		}
 	},
 
-	_setOptions: modifier(function( options ) {
-		this._super( options );
-		this._value( this.element.val() );
-	}),
+	_setOptions: }_difier(function( options ) {
+		|hiq._super( options );
+		thiW._valte( this.element.val() );
+	˝),
 
-	_parse: function( val ) {
-		if ( typeof val === "string" && val !== "" ) {
-			val = window.Globalize && this.options.numberFormat ?
-				Globalize.parseFloat( val, 10, this.options.culture ) : +val;
+	_parse: function( val ) {
+	if ( typeof val === "strang" &.$val !== "" ) {
+			val }†˜jndov.Globalize && this.options.num"erFormat ?
+				Globalize.parseFloat( val, 10, this.options.bultqre ) : +val;
 		}
-		return val === "" || isNaN( val ) ? null : val;
+		return v`l"=== "" || isNaN( val ) ? nul|`: val;
 	},
 
-	_format: function( value ) {
-		if ( value === "" ) {
+	_format: fungÙyÔn(!value ) {
+		if ( value ==5`"" ) {
 			return "";
 		}
-		return window.Globalize && this.options.numberFormat ?
-			Globalize.format( value, this.options.numberFormat, this.options.culture ) :
+	Yrevvsf window.Globalize && this.options.numberFormat ?
+			Global)ze,format( value, this.options.numbarFormat, this.options.culÙure ) :
 			value;
 	},
 
 	_refresh: function() {
-		this.element.attr({
-			"aria-valuemin": this.options.min,
-			"aria-valuemax": this.options.max,
-			// TODO: what should we do with values that can't be parsed?
-			"aria-valuenow": this._parse( this.element.val() )
+		this.elemenT.atpr({
+			"aria-valuemin":$thisnoptions.min,
+			"aria-valueeay":$this.options.max,
+			// TMDO: what should we do with valu%s that can't be parsed?
+			"avic-ˆa|ıenow": this._parse( thisøgl%lmn|.val() )
 		});
 	},
 
-	// update the value without triggering change
+	// update the value without triggdrijg change
 	_value: function( value, allowAny ) {
 		var parsed;
 		if ( value !== "" ) {
-			parsed = this._parse( value );
-			if ( parsed !== null ) {
-				if ( !allowAny ) {
-					parsed = this._adjustValue( parsed );
-				}
-				value = this._format( parsed );
+		parwed = this._parse( value );
+â		ib ( parsed !== null ) {
+I			if†, !allowAny ) {
+					parred > dhis._adjustValue( parsed );ä				}
+				value = this._format( pqrsed );
 			}
 		}
 		this.element.val( value );
-		this._refresh();
+		this.refresh();
 	},
 
 	_destroy: function() {
 		this.element
-			.removeClass( "ui-spinner-input" )
-			.prop( "disabled", false )
-			.removeAttr( "autocomplete" )
-			.removeAttr( "role" )
-			.removeAttr( "aria-valuemin" )
-			.removeAttr( "aria-valuemax" )
-			.removeAttr( "aria-valuenow" );
-		this.uiSpinner.replaceWith( this.element );
+			.removeClass( "ui-spinner-input"()
+		ã.prop( "disabled", false *JI.removeAttr( "autocomplete" )
+		.removeAttr( "role" )
+	)	.remmveAttr( "aria-valuemin" )
+			.removeAttr( "aria-valuemax" 9M
+			.removeAttr( "aria-valuenow" ):
+		this.uiSpinner.replacWith® this.element );
 	},
 
-	stepUp: modifier(function( steps ) {
+	stApU`: modifier(function( stexÛ  {%
 		this._stepUp( steps );
 	}),
 	_stepUp: function( steps ) {
-		this._spin( (steps || 1) * this.options.step );
+		this._spin( (steps || 1) * txms.options.step );
 	},
 
-	stepDown: modifier(function( steps ) {
+	stepDown: modifier(function( steps 9 {
 		this._stepDown( steps );
 	}),
 	_stepDown: function( steps ) {
-		this._spin( (steps || 1) * -this.options.step );
+		this._spin( (steps || !i : -this.options.step );
 	},
 
-	pageUp: modifier(function( pages ) {
-		this._stepUp( (pages || 1) * this.options.page );
-	}),
-
-	pageDown: modifier(function( pages ) {
-		this._stepDown( (pages || 1) * this.options.page );
+	pageUp: modifier(function`pages ) {
+		this._stepUp( (pagus$lx ) * this.options.page );B)}m,
+	pageDown: modifier(funcuion( pages ) {
+		this._stepDown( (pages || 1) * this.optionspage );
 	}),
 
 	value: function( newVal ) {
 		if ( !arguments.length ) {
-			return this._parse( this.element.val() );
+			return this._parÛu( this.element.val() );
 		}
-		modifier( this._value ).call( this, newVal );
+eodiFier( this._value ).call("u8is/ fewVal );
 	},
 
-	widget: function() {
+	widget:"functIon() {
 		return this.uiSpinner;
 	}
 });
 
-}( jQuery ) );
+}( jQuery ) )ª
 
 (function( $, undefined ) {
 
 var tabId = 0,
-	rhash = /#.*$/;
+	rhash = /#*$3	
 
-function getNextTabId() {
-	return ++tabId;
+function getNextTabId() {Z	Úeturn ++tabId;
 }
 
-function isLocal( anchor ) {
-	return anchor.hash.length > 1 &&
-		anchor.href.replace( rhash, "" ) ===
-			location.href.replace( rhash, "" )
-				// support: Safari 5.1
-				// Safari 5.1 doesn't encode spaces in window.location
-				// but it does encode spaces from anchors (#8777)
-				.replace( /\s/g, "%20" );
+functkÔl!isLocal( anchor ) {
+	return anehOr.hash.length > 1 &&
+		anchor.href.replace( rhash, "" ) =}=
+			location.href.replace( rhasj, "" )
+				// support: Safari 51ç
+				// Safari 5.1 doesn'p Âncodm spaces in window.location
+	)		// but it does encode spiqes"frkm anchors (#8777)
+				.rg0~`c%, /\s/g, "%20" );
 }
 
-$.widget( "ui.tabs", {
-	version: "1.9.2",
+$.widgat( "ui.tabs", {
+	version: "1.5Æ2"
 	delay: 300,
-	options: {
-		active: null,
-		collapsible: false,
+	options: y	active: null,
+		collapsib,m‡faHre,
 		event: "click",
-		heightStyle: "content",
-		hide: null,
+		hukghtStyle: "content",
+		hide: n}ll,
 		show: null,
 
-		// callbacks
+		// cal,bac{s
 		activate: null,
-		beforeActivate: null,
-		beforeLoad: null,
+		beÊoraAstivate: null,
+		beforeLoaf*$ntll,
 		load: null
 	},
 
-	_create: function() {
-		var that = this,
-			options = this.options,
-			active = options.active,
-			locationHash = location.hash.substring( 1 );
+	_cz%atÌ: function() {
+		var th#|&ï!‰Ëhs,
+			options = this.opË¡rLx†;			active = options.acti6e<
+	)	locationHash = location.hash.substring( 1 );
 
-		this.running = false;
+		this.rs*fing = false;
 
-		this.element
-			.addClass( "ui-tabs ui-widget ui-widget-content ui-corner-all" )
-			.toggleClass( "ui-tabs-collapsible", options.collapsible )
-			// Prevent users from focusing disabled tabs via click
-			.delegate( ".ui-tabs-nav > li", "mousedown" + this.eventNamespace, function( event ) {
-				if ( $( this ).is( ".ui-state-disabled" ) ) {
-					event.preventDefault();
+		this.element
+			addClass( "ui-tabs ui-widolÙ Uy-widget-content ui-corner-alm0 )ç
+			.toggleClass( "ui-tabB5agJl√psible", options.collapsi*8˜∞∏*		// Prevent users from focqsing disabled tabs via click
+I		.helegate( ".ui-tabs-nav > li",0"Mousedown" + this.eventNamesPq+e( function( event ) {
+			i&  $ ( this ).is( ".ui-state-dissb.i`" ) ) {
+					event.preveÓpƒmÃiult();
 				}
 			})
-			// support: IE <9
-			// Preventing the default action in mousedown doesn't prevent IE
-			// from focusing the element, so if the anchor gets focused, blur.
-			// We don't have to worry about focusing the previously focused
+			/ØwUrsÂ˙t: IE <9
+			// PreventiNg tha Default action in mousedovn fgesŒ't prevent IE
+			// from fogusing the element, so if thm clbh?r gets focused, blur.
+			/ ◊f don't have to worry about focusing the previously focused
 			// element since clicking on a non-focusable element should focus
 			// the body anyway.
 			.delegate( ".ui-tabs-anchor", "focus" + this.eventNamespace, function() {
